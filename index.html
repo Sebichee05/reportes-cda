@@ -463,14 +463,14 @@ function hello(){const hr=new Date().getHours();return hr<12?'Buenos días':hr<2
 function home(){cur=null;bar.hidden=true;main.className='home';
   top_.replaceChildren(h('div',{class:'title'},h('span',{class:'mod-ico'},icon('aceros',2.2)),h('div',{},h('h1',{},'Reportes CDA'),h('div',{class:'sub'},'Perforación · Asistencia Técnica'))),netPill());
   const day=todayISO();const drafts=MODS.filter(m=>{const d=store.get('draft:'+m.id,null);return d&&d.day===day});
-  main.replaceChildren(
+  main.replaceChildren(...[
     h('div',{class:'hero'},h('span',{class:'date'},longDate()),h('h2',{},`${hello()}${store.get('operador','')?', '+String(store.get('operador','')).split(' ')[0]:''}.`),h('p',{},'Elige qué vas a reportar. Revisas el mensaje y lo mandas por WhatsApp, con o sin señal.')),
     drafts.length?h('div',{class:'label'},'Continuar donde quedaste'):null,
     drafts.length?h('div',{class:'resume'},drafts.map(m=>h('button',{type:'button',onclick:()=>open(m.id)},icon(m.id),m.name))):null,
     h('div',{class:'label'},'Reportes'),
     h('div',{class:'tiles'},MODS.map(m=>{const dr=drafts.includes(m);return h('button',{type:'button',class:'tile',onclick:()=>open(m.id)},
       h('span',{class:'ic'},icon(m.id)),dr?h('span',{class:'badge'},'Borrador'):h('span',{class:'n'},m.n),h('b',{},m.name),h('small',{},'→ '+m.dest))})),
-    h('div',{class:'foot'},'Los borradores se guardan en este teléfono durante el día.'));
+    h('div',{class:'foot'},'Los borradores se guardan en este teléfono durante el día.')].filter(Boolean));
   scrollTo(0,0)}
 
 function open(id){const mod=MODS.find(m=>m.id===id);const d=store.get('draft:'+id,null);
