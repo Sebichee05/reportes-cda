@@ -1,0 +1,6 @@
+REPORTES CDA – versión instalable (PWA)
+
+1. Subir esta carpeta completa a un hosting con HTTPS (gratis: Netlify Drop, GitHub Pages o Cloudflare Pages).
+2. En el iPhone, abrir el link en Safari > Compartir > "Agregar a pantalla de inicio".
+3. Abrirla una vez con señal. Desde ahí funciona sin conexión.
+4. Para actualizar: cambiar archivos, subir de nuevo y cambiar V='cda-v1' a 'cda-v2' en sw.js.

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Reportes CDA">
+<meta name="theme-color" content="#1A1F1C">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Reportes CDA</title>
+<style>
+/* Layout: una columna tipo app de terreno; encabezado fijo, formulario arriba, panel de mensaje WhatsApp abajo. Botones grandes para usar con guantes y al sol. */
+:root{
+  --bg:#EEF0EC; --surface:#FFFFFF; --ink:#1A1F1C; --muted:#5D665F; --line:#D5D9D2;
+  --accent:#F0B400; --accent-ink:#1A1F1C; --chip:#E4E7E1; --chip-on:#1A1F1C; --chip-on-ink:#FFFFFF;
+  --bubble:#D9FDD3; --bubble-ink:#111B21; --danger:#B3261E; --ok:#1E7A46;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121513; --surface:#1C211E; --ink:#ECEFEA; --muted:#9AA39C; --line:#313833;
+  --accent:#F5C02A; --accent-ink:#151815; --chip:#2A302C; --chip-on:#ECEFEA; --chip-on-ink:#151815;
+  --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#6FD39A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121513; --surface:#1C211E; --ink:#ECEFEA; --muted:#9AA39C; --line:#313833;
+  --accent:#F5C02A; --accent-ink:#151815; --chip:#2A302C; --chip-on:#ECEFEA; --chip-on-ink:#151815;
+  --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#6FD39A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.4;-webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-inline:16px;padding-block:10px;display:flex;align-items:center;gap:10px}
+.top h1{font-family:var(--font-display);font-size:19px;font-weight:700;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.tag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
+.net{font-size:12px;font-weight:600;padding:3px 8px;border-radius:99px;background:var(--chip);color:var(--muted)}
+.net.off{background:var(--accent);color:var(--accent-ink)}
+.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:99px;height:40px;min-width:40px;padding-inline:12px;font-weight:600;font-size:15px}
+.icon-btn.warn{border-color:var(--danger);color:var(--danger)}
+main{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:16px 120px;display:flex;flex-direction:column;gap:18px}
+.home-head{display:flex;flex-direction:column;gap:4px;padding-top:6px}
+.home-head h2{font-family:var(--font-display);font-size:30px;line-height:1.1;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.home-head p{margin:0;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:360px){.tiles{grid-template-columns:1fr}}
+.tile{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-height:104px;cursor:pointer}
+.tile:active{transform:scale(.98)}
+.tile .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tile b{font-size:17px;line-height:1.2;font-weight:700}
+.tile small{color:var(--muted);font-size:13px;margin-top:auto}
+.tile.draft small::after{content:"Borrador guardado";display:block;color:var(--ok);font-weight:600}
+.sec{display:flex;flex-direction:column;gap:12px}
+.sec + .sec{border-top:1px solid var(--line);padding-top:18px}
+.sec h3{margin:0;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f > label,.lbl{font-weight:600;font-size:15px}
+.hint{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.row > .f{flex:1 1 120px}
+input[type=text],input[type=date],input[type=time],input[type=number],input:not([type]),textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:11px 13px;font-size:16px}
+textarea{min-height:84px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid transparent;background:var(--chip);border-radius:99px;min-height:44px;padding:9px 15px;font-size:15px;font-weight:500;cursor:pointer;text-align:left}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink);font-weight:650}
+.chip.big{min-width:68px;text-align:center;font-weight:700;font-family:var(--mono)}
+.checks{display:flex;flex-direction:column;gap:8px}
+.check{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px}
+.check.on{border-color:var(--ok)}
+.check button.ck{all:unset;display:flex;gap:10px;align-items:center;cursor:pointer;min-height:30px;font-weight:550}
+.check .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;font-size:15px;flex:none}
+.check.on .box{background:var(--ok);border-color:var(--ok);color:#fff}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card-head b{font-family:var(--mono)}
+.btn{border:0;border-radius:12px;min-height:50px;padding:12px 16px;font-weight:700;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.dark{background:var(--chip-on);color:var(--chip-on-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line)}
+.btn.small{min-height:40px;font-size:14px;padding:8px 12px;font-weight:600}
+.btn.add{background:transparent;border:1.5px dashed var(--line);color:var(--ink);width:100%}
+.btn.x{background:transparent;color:var(--danger);min-height:40px;padding:6px 10px;font-weight:600;font-size:14px}
+.btn-col{display:flex;flex-direction:column;gap:8px}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dur{font-weight:700;font-variant-numeric:tabular-nums;padding:10px 12px;border-radius:12px;background:var(--chip)}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);cursor:pointer;min-height:52px;width:100%;text-align:left}
+.sw{width:50px;height:30px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.toggle[aria-checked="true"] .sw{background:var(--ok)}
+.toggle[aria-checked="true"] .sw::after{left:23px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumb{position:relative;width:84px;height:84px;border-radius:10px;overflow:hidden;background:var(--chip)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:16px;line-height:1}
+.out{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.chat{background:var(--bg);border-radius:12px;padding:12px;display:flex;justify-content:flex-end}
+.bubble{background:var(--bubble);color:var(--bubble-ink);border-radius:10px 2px 10px 10px;padding:8px 10px;white-space:pre-wrap;word-break:break-word;max-width:100%;font-size:15px;line-height:1.38;min-width:0}
+.bubble:empty::before{content:"El mensaje aparecerá aquí";opacity:.6}
+.note{font-size:13px;color:var(--danger);font-weight:600}
+textarea.final{font-family:var(--font);min-height:150px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--chip-on);color:var(--chip-on-ink);padding:12px 18px;border-radius:12px;font-weight:600;z-index:20;max-width:calc(100% - 32px);text-align:center}
+.menu-big{display:flex;flex-direction:column;gap:10px}
+.menu-big .tile{min-height:auto}
+.counter{font-family:var(--mono);font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<header class="top" id="top"></header>
+<main id="main"></main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ===================== utilidades ===================== */
+const DR=['D06','D07','D08','D09'];
+const DCOL={D06:'🔵',D07:'🟠',D08:'🟣',D09:'⚪'};
+const T=s=>(s==null?'':String(s)).trim();
+const lines=s=>T(s).split('\n').map(x=>x.trim()).filter(Boolean);
+const ital=s=>lines(s).map(l=>`_${l}_`).join('\n');
+function blocks(...bs){return bs.filter(Boolean).map(b=>(Array.isArray(b)?b:[b]).filter(l=>l!=null&&T(l)!=='').join('\n')).filter(Boolean).join('\n\n')}
+function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function fmtDate(iso){if(!iso)return '';const [y,m,d]=iso.split('-');return `${d}-${m}-${y}`}
+function minsBetween(a,b){if(!a||!b)return null;const [h1,m1]=a.split(':').map(Number),[h2,m2]=b.split(':').map(Number);if([h1,m1,h2,m2].some(isNaN))return null;return((h2*60+m2)-(h1*60+m1)+1440)%1440}
+function fmtDur(m){if(m==null)return '';const h=Math.floor(m/60),r=m%60;if(!h)return `${r} min`;return r?`${h} h ${r} min`:`${h} h`}
+const store={get(k,d){try{const v=localStorage.getItem('cda:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('cda:'+k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem('cda:'+k)}catch(e){}}};
+
+function h(tag,props,...kids){const el=document.createElement(tag);for(const [k,v] of Object.entries(props||{})){if(v==null||v===false)continue;if(k==='class')el.className=v;else if(k.startsWith('on')&&typeof v==='function')el.addEventListener(k.slice(2),v);else if(k==='value'||k==='checked')el[k]=v;else el.setAttribute(k,v===true?'':v)}for(const c of kids.flat(Infinity)){if(c==null||c===false)continue;el.append(c.nodeType?c:document.createTextNode(String(c)))}return el}
+
+/* ===================== componentes ===================== */
+let uid=0;
+function field(label,control,hint){const id=control.id||('f'+(++uid));control.id=id;return h('div',{class:'f'},label?h('label',{for:id},label):null,control,hint?h('div',{class:'hint'},hint):null)}
+function inp(obj,key,o={}){const el=h(o.multi?'textarea':'input',{type:o.multi?null:(o.type||'text'),placeholder:o.ph||'',value:obj[key]??'',inputmode:o.mode||null,autocapitalize:o.cap||'sentences',rows:o.rows||null,class:o.cls||null});el.addEventListener('input',()=>{obj[key]=el.value;o.onchange?o.onchange():refresh()});return el}
+function chips(opts,isOn,onPick,cls){return h('div',{class:'chips'},opts.map(o=>{const lab=typeof o==='string'?o:o.label,val=typeof o==='string'?o:o.value;return h('button',{type:'button',class:'chip'+(cls?' '+cls:''),'aria-pressed':String(!!isOn(val)),onclick:()=>onPick(val)},lab)}))}
+function drillPick(st,key,{none=false,onpick}={}){const opts=[...DR,...(none?['Ninguna']:[])];return field(null,h('div',{},h('div',{class:'lbl',style:'margin-bottom:6px'},'Perforadora'),chips(opts,v=>(st[key]||'Ninguna')===v&&(v!=='Ninguna'||none&&!st[key]),v=>{st[key]=v==='Ninguna'?'':v;onpick&&onpick(v);rerender()},'big')))}
+function dateField(st,key){return field('Fecha',inp(st,key,{type:'date'}),'Se completa sola con la fecha de hoy. Puedes cambiarla.')}
+function photoField(st,{max=99,label='Fotos'}={}){
+  const file=h('input',{type:'file',accept:'image/*',multiple:max>1?true:null,hidden:true});
+  file.addEventListener('change',()=>{const fs=[...file.files];st.photos=max===1?fs.slice(0,1):[...(st.photos||[]),...fs];rerender()});
+  const ph=st.photos||[];
+  return h('div',{class:'f'},h('div',{class:'lbl'},label),
+    ph.length?h('div',{class:'thumbs'},ph.map((f,i)=>{const u=URL.createObjectURL(f);return h('div',{class:'thumb'},h('img',{src:u,alt:'Foto '+(i+1)}),h('button',{type:'button','aria-label':'Quitar foto',onclick:()=>{st.photos.splice(i,1);rerender()}},'×'))})):null,
+    (max>1||!ph.length)?h('button',{type:'button',class:'btn ghost',onclick:()=>file.click()},ph.length?'+ Agregar más fotos':(max===1?'Elegir una foto de la galería':'Elegir fotos de la galería')):h('button',{type:'button',class:'btn ghost',onclick:()=>file.click()},'Cambiar foto'),
+    file,h('div',{class:'hint'},max===1?'Opcional. Una foto por medición.':'Opcional. Puedes elegir varias.'))}
+function sec(title,...kids){return h('section',{class:'sec'},title?h('h3',{},title):null,...kids)}
+function removeBtn(arr,i,label='Quitar'){return h('button',{type:'button',class:'btn x',onclick:()=>{arr.splice(i,1);rerender()}},label)}
+function toggleRow(label,on,fn){return h('button',{type:'button',class:'toggle',role:'switch','aria-checked':String(!!on),onclick:fn},h('span',{},label),h('span',{class:'sw'}))}
+
+/* ===================== módulos ===================== */
+const MODS=[];
+
+/* 01 Movimiento de Aceros */
+const ACERO_CATS=['Retiro de Taller','Baja de','en Camioneta de Operadores','en Cabina de Perforadora'];
+MODS.push({id:'aceros',n:'01',name:'Movimiento de Aceros',dest:'Asistencia Técnica',
+  init:()=>({drill:'',cat:'Retiro de Taller',catText:'Retiro de Taller',elemento:'',serie:'',fields:[{t:'Modelo',v:''}],comment:'',newCat:'',addingCat:false,photos:[]}),
+  form(s){
+    const custom=store.get('cats:aceros',[]);
+    return [
+      sec(null,drillPick(s,'drill',{none:true})),
+      sec('Categoría',
+        chips([...ACERO_CATS,...custom,'Otra'],v=>v==='Otra'?s.addingCat:(!s.addingCat&&s.cat===v),v=>{if(v==='Otra'){s.addingCat=true}else{s.addingCat=false;s.cat=v;s.catText=v}rerender()}),
+        s.addingCat?h('div',{class:'row'},field('Nueva categoría',inp(s,'newCat',{ph:'Ej: en Bodega Mina',onchange:()=>{}})),h('button',{type:'button',class:'btn dark',onclick:()=>{const c=T(s.newCat);if(!c)return;const l=store.get('cats:aceros',[]);if(!l.includes(c))l.push(c);store.set('cats:aceros',l);s.cat=c;s.catText=c;s.newCat='';s.addingCat=false;rerender()}},'Agregar')):null,
+        s.cat==='Baja de'?field('Elemento de baja',inp(s,'elemento',{ph:'Ej: BIT'}),'Se escribe «Se Evidencia BIT de baja:»'):field('Texto de la categoría',inp(s,'catText'),'Puedes ajustar el texto. Queda como «Se Evidencia …:»'),
+        custom.length?h('button',{type:'button',class:'btn x',style:'align-self:flex-start',onclick:()=>{store.del('cats:aceros');rerender()}},'Borrar categorías personalizadas'):null),
+      sec('Datos',field('Serie',inp(s,'serie',{ph:'N.º de serie',cap:'characters'})),
+        ...s.fields.map((f,i)=>h('div',{class:'row'},field('Título',inp(f,'t',{ph:'Título'})),field('Valor',inp(f,'v',{ph:'Valor'})),removeBtn(s.fields,i))),
+        h('div',{class:'hint'},'Agregar campo:'),
+        chips(['Modelo','Mts','Otro'],()=>false,v=>{s.fields.push({t:v==='Otro'?'':v,v:''});rerender()}),
+        field('Comentario',inp(s,'comment',{multi:true,ph:'Opcional. Se imprime sin título.'}))),
+      sec(null,photoField(s))];
+  },
+  build(s){
+    let cat;
+    if(s.cat==='Baja de'){const e=T(s.elemento);cat=e?`Se Evidencia ${/^bit$/i.test(e)?'BIT':e} de baja:`:'Se Evidencia Baja de:'}
+    else{const c=T(s.catText).replace(/:+$/,'');cat=c?`Se Evidencia ${c}:`:null}
+    return blocks([s.drill?`🔩 *${s.drill}*`:null,cat,T(s.serie)?`Serie: ${T(s.serie)}`:null,...s.fields.filter(f=>T(f.v)).map(f=>T(f.t)?`${T(f.t).replace(/:+$/,'')}: ${T(f.v)}`:T(f.v)),...lines(s.comment)]);
+  }});
+
+/* 02 Tronadura */
+MODS.push({id:'tronadura',n:'02',name:'Tronadura',dest:'Equipo CDA',
+  init:()=>({title:'💥 INFORMACIÓN TRONADURA',date:todayISO(),fases:'',ventanas:'',estado:'',info:'',photos:[]}),
+  form(s){return[
+    sec(null,field('Encabezado',inp(s,'title')),dateField(s,'date')),
+    sec('Información',field('Fases y bancos',inp(s,'fases',{multi:true,ph:'Ej: F4 B3285, F5 B3270'})),field('Ventanas de tronadura',inp(s,'ventanas',{multi:true,ph:'Ej: 13:00 a 14:30'})),field('Estado de tronaduras',inp(s,'estado',{multi:true}))),
+    sec('Información adicional',field(null,inp(s,'info',{multi:true,rows:4,ph:'Una línea por punto. Cada línea sale con •'}))),
+    sec(null,photoField(s))]},
+  build(s){return blocks([T(s.title),s.date?`📅 Fecha: ${fmtDate(s.date)}`:null],
+    T(s.fases)?['*Fases y bancos:*',T(s.fases)]:null,T(s.ventanas)?['*Ventanas de tronadura:*',T(s.ventanas)]:null,T(s.estado)?['*Estado de tronaduras:*',T(s.estado)]:null,
+    lines(s.info).length?['📋 _Información adicional:_',...lines(s.info).map(l=>'• '+l.replace(/^[•\-\*]\s*/,''))]:null)}});
+
+/* 03 Estado de Perforadoras */
+const ESTADOS=['🟢 Perforando','🛠️ Mantención','🚫 Sin postura','🔴 Fuera de servicio','Otro'];
+MODS.push({id:'estado',n:'03',name:'Estado de Perforadoras',dest:'Asistencia Técnica',
+  init:()=>({rows:Object.fromEntries(DR.map(d=>[d,{estado:'',otro:'',fase:'',banco:'',com:''}])),extras:[]}),
+  form(s){return[
+    ...DR.map(d=>{const r=s.rows[d];return sec(`${DCOL[d]} ${d}`,
+      chips(ESTADOS,v=>r.estado===v,v=>{r.estado=r.estado===v?'':v;rerender()}),
+      r.estado==='Otro'?field('Estado (texto libre)',inp(r,'otro',{ph:'Ej: En traslado'})):null,
+      h('div',{class:'row'},field('Fase',inp(r,'fase',{mode:'text',ph:'Fase'})),field('Banco',inp(r,'banco',{mode:'numeric',ph:'Banco'}))),
+      field('Comentario',inp(r,'com',{ph:'Opcional, sin título'})))}),
+    sec('📋 Información adicional',
+      ...s.extras.map((e,i)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},'Entrada '+(i+1)),removeBtn(s.extras,i)),
+        chips(DR,v=>e.drill===v,v=>{e.drill=e.drill===v?'':v;rerender()},'big'),
+        field('Categoría',inp(e,'cat',{ph:'Ej: Cambio de tricono'})),field('Comentario',inp(e,'com',{multi:true})))),
+      h('button',{type:'button',class:'btn add',onclick:()=>{s.extras.push({drill:'',cat:'',com:''});rerender()}},'+ Agregar información adicional'))]},
+  build(s){
+    const est=r=>r.estado==='Otro'?T(r.otro):r.estado;
+    const ex=s.extras.filter(e=>T(e.cat)||T(e.com)).map(e=>`• ${e.drill?`*${e.drill}* `:''}${[T(e.cat),lines(e.com).join(' ')].filter(Boolean).join(': ')}`);
+    return blocks(['🔩 ESTADO DE PERFORADORAS'],...DR.map(d=>{const r=s.rows[d];return[`${DCOL[d]} *${d}*`,est(r),T(r.fase)?`Fase: ${T(r.fase)}`:null,T(r.banco)?`Banco: ${T(r.banco)}`:null,T(r.com)]}),ex.length?['📋 Información adicional',...ex]:null)}});
+
+/* 04 Mediciones */
+const MED_A=['Parámetros Operación','Evidencia de Engrase de Amortiguador','Medicion de Hilo Barra Patera','Medición Gap entre barras','Alineación Sarta de Perforacion','Medicion de desgaste del anillo Centralizador','Medicion Barra Seguidora','Medicion Bitsub','Medicion Barra Patera','Comparacion de Burbujas de nivelación','Tensado de Piolas PD'];
+const MED_B=['Hilo barra patera','Barra patera BOX','Culata del martillo','Camisa del martillo','Portabit','Evidencia Engrase de Amortiguador'];
+MODS.push({id:'mediciones',n:'04',name:'Mediciones',dest:'Asistencia Técnica',single:true,
+  init:()=>({drill:'D06',cat:'',catText:'',sections:[],photos:[],n:1}),
+  form(s){const list=s.drill==='D07'?MED_B:MED_A;return[
+    sec(null,h('div',{class:'counter'},`Medición n.º ${s.n} · un mensaje por medición`),drillPick(s,'drill',{onpick:()=>{s.cat='';s.catText=''}})),
+    sec('Categoría',chips([...list,'Otra'],v=>s.cat===v,v=>{s.cat=v;s.catText=v==='Otra'?'':v;rerender()}),
+      s.cat?field('Texto de la categoría',inp(s,'catText',{ph:'Escribe la categoría'})):null),
+    sec(null,photoField(s,{max:1,label:'Foto'})),
+    sec('Secciones extra',...s.sections.map((x,i)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},'Sección '+(i+1)),removeBtn(s.sections,i)),
+        field('Título',inp(x,'t',{ph:'Observaciones o Condiciones'})),
+        !T(x.t)?h('button',{type:'button',class:'chip',style:'align-self:flex-start',onclick:()=>{x.t='Observaciones o Condiciones';rerender()}},'Usar «Observaciones o Condiciones»'):null,
+        field('Comentario',inp(x,'c',{multi:true})))),
+      h('button',{type:'button',class:'btn add',onclick:()=>{s.sections.push({t:'',c:''});rerender()}},'+ Agregar sección'))]},
+  build(s){return blocks([`*${s.drill}*`,T(s.catText),...s.sections.flatMap(x=>[T(x.t)?`• ${T(x.t).replace(/:+$/,'')}:`:null,ital(x.c)])])},
+  after(s){return h('button',{type:'button',class:'btn dark',onclick:()=>{const n=s.n+1,d=s.drill;cur.st=Object.assign(this.init(),{drill:d,n});cur.edited=false;rerender();scrollTo(0,0);toast(`Medición n.º ${n} · ${d}`)}},'Siguiente medición (misma perforadora)')}});
+
+/* 05 Orden de Trabajo */
+const OT_A=['Medición Alineación','Medición GAP','Medición Hilo Con Peineta','Medición Anillo Guía','Tensado Piolas PD','Revisión Engrase de Amortiguador','Medición de Diámetros','Condiciones Mecánicas','Parámetros Operacionales','Comparación de Burbuja'];
+const OT_B=MED_B;
+const OT_MEAS=new Set(['Medición GAP','Medición Hilo Con Peineta','Medición Anillo Guía','Medición de Diámetros']);
+MODS.push({id:'ot',n:'05',name:'Orden de Trabajo',dest:'Asistencia Técnica',noPhotos:true,
+  init:()=>({drill:'D06',date:todayISO(),op:store.get('operador',''),hor:'',ini:'',fin:'',done:{},otra:false,custom:[''],showNot:false,obsTitle:'📝 Observaciones',obs:''}),
+  form(s){const list=s.drill==='D07'?OT_B:OT_A;const m=minsBetween(s.ini,s.fin);
+    const durEl=h('div',{class:'dur',id:'dur'},m==null?'⏱️ Tiempo Total: —':`⏱️ Tiempo Total: ${fmtDur(m)}`);
+    const upd=()=>{const mm=minsBetween(s.ini,s.fin);durEl.textContent=mm==null?'⏱️ Tiempo Total: —':`⏱️ Tiempo Total: ${fmtDur(mm)}`;refresh()};
+    return[
+    sec(null,drillPick(s,'drill',{onpick:()=>{s.done={}}}),dateField(s,'date'),
+      field('Operador',inp(s,'op',{ph:'Nombre',cap:'words',onchange:()=>{store.set('operador',s.op);refresh()}}),'Se recuerda para la próxima vez.'),
+      field('⚙️ Horómetro',inp(s,'hor',{mode:'decimal',ph:'Ej: 12450,3'})),
+      h('div',{class:'row'},field('🕒 Hora inicio',inp(s,'ini',{type:'time',onchange:upd})),field('🕔 Hora término',inp(s,'fin',{type:'time',onchange:upd}))),durEl),
+    sec('📋 Trabajo realizado',h('div',{class:'checks'},list.map(x=>{const o=s.done[x]||{on:false,val:'',unit:'mm'};
+      return h('div',{class:'check'+(o.on?' on':'')},h('button',{type:'button',class:'ck','aria-pressed':String(o.on),onclick:()=>{o.on=!o.on;s.done[x]=o;rerender()}},h('span',{class:'box'},o.on?'✓':''),x),
+        o.on&&OT_MEAS.has(x)?h('div',{class:'row'},field('Medida',inp(o,'val',{mode:'decimal',ph:'Opcional'})),field('Unidad',inp(o,'unit',{ph:'mm'}))):null)}),
+      h('div',{class:'check'+(s.otra?' on':'')},h('button',{type:'button',class:'ck','aria-pressed':String(s.otra),onclick:()=>{s.otra=!s.otra;rerender()}},h('span',{class:'box'},s.otra?'✓':''),'Otra'),
+        s.otra?[...s.custom.map((c,i)=>h('div',{class:'row'},field('Trabajo '+(i+1),inp(s.custom,i,{ph:'Describe el trabajo'})),s.custom.length>1?removeBtn(s.custom,i):null)),h('button',{type:'button',class:'btn add small',onclick:()=>{s.custom.push('');rerender()}},'+ Otro trabajo')]:null))),
+    sec('⚠️ Trabajos no realizados',toggleRow('Incluir trabajos no realizados en WhatsApp',s.showNot,()=>{s.showNot=!s.showNot;rerender()}),h('div',{class:'hint'},'Apagado por defecto. Si lo activas, se listan con ❌ los que no marcaste.')),
+    sec('Observaciones',field('Título',inp(s,'obsTitle')),field('Texto',inp(s,'obs',{multi:true,ph:'Opcional'})))]},
+  build(s){const list=s.drill==='D07'?OT_B:OT_A;const m=minsBetween(s.ini,s.fin);
+    const done=list.filter(x=>s.done[x]?.on).map(x=>{const o=s.done[x];const meas=T(o.val)?[T(o.val),T(o.unit)].filter(Boolean).join(' '):'';return `✅ ${x}${meas?`: ${meas}`:''}`});
+    const cus=s.otra?s.custom.map(T).filter(Boolean).map(c=>`✅ ${c}`):[];
+    const not=s.showNot?list.filter(x=>!s.done[x]?.on).map(x=>`❌ ${x}`):[];
+    return blocks(['📋 ORDEN DE TRABAJO'],[`🔩 Perforadora: *${s.drill}*`,s.date?`📅 Fecha: ${fmtDate(s.date)}`:null,T(s.op)?`👷 Operador: ${T(s.op)}`:null,T(s.hor)?`⚙️ Horómetro: ${T(s.hor)}`:null,s.ini?`🕒 Hora inicio: ${s.ini}`:null,s.fin?`🕔 Hora término: ${s.fin}`:null,m!=null?`⏱️ Tiempo Total: ${fmtDur(m)}`:null],
+      done.length+cus.length?['📋 Descripción del Trabajo Realizado',...done,...cus]:null,not.length?['⚠️ Trabajos No Realizados',...not]:null,T(s.obs)?[T(s.obsTitle)||'📝 Observaciones',T(s.obs)]:null)}});
+
+/* 06 Gestión de Vales */
+const COORDS=['Sin coordinador','Renato Aguilera','Héctor Alfaro','Otro'];
+function resize(arr,n){n=Math.max(1,Math.min(50,parseInt(n)||1));while(arr.length<n)arr.push('');arr.length=n;return arr}
+MODS.push({id:'vales',n:'06',name:'Gestión de Vales',dest:'Bodega',noPhotos:true,
+  init:()=>({mode:'menu',serie:'',coord:'Sin coordinador',coordOtro:'',vale:'',items:[{el:'',cant:'1',mod:''}],ret:null}),
+  form(s){
+    const go=m=>{s.mode=m;cur.edited=false;rerender();scrollTo(0,0)};
+    if(s.mode==='menu')return[sec(null,h('div',{class:'menu-big'},
+      h('button',{type:'button',class:'tile',onclick:()=>go('serie')},h('span',{class:'n'},'Opción 1'),h('b',{},'Ingresar número de serie')),
+      h('button',{type:'button',class:'tile',onclick:()=>go('salida')},h('span',{class:'n'},'Opción 2'),h('b',{},'Crear vale de salida'),h('small',{},'Al final puedes crear el vale de retiro'))))];
+    const back=h('button',{type:'button',class:'btn ghost small',style:'align-self:flex-start',onclick:()=>go(s.mode==='retiro'?'salida':'menu')},s.mode==='retiro'?'← Volver al vale de salida':'← Menú de vales');
+    if(s.mode==='serie')return[sec('1. Ingresar número de serie',back,field('N.º de serie',inp(s,'serie',{cap:'characters'}))),
+      sec('Coordinador responsable',chips(COORDS,v=>s.coord===v,v=>{s.coord=v;rerender()}),s.coord==='Otro'?field('Nombre',inp(s,'coordOtro',{cap:'words'})):null)];
+    if(s.mode==='salida')return[sec('2. Crear vale de salida',back,field('Número de vale',inp(s,'vale',{mode:'numeric'}))),
+      sec('Elementos',...s.items.map((it,i)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},'Elemento '+(i+1)),s.items.length>1?removeBtn(s.items,i):null),
+        field('Elemento',inp(it,'el',{ph:'Ej: Tricono'})),h('div',{class:'row'},field('Cantidad',inp(it,'cant',{type:'number',mode:'numeric'})),field('Modelo',inp(it,'mod',{ph:'Ej: 7 7/8"'}))))),
+        h('button',{type:'button',class:'btn add',onclick:()=>{s.items.push({el:'',cant:'1',mod:''});rerender()}},'+ Agregar elemento'))];
+    /* retiro */
+    const unitCard=(u,arr,i,manual)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},manual?'Manual '+(i+1):`${u.cant} × ${T(u.el)||'Elemento'} ${T(u.mod)}`),manual?removeBtn(arr,i):h('span',{class:'hint'},'Del vale')),
+      manual?[field('Elemento',inp(u,'el')),h('div',{class:'row'},field('Cantidad',inp(u,'cant',{type:'number',mode:'numeric',onchange:()=>{}})),field('Modelo',inp(u,'mod'))),
+        h('button',{type:'button',class:'btn ghost small',onclick:()=>{resize(u.series,u.cant);rerender()}},'Actualizar casillas de serie')]:null,
+      ...u.series.map((x,j)=>field(`Serie unidad ${j+1}`,inp(u.series,j,{cap:'characters',ph:'N.º de serie'}))));
+    return[sec('3. Se retira de la bodega',back,h('div',{class:'hint'},'Una serie por unidad. El vale de salida no se modifica.')),
+      sec('Elementos del vale',...s.ret.pre.map((u,i)=>unitCard(u,s.ret.pre,i,false))),
+      sec('Elementos agregados a mano',...s.ret.manual.map((u,i)=>unitCard(u,s.ret.manual,i,true)),
+        h('button',{type:'button',class:'btn add',onclick:()=>{s.ret.manual.push({el:'',cant:'1',mod:'',series:['']});rerender()}},'+ Agregar elemento manual'))];
+  },
+  build(s){
+    if(s.mode==='menu')return '';
+    if(s.mode==='serie'){const c=s.coord==='Otro'?T(s.coordOtro):(s.coord==='Sin coordinador'?'':s.coord);return blocks([T(s.serie)?`🏷️ N.º de serie: ${T(s.serie)}`:null,c?`Coordinador Responsable: ${c}`:null])}
+    if(s.mode==='salida')return blocks(['Vale para retiro en Bodega',T(s.vale)?`Número: ${T(s.vale)}`:null,...s.items.filter(i=>T(i.el)).map(i=>`• ${[T(i.cant),T(i.el),T(i.mod)].filter(Boolean).join(' ')}`)]);
+    const g=new Map();
+    for(const u of [...s.ret.pre,...s.ret.manual]){if(!T(u.el))continue;const k=T(u.el).toLowerCase()+'|'+T(u.mod).toLowerCase();if(!g.has(k))g.set(k,{el:T(u.el),mod:T(u.mod),n:0,series:[]});const e=g.get(k);const n=Math.max(1,parseInt(u.cant)||1);e.n+=n;e.series.push(...resize([...u.series],n).map(T).filter(Boolean))}
+    return blocks(['SE RETIRA DE LA BODEGA',...[...g.values()].flatMap(e=>[`• ${[e.n,e.el,e.mod].filter(Boolean).join(' ')}`,...e.series.map(x=>`   Serie: ${x}`)])]);
+  },
+  after(s){if(s.mode!=='salida')return null;return h('div',{class:'btn-col'},h('div',{class:'lbl'},'¿También vas a registrar el retiro?'),
+    h('button',{type:'button',class:'btn dark',onclick:()=>{const old=s.ret;const pre=s.items.filter(i=>T(i.el)).map((i,k)=>{const n=Math.max(1,parseInt(i.cant)||1);const prev=old&&old.pre[k]&&old.pre[k].el===i.el&&old.pre[k].mod===i.mod?old.pre[k].series:[];return{el:i.el,mod:i.mod,cant:String(n),series:resize([...prev],n)}});
+      s.ret={pre,manual:old?old.manual:[]};s.mode='retiro';cur.edited=false;rerender();scrollTo(0,0)}},'Crear vale de retiro →'),h('div',{class:'hint'},'Opcional. Si no lo pulsas, el vale de salida termina aquí.'))}});
+
+/* 07 Evento */
+MODS.push({id:'evento',n:'07',name:'Evento',dest:'WhatsApp',noPhotos:true,
+  init:()=>({title:'',drill:'',date:todayISO(),text:''}),
+  form(s){return[sec(null,field('Título del evento',inp(s,'title',{ph:'Ej: Corte de energía fase 5'})),drillPick(s,'drill',{none:true}),dateField(s,'date'),field('Texto',inp(s,'text',{multi:true,rows:5,ph:'Describe el evento'})))]},
+  build(s){return blocks([T(s.title)?`*${T(s.title)}*`:null,s.date?`📅 ${fmtDate(s.date)}`:null,s.drill?`🔩 ${s.drill}`:null],T(s.text))}});
+
+/* 08 Prueba de Aire */
+const AIRE=['Parámetros con tricono','Parámetros sin tricono','Parámetros con placa 7/8″','Parámetros con placa 1″','Parámetros con placa 1 1/8″','Parámetros con placa 1 1/4″','Parámetros con placa 1 3/8″','Prueba de capacidad del compresor al máximo'];
+MODS.push({id:'aire',n:'08',name:'Prueba de Aire',dest:'Asistencia Técnica',
+  init:()=>({drill:'D08',cat:'',catText:'',com:'',photos:[],n:1}),
+  form(s){return[sec(null,h('div',{class:'counter'},`Prueba n.º ${s.n} · un mensaje por prueba`),drillPick(s,'drill')),
+    sec('Categoría',chips(AIRE,v=>s.cat===v,v=>{s.cat=v;s.catText=v;rerender()}),s.cat?field('Texto de la categoría',inp(s,'catText')):null,h('div',{class:'hint'},'Medidas en pulgadas.')),
+    sec(null,field('Comentario',inp(s,'com',{multi:true,ph:'Opcional, sin título'})),photoField(s))]},
+  build(s){return[`*${s.drill}*`,T(s.catText),...lines(s.com)].filter(Boolean).join('\n')},
+  after(s){return h('button',{type:'button',class:'btn dark',onclick:()=>{const n=s.n+1,d=s.drill;cur.st=Object.assign(this.init(),{drill:d,n});cur.edited=false;rerender();scrollTo(0,0);toast(`Prueba n.º ${n} · ${d}`)}},'Siguiente prueba (misma perforadora)')}});
+
+/* ===================== app ===================== */
+let cur=null,gen='',els={};
+const top_=document.getElementById('top'),main=document.getElementById('main');
+function netPill(){return h('span',{class:'net'+(navigator.onLine?'':' off'),id:'net'},navigator.onLine?'En línea':'Sin señal · funciona igual')}
+addEventListener('online',()=>{const n=document.getElementById('net');n&&n.replaceWith(netPill())});
+addEventListener('offline',()=>{const n=document.getElementById('net');n&&n.replaceWith(netPill())});
+
+function home(){cur=null;
+  top_.replaceChildren(h('h1',{},'Reportes CDA'),netPill());
+  const day=todayISO();
+  main.replaceChildren(h('div',{class:'home-head'},h('span',{class:'tag'},'Perforación · Turno'),h('h2',{},'¿Qué vas a reportar?'),h('p',{},'Completa, revisa y comparte por WhatsApp. Funciona sin señal.')),
+    h('div',{class:'tiles'},MODS.map(m=>{const d=store.get('draft:'+m.id,null);return h('button',{type:'button',class:'tile'+(d&&d.day===day?' draft':''),onclick:()=>open(m.id)},h('span',{class:'n'},'Atajo '+m.n),h('b',{},m.name),h('small',{},'→ '+m.dest))})));
+  scrollTo(0,0)}
+
+function open(id){const mod=MODS.find(m=>m.id===id);const d=store.get('draft:'+id,null);
+  let st=mod.init();if(d&&d.day===todayISO()&&d.st){st=Object.assign(st,d.st);st.photos=[]}
+  cur={mod,st,edited:false,manual:'',armed:false};rerender();scrollTo(0,0)}
+
+function rerender(){const y=scrollY;const {mod,st}=cur;
+  const clearBtn=h('button',{type:'button',class:'icon-btn'+(cur.armed?' warn':''),onclick:()=>{if(!cur.armed){cur.armed=true;rerender();setTimeout(()=>{if(cur&&cur.armed){cur.armed=false;rerender()}},3000);return}store.del('draft:'+mod.id);cur.st=mod.init();cur.edited=false;cur.armed=false;rerender();toast('Formulario limpio')}},cur.armed?'¿Borrar todo?':'Limpiar');
+  top_.replaceChildren(h('button',{type:'button',class:'icon-btn','aria-label':'Volver al inicio',onclick:home},'←'),h('div',{style:'flex:1;min-width:0'},h('div',{class:'tag'},'Atajo '+mod.n+' · '+mod.dest),h('h1',{},mod.name)),clearBtn);
+  const form=[].concat(mod.form(cur.st)).filter(Boolean);
+  els.bubble=h('div',{class:'bubble'});
+  els.ta=h('textarea',{class:'final',id:'final-'+mod.id,'aria-label':'Mensaje final editable'});
+  els.note=h('div',{class:'note',hidden:true},'Editaste el mensaje a mano: los cambios del formulario ya no se aplican. Usa «Restaurar» para regenerarlo.');
+  els.ta.addEventListener('input',()=>{cur.edited=els.ta.value!==gen;cur.manual=els.ta.value;els.note.hidden=!cur.edited;els.bubble.innerHTML=wa(els.ta.value)});
+  const hasPh=!mod.noPhotos&&(cur.st.photos||[]).length;
+  const out=cur.mod.build(cur.st)!==undefined&&!(mod.id==='vales'&&cur.st.mode==='menu')?h('section',{class:'out'},
+    h('h3',{class:'tag',style:'margin:0'},'Vista previa · WhatsApp'),h('div',{class:'chat'},els.bubble),
+    h('div',{class:'lbl'},'Mensaje final editable'),els.ta,els.note,
+    h('button',{type:'button',class:'btn ghost small',onclick:()=>{cur.edited=false;refresh()}},'↺ Restaurar mensaje generado'),
+    h('div',{class:'btn-row'},h('button',{type:'button',class:'btn ghost',onclick:copyMsg},'Copiar'),h('button',{type:'button',class:'btn primary',onclick:shareMsg},hasPh?'Compartir + fotos':'Compartir')),
+    h('button',{type:'button',class:'btn ghost small',onclick:openWA},'Abrir WhatsApp (solo texto)'),
+    mod.after?mod.after(cur.st):null):null;
+  main.replaceChildren(...form,out);
+  refresh();scrollTo(0,y)}
+
+function refresh(){if(!cur)return;gen=cur.mod.build(cur.st)||'';if(els.ta){if(!cur.edited)els.ta.value=gen;else els.ta.value=cur.manual;els.note.hidden=!cur.edited;els.bubble.innerHTML=wa(els.ta.value)}
+  const strip=o=>JSON.stringify(o,(k,v)=>k==='photos'?[]:v);const sj=strip(cur.st);if(sj===strip(cur.mod.init()))store.del('draft:'+cur.mod.id);else store.set('draft:'+cur.mod.id,{day:todayISO(),st:JSON.parse(sj)})}
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function wa(t){return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/(^|[\s(])_([^_\n]+)_/g,'$1<i>$2</i>')}
+let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2600)}
+function copyText(t){try{return navigator.clipboard.writeText(t).then(()=>true,()=>fallbackCopy(t))}catch(e){return Promise.resolve(fallbackCopy(t))}}
+function fallbackCopy(t){try{els.ta.focus();els.ta.select();return document.execCommand('copy')}catch(e){return false}}
+function copyMsg(){copyText(els.ta.value).then(ok=>toast(ok?'Mensaje copiado. Pégalo en WhatsApp.':'Selecciona el texto y cópialo.'))}
+function shareMsg(){const text=els.ta.value;const files=cur.mod.noPhotos?[]:(cur.st.photos||[]);
+  const cp=copyText(text);
+  if(navigator.share){const data={text};let withFiles=false;try{if(files.length&&navigator.canShare&&navigator.canShare({files})){data.files=files;withFiles=true}}catch(e){}
+    navigator.share(data).then(()=>toast(withFiles?'Listo. Si WhatsApp no tomó el texto, pégalo como comentario.':'Listo')).catch(e=>{if(e&&e.name==='AbortError')return;cp.then(()=>toast('Mensaje copiado. Pégalo en WhatsApp.'))});return}
+  cp.then(ok=>toast(ok?'Mensaje copiado. Este navegador no permite compartir directo.':'No se pudo compartir. Copia el texto.'))}
+function openWA(){location.href='whatsapp://send?text='+encodeURIComponent(els.ta.value)}
+
+window.CDA={MODS,blocks,fmtDur,minsBetween};
+home();
+</script>
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+</body>
+</html>
