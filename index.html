@@ -7,111 +7,220 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Reportes CDA">
-<meta name="theme-color" content="#1A1F1C">
+<meta name="theme-color" content="#16201B">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Reportes CDA</title>
 <style>
-/* Layout: una columna tipo app de terreno; encabezado fijo, formulario arriba, panel de mensaje WhatsApp abajo. Botones grandes para usar con guantes y al sol. */
+/* Layout: app de cabina. Banda grafito arriba con la identidad del atajo, tarjetas claras para cada paso,
+   vista previa con look de WhatsApp y barra de acción fija abajo, al alcance del pulgar. Legible al sol, botones para guantes. */
 :root{
-  --bg:#EEF0EC; --surface:#FFFFFF; --ink:#1A1F1C; --muted:#5D665F; --line:#D5D9D2;
-  --accent:#F0B400; --accent-ink:#1A1F1C; --chip:#E4E7E1; --chip-on:#1A1F1C; --chip-on-ink:#FFFFFF;
-  --bubble:#D9FDD3; --bubble-ink:#111B21; --danger:#B3261E; --ok:#1E7A46;
+  --bg:#ECEEE9; --surface:#FFFFFF; --surface-2:#F5F6F2; --ink:#141C18; --muted:#5A665F; --line:#D7DCD4;
+  --band:#16201B; --band-2:#222E28; --band-ink:#F2F4EF; --band-muted:#A9B5AE;
+  --accent:#F5B800; --accent-ink:#16201B; --accent-soft:#FFF3C7;
+  --chip:#E7EAE4; --sel:#16201B; --sel-ink:#FFFFFF;
+  --d06:#2F6FED; --d07:#EE7A16; --d08:#8A4FD6; --d09:#8E9894;
+  --t-ok:#1F8A4C; --t-warn:#C98400; --t-idle:#6B7570; --t-bad:#C7372F;
+  --wall:#EFE7DD; --bubble:#D9FDD3; --bubble-ink:#111B21; --danger:#B3261E; --ok:#1F8A4C;
+  --shadow:0 1px 2px rgba(20,28,24,.06),0 4px 14px rgba(20,28,24,.06);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
+  --display:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  --r:14px;
+  --r:18px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#121513; --surface:#1C211E; --ink:#ECEFEA; --muted:#9AA39C; --line:#313833;
-  --accent:#F5C02A; --accent-ink:#151815; --chip:#2A302C; --chip-on:#ECEFEA; --chip-on-ink:#151815;
-  --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#6FD39A; color-scheme:dark}}
+  --bg:#0F1412; --surface:#1A201D; --surface-2:#202723; --ink:#EDF0EB; --muted:#9BA69F; --line:#2F3833;
+  --band:#0A0E0C; --band-2:#18201C; --band-ink:#EDF0EB; --band-muted:#8E9A93;
+  --accent:#F7C531; --accent-ink:#141A17; --accent-soft:#3A3214;
+  --chip:#262E2A; --sel:#EDF0EB; --sel-ink:#141A17;
+  --d06:#5B8EF5; --d07:#F59344; --d08:#A67AE6; --d09:#B4BCB8;
+  --t-ok:#4CC27F; --t-warn:#E9B23A; --t-idle:#9BA69F; --t-bad:#F0736A;
+  --wall:#0B141A; --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#4CC27F;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#121513; --surface:#1C211E; --ink:#ECEFEA; --muted:#9AA39C; --line:#313833;
-  --accent:#F5C02A; --accent-ink:#151815; --chip:#2A302C; --chip-on:#ECEFEA; --chip-on-ink:#151815;
-  --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#6FD39A; color-scheme:dark}
+  --bg:#0F1412; --surface:#1A201D; --surface-2:#202723; --ink:#EDF0EB; --muted:#9BA69F; --line:#2F3833;
+  --band:#0A0E0C; --band-2:#18201C; --band-ink:#EDF0EB; --band-muted:#8E9A93;
+  --accent:#F7C531; --accent-ink:#141A17; --accent-soft:#3A3214;
+  --chip:#262E2A; --sel:#EDF0EB; --sel-ink:#141A17;
+  --d06:#5B8EF5; --d07:#F59344; --d08:#A67AE6; --d09:#B4BCB8;
+  --t-ok:#4CC27F; --t-warn:#E9B23A; --t-idle:#9BA69F; --t-bad:#F0736A;
+  --wall:#0B141A; --bubble:#005C4B; --bubble-ink:#E9EDEF; --danger:#F2867E; --ok:#4CC27F;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.4;-webkit-text-size-adjust:100%}
 button,input,textarea,select{font:inherit;color:inherit}
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-inline:16px;padding-block:10px;display:flex;align-items:center;gap:10px}
-.top h1{font-family:var(--font-display);font-size:19px;font-weight:700;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
-.tag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
-.net{font-size:12px;font-weight:600;padding:3px 8px;border-radius:99px;background:var(--chip);color:var(--muted)}
+button{cursor:pointer}
+svg{display:block}
+
+/* ---------- banda superior ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--band);color:var(--band-ink);padding-inline:16px;padding-block:10px 12px;display:flex;align-items:center;gap:12px}
+.top .title{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
+.top .title > div{min-width:0}
+.top h1{font-family:var(--display);font-size:18px;line-height:1.15;font-weight:700;margin:0;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-wrap:balance}
+.top .sub{font-size:12.5px;color:var(--band-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.round{border:0;background:var(--band-2);color:var(--band-ink);border-radius:99px;height:42px;min-width:42px;padding-inline:12px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.round.warn{background:var(--t-bad);color:#fff}
+.mod-ico{width:38px;height:38px;border-radius:12px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.mod-ico svg{width:22px;height:22px}
+.net{font-size:12px;font-weight:600;padding:5px 10px;border-radius:99px;background:var(--band-2);color:var(--band-muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.net::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--t-ok)}
 .net.off{background:var(--accent);color:var(--accent-ink)}
-.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:99px;height:40px;min-width:40px;padding-inline:12px;font-weight:600;font-size:15px}
-.icon-btn.warn{border-color:var(--danger);color:var(--danger)}
-main{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:16px 120px;display:flex;flex-direction:column;gap:18px}
-.home-head{display:flex;flex-direction:column;gap:4px;padding-top:6px}
-.home-head h2{font-family:var(--font-display);font-size:30px;line-height:1.1;margin:0;letter-spacing:-.02em;text-wrap:balance}
-.home-head p{margin:0;color:var(--muted)}
+.net.off::before{background:var(--accent-ink)}
+
+main{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:16px 140px;display:flex;flex-direction:column;gap:14px}
+main.home{padding-top:0}
+
+/* ---------- inicio ---------- */
+.hero{background:var(--band);color:var(--band-ink);margin-inline:-16px;padding-inline:20px;padding-block:6px 26px;border-radius:0 0 28px 28px;display:flex;flex-direction:column;gap:6px}
+.hero .date{font-size:13px;color:var(--band-muted)}
+.hero h2{font-family:var(--display);font-size:30px;line-height:1.08;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.hero p{margin:0;color:var(--band-muted);font-size:15px;max-width:34ch}
+.label{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 2px -4px}
+.resume{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.resume::-webkit-scrollbar{display:none}
+.resume button{flex:none;border:1px solid var(--accent);background:var(--accent-soft);color:var(--ink);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px}
+.resume button svg{width:18px;height:18px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media (max-width:360px){.tiles{grid-template-columns:1fr}}
-.tile{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-height:104px;cursor:pointer}
-.tile:active{transform:scale(.98)}
-.tile .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
-.tile b{font-size:17px;line-height:1.2;font-weight:700}
-.tile small{color:var(--muted);font-size:13px;margin-top:auto}
-.tile.draft small::after{content:"Borrador guardado";display:block;color:var(--ok);font-weight:600}
-.sec{display:flex;flex-direction:column;gap:12px}
-.sec + .sec{border-top:1px solid var(--line);padding-top:18px}
-.sec h3{margin:0;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:350px){.tiles{grid-template-columns:1fr}}
+.tile{position:relative;text-align:left;border:0;background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;min-height:132px;box-shadow:var(--shadow);transition:transform .12s}
+.tile:active{transform:scale(.97)}
+.tile .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--chip);color:var(--ink)}
+.tile .ic svg{width:24px;height:24px}
+.tile b{font-family:var(--display);font-size:17px;line-height:1.15;font-weight:700}
+.tile small{color:var(--muted);font-size:12.5px;margin-top:auto}
+.tile .n{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.tile .badge{position:absolute;top:12px;right:12px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px}
+.foot{font-size:12.5px;color:var(--muted);text-align:center;padding-top:6px}
+
+/* ---------- tarjetas de paso ---------- */
+.sec{background:var(--surface);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.sec.plain{background:none;box-shadow:none;padding:0}
+.sec > h3{margin:0;font-family:var(--display);font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
+.sec.drill-card{padding-left:20px}
+.sec.drill-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--dc)}
+.sec.drill-card > h3 .dot{width:12px;height:12px;border-radius:50%;background:var(--dc)}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
-.f > label,.lbl{font-weight:600;font-size:15px}
+.f > label,.lbl{font-weight:600;font-size:14.5px;color:var(--ink)}
 .hint{font-size:13px;color:var(--muted)}
-.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
-.row > .f{flex:1 1 120px}
-input[type=text],input[type=date],input[type=time],input[type=number],input:not([type]),textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:11px 13px;font-size:16px}
-textarea{min-height:84px;resize:vertical}
-input:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.row > .f{flex:1 1 130px}
+input[type=text],input[type=date],input[type=time],input[type=number],input:not([type]),textarea{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:14px;background:var(--surface-2);padding:12px 14px;font-size:16px;transition:border-color .15s,background .15s;-webkit-appearance:none;appearance:none}
+input[type=date],input[type=time]{display:flex;align-items:center}
+input:focus,textarea:focus{border-color:var(--ink);background:var(--surface);outline:none}
+textarea{min-height:92px;resize:vertical;line-height:1.4}
+::placeholder{color:var(--muted);opacity:.75}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* chips */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid transparent;background:var(--chip);border-radius:99px;min-height:44px;padding:9px 15px;font-size:15px;font-weight:500;cursor:pointer;text-align:left}
-.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink);font-weight:650}
-.chip.big{min-width:68px;text-align:center;font-weight:700;font-family:var(--mono)}
+.chip{border:1.5px solid transparent;background:var(--chip);border-radius:14px;min-height:46px;padding:10px 14px;font-size:15px;font-weight:500;text-align:left;display:inline-flex;align-items:center;gap:8px;transition:background .12s,color .12s}
+.chip[aria-pressed="true"]{background:var(--sel);color:var(--sel-ink);font-weight:650}
+.chip[aria-pressed="true"]::before{content:"";width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat}
+.chip.add{background:transparent;border:1.5px dashed var(--line);color:var(--muted);font-weight:600}
+.chip[data-tone]{border-color:color-mix(in srgb,var(--tone) 35%,transparent);background:color-mix(in srgb,var(--tone) 10%,var(--surface))}
+.chip[data-tone][aria-pressed="true"]{background:var(--tone);border-color:var(--tone);color:#fff}
+.chip[data-tone="ok"]{--tone:var(--t-ok)} .chip[data-tone="warn"]{--tone:var(--t-warn)} .chip[data-tone="idle"]{--tone:var(--t-idle)} .chip[data-tone="bad"]{--tone:var(--t-bad)} .chip[data-tone="other"]{--tone:var(--muted)}
+
+/* perforadoras */
+.drills{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.drills.five{grid-template-columns:repeat(4,1fr)}
+.drills.five .drill:last-child{grid-column:1 / -1;min-height:44px;flex-direction:row}
+.drill{border:1.5px solid var(--line);background:var(--surface);border-radius:16px;min-height:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-family:var(--mono);font-weight:700;font-size:16px;transition:all .12s}
+.drill .dot{width:12px;height:12px;border-radius:50%;background:var(--dc,var(--muted))}
+.drill[aria-pressed="true"]{background:var(--dc,var(--sel));border-color:var(--dc,var(--sel));color:#fff}
+.drill[aria-pressed="true"] .dot{background:#fff}
+.drill.none{font-family:var(--font);font-weight:600;font-size:14.5px;color:var(--muted)}
+.drill.none[aria-pressed="true"]{background:var(--sel);color:var(--sel-ink);border-color:var(--sel)}
+
+/* checklist OT */
 .checks{display:flex;flex-direction:column;gap:8px}
-.check{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px}
-.check.on{border-color:var(--ok)}
-.check button.ck{all:unset;display:flex;gap:10px;align-items:center;cursor:pointer;min-height:30px;font-weight:550}
-.check .box{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;font-size:15px;flex:none}
-.check.on .box{background:var(--ok);border-color:var(--ok);color:#fff}
-.card{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.check{display:flex;flex-direction:column;gap:10px;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;transition:border-color .12s,background .12s}
+.check.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 7%,var(--surface))}
+.check button.ck{all:unset;display:flex;gap:12px;align-items:center;cursor:pointer;min-height:28px;font-weight:550}
+.check .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-size:15px;flex:none;color:#fff;font-weight:800}
+.check.on .box{background:var(--ok);border-color:var(--ok)}
+
+.card{border:1.5px solid var(--line);background:var(--surface-2);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
 .card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.card-head b{font-family:var(--mono)}
-.btn{border:0;border-radius:12px;min-height:50px;padding:12px 16px;font-weight:700;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.card-head b{font-family:var(--display);font-size:15.5px}
+
+/* botones */
+.btn{border:0;border-radius:14px;min-height:52px;padding:12px 16px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:20px;height:20px}
 .btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.dark{background:var(--chip-on);color:var(--chip-on-ink)}
-.btn.ghost{background:transparent;border:1px solid var(--line)}
-.btn.small{min-height:40px;font-size:14px;padding:8px 12px;font-weight:600}
-.btn.add{background:transparent;border:1.5px dashed var(--line);color:var(--ink);width:100%}
-.btn.x{background:transparent;color:var(--danger);min-height:40px;padding:6px 10px;font-weight:600;font-size:14px}
+.btn.dark{background:var(--sel);color:var(--sel-ink)}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.btn.small{min-height:42px;font-size:14.5px;padding:8px 14px;font-weight:600}
+.btn.add{background:transparent;border:1.5px dashed var(--line);color:var(--ink);width:100%;font-weight:600}
+.btn.x{background:transparent;color:var(--danger);min-height:38px;padding:6px 8px;font-weight:600;font-size:14px}
+.btn.done{background:var(--ok);color:#fff}
 .btn-col{display:flex;flex-direction:column;gap:8px}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.dur{font-weight:700;font-variant-numeric:tabular-nums;padding:10px 12px;border-radius:12px;background:var(--chip)}
-.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);cursor:pointer;min-height:52px;width:100%;text-align:left}
-.sw{width:50px;height:30px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .15s}
-.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.dur{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-variant-numeric:tabular-nums;padding:12px 14px;border-radius:14px;background:var(--accent-soft);color:var(--ink)}
+.dur span{font-family:var(--display);font-size:20px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--surface-2);min-height:56px;width:100%;text-align:left;font-weight:550}
+.sw{width:52px;height:32px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .toggle[aria-checked="true"] .sw{background:var(--ok)}
 .toggle[aria-checked="true"] .sw::after{left:23px}
-.thumbs{display:flex;gap:8px;flex-wrap:wrap}
-.thumb{position:relative;width:84px;height:84px;border-radius:10px;overflow:hidden;background:var(--chip)}
+
+/* fotos */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.thumb{position:relative;aspect-ratio:1;max-width:100%;border-radius:12px;overflow:hidden;background:var(--chip)}
 .thumb img{width:100%;height:100%;object-fit:cover}
-.thumb button{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:16px;line-height:1}
-.out{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
-.chat{background:var(--bg);border-radius:12px;padding:12px;display:flex;justify-content:flex-end}
-.bubble{background:var(--bubble);color:var(--bubble-ink);border-radius:10px 2px 10px 10px;padding:8px 10px;white-space:pre-wrap;word-break:break-word;max-width:100%;font-size:15px;line-height:1.38;min-width:0}
-.bubble:empty::before{content:"El mensaje aparecerá aquí";opacity:.6}
+.thumb button{position:absolute;top:5px;right:5px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:17px;line-height:1}
+.addphoto{aspect-ratio:1;border:1.5px dashed var(--line);border-radius:12px;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12.5px;font-weight:600}
+.addphoto svg{width:24px;height:24px}
+.addphoto.wide{aspect-ratio:auto;min-height:64px;flex-direction:row;gap:10px;font-size:15px;color:var(--ink);grid-column:1 / -1}
+
+/* ---------- vista previa WhatsApp ---------- */
+.out{background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;scroll-margin-top:90px}
+.wa-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--band);color:var(--band-ink)}
+.wa-av{width:34px;height:34px;border-radius:50%;background:var(--t-ok);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.wa-head b{font-size:15px;display:block}
+.wa-head small{font-size:12px;color:var(--band-muted)}
+.chat{background:var(--wall);padding:14px 12px 16px;display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-height:90px}
+.bubble{position:relative;background:var(--bubble);color:var(--bubble-ink);border-radius:12px 3px 12px 12px;padding:8px 10px 20px;white-space:pre-wrap;word-break:break-word;max-width:92%;min-width:120px;font-size:15px;line-height:1.38;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.bubble .meta{position:absolute;right:8px;bottom:4px;font-size:11px;opacity:.6;font-family:var(--font)}
+.bubble.empty{opacity:.65;font-style:italic}
+.bubble-ph{display:flex;gap:4px;max-width:92%;flex-wrap:wrap;justify-content:flex-end}
+.bubble-ph img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:2px solid var(--bubble)}
+.out-body{padding:14px;display:flex;flex-direction:column;gap:12px}
+.edit{border:1.5px solid var(--line);border-radius:14px;background:var(--surface-2)}
+.edit summary{list-style:none;padding:13px 14px;font-weight:600;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.edit summary::-webkit-details-marker{display:none}
+.edit summary::after{content:"";width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .15s}
+.edit[open] summary::after{transform:rotate(-135deg)}
+.edit .inner{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px}
+.edited-pill{font-size:12px;font-weight:700;background:var(--accent);color:var(--accent-ink);padding:3px 8px;border-radius:99px;margin-left:8px}
 .note{font-size:13px;color:var(--danger);font-weight:600}
-textarea.final{font-family:var(--font);min-height:150px}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--chip-on);color:var(--chip-on-ink);padding:12px 18px;border-radius:12px;font-weight:600;z-index:20;max-width:calc(100% - 32px);text-align:center}
+textarea.final{min-height:170px;background:var(--surface)}
+.link-btn{background:none;border:0;color:var(--muted);font-weight:600;font-size:14px;padding:6px;text-decoration:underline;text-underline-offset:3px;align-self:center}
+.next{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+
+/* ---------- barra inferior ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:7;padding-inline:16px;padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.bar-in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1.3fr;gap:8px}
+.bar .btn{min-height:54px}
+.bar .peek{background:var(--chip);color:var(--ink);width:54px;padding:0}
+
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--sel);color:var(--sel-ink);padding:12px 18px;border-radius:14px;font-weight:600;z-index:20;max-width:calc(100% - 32px);text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.2);animation:pop .18s ease-out}
+.toast.solo{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+@keyframes pop{from{transform:translate(-50%,8px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
 .menu-big{display:flex;flex-direction:column;gap:10px}
-.menu-big .tile{min-height:auto}
-.counter{font-family:var(--mono);font-size:13px;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.menu-big .tile{min-height:auto;flex-direction:row;align-items:center;gap:14px;padding:16px}
+.menu-big .tile > div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.menu-big .tile small{margin-top:0}
+.counter{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent);padding:5px 10px;border-radius:99px;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head><body>
 
 <header class="top" id="top"></header>
 <main id="main"></main>
+<nav class="bar" id="bar" hidden></nav>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -128,24 +237,43 @@ function minsBetween(a,b){if(!a||!b)return null;const [h1,m1]=a.split(':').map(N
 function fmtDur(m){if(m==null)return '';const h=Math.floor(m/60),r=m%60;if(!h)return `${r} min`;return r?`${h} h ${r} min`:`${h} h`}
 const store={get(k,d){try{const v=localStorage.getItem('cda:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('cda:'+k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem('cda:'+k)}catch(e){}}};
 
-function h(tag,props,...kids){const el=document.createElement(tag);for(const [k,v] of Object.entries(props||{})){if(v==null||v===false)continue;if(k==='class')el.className=v;else if(k.startsWith('on')&&typeof v==='function')el.addEventListener(k.slice(2),v);else if(k==='value'||k==='checked')el[k]=v;else el.setAttribute(k,v===true?'':v)}for(const c of kids.flat(Infinity)){if(c==null||c===false)continue;el.append(c.nodeType?c:document.createTextNode(String(c)))}return el}
+function h(tag,props,...kids){const el=document.createElement(tag);for(const [k,v] of Object.entries(props||{})){if(v==null||v===false)continue;if(k==='class')el.className=v;else if(k==='html')el.innerHTML=v;else if(k.startsWith('on')&&typeof v==='function')el.addEventListener(k.slice(2),v);else if(k==='value'||k==='checked')el[k]=v;else el.setAttribute(k,v===true?'':v)}for(const c of kids.flat(Infinity)){if(c==null||c===false)continue;el.append(c.nodeType?c:document.createTextNode(String(c)))}return el}
+const ICON_PATHS={
+  aceros:'<path d="M12 2v12"/><path d="M8 14h8l-1.6 4.5H9.6z"/><path d="M12 18.5V22"/><path d="M9 5.5h6M9 9.5h6"/>',
+  tronadura:'<path d="M12 2l1.9 5.3L19 5l-2.3 5.1L22 12l-5.3 1.9L19 19l-5.1-2.3L12 22l-1.9-5.3L5 19l2.3-5.1L2 12l5.3-1.9L5 5l5.1 2.3z"/>',
+  estado:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4.5-6"/><circle cx="12" cy="18" r="1.3"/>',
+  mediciones:'<rect x="2" y="8" width="20" height="8" rx="1.5"/><path d="M6 8v3M10 8v4.5M14 8v3M18 8v4.5"/>',
+  ot:'<rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 2.5h6v3.5H9z"/><path d="M9 13.5l2 2 4-4.5"/>',
+  vales:'<path d="M3 7.5l9-4.5 9 4.5v9.5l-9 4.5-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9.5"/>',
+  evento:'<path d="M12 3.5l9.5 17h-19z"/><path d="M12 10v4.5M12 17.5v.5"/>',
+  aire:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',copy:'<rect x="8.5" y="8.5" width="12.5" height="12.5" rx="2.5"/><path d="M15.5 8.5V5.5a2.5 2.5 0 0 0-2.5-2.5H5.5A2.5 2.5 0 0 0 3 5.5V13a2.5 2.5 0 0 0 2.5 2.5h3"/>',
+  share:'<path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
+  down:'<path d="M12 5v14M6 13l6 6 6-6"/>',photo:'<rect x="3" y="5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10.5" r="2"/><path d="M21 16.5l-5-5L7 20"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',reset:'<path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',trash:'<path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/>'};
+function icon(n,sw=2){return h('span',{class:'i','aria-hidden':'true',html:`<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[n]||''}</svg>`})}
 
 /* ===================== componentes ===================== */
 let uid=0;
 function field(label,control,hint){const id=control.id||('f'+(++uid));control.id=id;return h('div',{class:'f'},label?h('label',{for:id},label):null,control,hint?h('div',{class:'hint'},hint):null)}
 function inp(obj,key,o={}){const el=h(o.multi?'textarea':'input',{type:o.multi?null:(o.type||'text'),placeholder:o.ph||'',value:obj[key]??'',inputmode:o.mode||null,autocapitalize:o.cap||'sentences',rows:o.rows||null,class:o.cls||null});el.addEventListener('input',()=>{obj[key]=el.value;o.onchange?o.onchange():refresh()});return el}
-function chips(opts,isOn,onPick,cls){return h('div',{class:'chips'},opts.map(o=>{const lab=typeof o==='string'?o:o.label,val=typeof o==='string'?o:o.value;return h('button',{type:'button',class:'chip'+(cls?' '+cls:''),'aria-pressed':String(!!isOn(val)),onclick:()=>onPick(val)},lab)}))}
-function drillPick(st,key,{none=false,onpick}={}){const opts=[...DR,...(none?['Ninguna']:[])];return field(null,h('div',{},h('div',{class:'lbl',style:'margin-bottom:6px'},'Perforadora'),chips(opts,v=>(st[key]||'Ninguna')===v&&(v!=='Ninguna'||none&&!st[key]),v=>{st[key]=v==='Ninguna'?'':v;onpick&&onpick(v);rerender()},'big')))}
+function chips(opts,isOn,onPick,cls,tone){return h('div',{class:'chips'},opts.map(o=>{const lab=typeof o==='string'?o:o.label,val=typeof o==='string'?o:o.value;return h('button',{type:'button',class:'chip'+(cls?' '+cls:''),'data-tone':tone?tone(val):null,'aria-pressed':String(!!isOn(val)),onclick:()=>onPick(val)},lab)}))}
+function drillPick(st,key,{none=false,onpick}={}){
+  const pick=v=>{st[key]=v;onpick&&onpick(v);rerender()};
+  return h('div',{class:'f'},h('div',{class:'lbl'},'Perforadora'),
+    h('div',{class:'drills'+(none?' five':''),role:'group','aria-label':'Perforadora'},
+      DR.map(d=>h('button',{type:'button',class:'drill',style:`--dc:var(--${d.toLowerCase()})`,'aria-pressed':String(st[key]===d),onclick:()=>pick(d)},h('span',{class:'dot'}),d)),
+      none?h('button',{type:'button',class:'drill none','aria-pressed':String(!st[key]),onclick:()=>pick('')},'Sin perforadora'):null))}
+
 function dateField(st,key){return field('Fecha',inp(st,key,{type:'date'}),'Se completa sola con la fecha de hoy. Puedes cambiarla.')}
 function photoField(st,{max=99,label='Fotos'}={}){
   const file=h('input',{type:'file',accept:'image/*',multiple:max>1?true:null,hidden:true});
   file.addEventListener('change',()=>{const fs=[...file.files];st.photos=max===1?fs.slice(0,1):[...(st.photos||[]),...fs];rerender()});
   const ph=st.photos||[];
-  return h('div',{class:'f'},h('div',{class:'lbl'},label),
-    ph.length?h('div',{class:'thumbs'},ph.map((f,i)=>{const u=URL.createObjectURL(f);return h('div',{class:'thumb'},h('img',{src:u,alt:'Foto '+(i+1)}),h('button',{type:'button','aria-label':'Quitar foto',onclick:()=>{st.photos.splice(i,1);rerender()}},'×'))})):null,
-    (max>1||!ph.length)?h('button',{type:'button',class:'btn ghost',onclick:()=>file.click()},ph.length?'+ Agregar más fotos':(max===1?'Elegir una foto de la galería':'Elegir fotos de la galería')):h('button',{type:'button',class:'btn ghost',onclick:()=>file.click()},'Cambiar foto'),
-    file,h('div',{class:'hint'},max===1?'Opcional. Una foto por medición.':'Opcional. Puedes elegir varias.'))}
-function sec(title,...kids){return h('section',{class:'sec'},title?h('h3',{},title):null,...kids)}
+  const add=h('button',{type:'button',class:'addphoto'+(ph.length?'':' wide'),onclick:()=>file.click()},icon('photo'),ph.length?(max===1?'Cambiar':'Agregar'):(max===1?'Elegir una foto de la galería':'Elegir fotos de la galería'));
+  return h('div',{class:'f'},h('div',{class:'lbl'},label,h('span',{class:'hint',style:'font-weight:400'},max===1?' · opcional, una por medición':' · opcional')),
+    h('div',{class:'photos'},ph.map((f,i)=>{const u=URL.createObjectURL(f);return h('div',{class:'thumb'},h('img',{src:u,alt:'Foto '+(i+1)}),h('button',{type:'button','aria-label':'Quitar foto',onclick:()=>{st.photos.splice(i,1);rerender()}},'×'))}),add),file)}
+function sec(title,...kids){const o=typeof title==='object'&&title?title:{title};return h('section',{class:'sec'+(o.cls?' '+o.cls:''),style:o.style||null},o.title?h('h3',{},o.dot?h('span',{class:'dot'}):null,o.title):null,...kids)}
 function removeBtn(arr,i,label='Quitar'){return h('button',{type:'button',class:'btn x',onclick:()=>{arr.splice(i,1);rerender()}},label)}
 function toggleRow(label,on,fn){return h('button',{type:'button',class:'toggle',role:'switch','aria-checked':String(!!on),onclick:fn},h('span',{},label),h('span',{class:'sw'}))}
 
@@ -193,11 +321,12 @@ MODS.push({id:'tronadura',n:'02',name:'Tronadura',dest:'Equipo CDA',
 
 /* 03 Estado de Perforadoras */
 const ESTADOS=['🟢 Perforando','🛠️ Mantención','🚫 Sin postura','🔴 Fuera de servicio','Otro'];
+const ESTADO_TONE={'🟢 Perforando':'ok','🛠️ Mantención':'warn','🚫 Sin postura':'idle','🔴 Fuera de servicio':'bad','Otro':'other'};
 MODS.push({id:'estado',n:'03',name:'Estado de Perforadoras',dest:'Asistencia Técnica',
   init:()=>({rows:Object.fromEntries(DR.map(d=>[d,{estado:'',otro:'',fase:'',banco:'',com:''}])),extras:[]}),
   form(s){return[
-    ...DR.map(d=>{const r=s.rows[d];return sec(`${DCOL[d]} ${d}`,
-      chips(ESTADOS,v=>r.estado===v,v=>{r.estado=r.estado===v?'':v;rerender()}),
+    ...DR.map(d=>{const r=s.rows[d];return sec({title:d,dot:true,cls:'drill-card',style:`--dc:var(--${d.toLowerCase()})`},
+      chips(ESTADOS,v=>r.estado===v,v=>{r.estado=r.estado===v?'':v;rerender()},null,v=>ESTADO_TONE[v]),
       r.estado==='Otro'?field('Estado (texto libre)',inp(r,'otro',{ph:'Ej: En traslado'})):null,
       h('div',{class:'row'},field('Fase',inp(r,'fase',{mode:'text',ph:'Fase'})),field('Banco',inp(r,'banco',{mode:'numeric',ph:'Banco'}))),
       field('Comentario',inp(r,'com',{ph:'Opcional, sin título'})))}),
@@ -236,8 +365,8 @@ const OT_MEAS=new Set(['Medición GAP','Medición Hilo Con Peineta','Medición A
 MODS.push({id:'ot',n:'05',name:'Orden de Trabajo',dest:'Asistencia Técnica',noPhotos:true,
   init:()=>({drill:'D06',date:todayISO(),op:store.get('operador',''),hor:'',ini:'',fin:'',done:{},otra:false,custom:[''],showNot:false,obsTitle:'📝 Observaciones',obs:''}),
   form(s){const list=s.drill==='D07'?OT_B:OT_A;const m=minsBetween(s.ini,s.fin);
-    const durEl=h('div',{class:'dur',id:'dur'},m==null?'⏱️ Tiempo Total: —':`⏱️ Tiempo Total: ${fmtDur(m)}`);
-    const upd=()=>{const mm=minsBetween(s.ini,s.fin);durEl.textContent=mm==null?'⏱️ Tiempo Total: —':`⏱️ Tiempo Total: ${fmtDur(mm)}`;refresh()};
+    const durV=h('span',{},m==null?'—':fmtDur(m));const durEl=h('div',{class:'dur',id:'dur'},h('b',{},'⏱️ Tiempo total'),durV);
+    const upd=()=>{const mm=minsBetween(s.ini,s.fin);durV.textContent=mm==null?'—':fmtDur(mm);refresh()};
     return[
     sec(null,drillPick(s,'drill',{onpick:()=>{s.done={}}}),dateField(s,'date'),
       field('Operador',inp(s,'op',{ph:'Nombre',cap:'words',onchange:()=>{store.set('operador',s.op);refresh()}}),'Se recuerda para la próxima vez.'),
@@ -260,40 +389,50 @@ MODS.push({id:'ot',n:'05',name:'Orden de Trabajo',dest:'Asistencia Técnica',noP
 /* 06 Gestión de Vales */
 const COORDS=['Sin coordinador','Renato Aguilera','Héctor Alfaro','Otro'];
 function resize(arr,n){n=Math.max(1,Math.min(50,parseInt(n)||1));while(arr.length<n)arr.push('');arr.length=n;return arr}
+/* plural simple de la primera palabra: Tricono→Triconos, Adaptador→Adaptadores, Bit→Bits */
+function plural(el,n){el=T(el);if(n<2||!el)return el;const [w,...r]=el.split(' ');if(/s$/i.test(w))return el;const p=/[aeiouáéó]$/i.test(w)?w+'s':(/[rlnd]$/i.test(w)?w+'es':w+'s');return [p,...r].join(' ')}
+function singKey(el){return T(el).toLowerCase().split(' ').map((w,i)=>i?w:w.replace(/(es|s)$/,'')).join(' ')}
+function fitUnits(e){const n=Math.max(1,Math.min(50,parseInt(e.cant)||1));e.units=e.units||[];while(e.units.length<n)e.units.push({mod:T(e.mod),serie:''});e.units.length=n;return e}
+function missing(s){return [...s.ret.pre,...s.ret.manual].filter(e=>T(e.el)).reduce((a,e)=>a+fitUnits(e).units.filter(u=>!T(u.serie)).length,0)}
 MODS.push({id:'vales',n:'06',name:'Gestión de Vales',dest:'Bodega',noPhotos:true,
   init:()=>({mode:'menu',serie:'',coord:'Sin coordinador',coordOtro:'',vale:'',items:[{el:'',cant:'1',mod:''}],ret:null}),
   form(s){
     const go=m=>{s.mode=m;cur.edited=false;rerender();scrollTo(0,0)};
-    if(s.mode==='menu')return[sec(null,h('div',{class:'menu-big'},
-      h('button',{type:'button',class:'tile',onclick:()=>go('serie')},h('span',{class:'n'},'Opción 1'),h('b',{},'Ingresar número de serie')),
-      h('button',{type:'button',class:'tile',onclick:()=>go('salida')},h('span',{class:'n'},'Opción 2'),h('b',{},'Crear vale de salida'),h('small',{},'Al final puedes crear el vale de retiro'))))];
+    if(s.mode==='menu')return[sec({cls:'plain',title:'¿Qué necesitas hacer?'},h('div',{class:'menu-big'},
+      h('button',{type:'button',class:'tile',onclick:()=>go('serie')},h('span',{class:'ic'},icon('ot')),h('div',{},h('small',{},'Opción 1'),h('b',{},'Ingresar número de serie'))),
+      h('button',{type:'button',class:'tile',onclick:()=>go('salida')},h('span',{class:'ic'},icon('vales')),h('div',{},h('small',{},'Opción 2'),h('b',{},'Crear vale de salida'),h('small',{},'Al final puedes registrar el retiro')))))];
     const back=h('button',{type:'button',class:'btn ghost small',style:'align-self:flex-start',onclick:()=>go(s.mode==='retiro'?'salida':'menu')},s.mode==='retiro'?'← Volver al vale de salida':'← Menú de vales');
     if(s.mode==='serie')return[sec('1. Ingresar número de serie',back,field('N.º de serie',inp(s,'serie',{cap:'characters'}))),
       sec('Coordinador responsable',chips(COORDS,v=>s.coord===v,v=>{s.coord=v;rerender()}),s.coord==='Otro'?field('Nombre',inp(s,'coordOtro',{cap:'words'})):null)];
     if(s.mode==='salida')return[sec('2. Crear vale de salida',back,field('Número de vale',inp(s,'vale',{mode:'numeric'}))),
       sec('Elementos',...s.items.map((it,i)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},'Elemento '+(i+1)),s.items.length>1?removeBtn(s.items,i):null),
-        field('Elemento',inp(it,'el',{ph:'Ej: Tricono'})),h('div',{class:'row'},field('Cantidad',inp(it,'cant',{type:'number',mode:'numeric'})),field('Modelo',inp(it,'mod',{ph:'Ej: 7 7/8"'}))))),
+        field('Elemento',inp(it,'el',{ph:'Ej: Tricono'})),h('div',{class:'row'},field('Cantidad',inp(it,'cant',{type:'number',mode:'numeric'})),field('Modelo',inp(it,'mod',{ph:'Ej: TM70GS 7 7/8”'}))))),
         h('button',{type:'button',class:'btn add',onclick:()=>{s.items.push({el:'',cant:'1',mod:''});rerender()}},'+ Agregar elemento'))];
-    /* retiro */
-    const unitCard=(u,arr,i,manual)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},manual?'Manual '+(i+1):`${u.cant} × ${T(u.el)||'Elemento'} ${T(u.mod)}`),manual?removeBtn(arr,i):h('span',{class:'hint'},'Del vale')),
-      manual?[field('Elemento',inp(u,'el')),h('div',{class:'row'},field('Cantidad',inp(u,'cant',{type:'number',mode:'numeric',onchange:()=>{}})),field('Modelo',inp(u,'mod'))),
-        h('button',{type:'button',class:'btn ghost small',onclick:()=>{resize(u.series,u.cant);rerender()}},'Actualizar casillas de serie')]:null,
-      ...u.series.map((x,j)=>field(`Serie unidad ${j+1}`,inp(u.series,j,{cap:'characters',ph:'N.º de serie'}))));
-    return[sec('3. Se retira de la bodega',back,h('div',{class:'hint'},'Una serie por unidad. El vale de salida no se modifica.')),
-      sec('Elementos del vale',...s.ret.pre.map((u,i)=>unitCard(u,s.ret.pre,i,false))),
-      sec('Elementos agregados a mano',...s.ret.manual.map((u,i)=>unitCard(u,s.ret.manual,i,true)),
-        h('button',{type:'button',class:'btn add',onclick:()=>{s.ret.manual.push({el:'',cant:'1',mod:'',series:['']});rerender()}},'+ Agregar elemento manual'))];
+    /* retiro: cada unidad lleva su propio modelo y serie */
+    const unitRows=e=>fitUnits(e).units.map((u,j)=>h('div',{class:'row'},field(`Unidad ${j+1} · Modelo`,inp(u,'mod',{ph:'Modelo'})),field('Serie',inp(u,'serie',{cap:'characters',ph:'N.º de serie'}))));
+    const entryCard=(e,arr,i,manual)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},manual?'Manual '+(i+1):`${e.cant} × ${plural(e.el,+e.cant)||'Elemento'}`),manual?removeBtn(arr,i):h('span',{class:'hint'},'Del vale')),
+      manual?[field('Elemento',inp(e,'el',{ph:'Ej: Bit'})),h('div',{class:'row'},field('Cantidad',inp(e,'cant',{type:'number',mode:'numeric',onchange:()=>{}})),field('Modelo',inp(e,'mod',{ph:'Opcional'}))),
+        h('button',{type:'button',class:'btn ghost small',onclick:()=>{e.units=(e.units||[]).map(u=>T(u.mod)?u:{...u,mod:T(e.mod)});fitUnits(e);rerender()}},'Actualizar unidades')]:null,
+      ...unitRows(e));
+    const miss=missing(s);
+    return[sec('3. Se retira de la bodega',back,h('div',{class:'hint'},'Anota modelo y serie de cada unidad que sale. El vale de salida no se modifica.'),
+        h('div',{class:'note',id:'miss',hidden:!miss},`Falta${miss>1?"n":""} ${miss} serie${miss>1?"s":""} por anotar.`)),
+      sec('Elementos del vale',...s.ret.pre.map((e,i)=>entryCard(e,s.ret.pre,i,false))),
+      sec('Elementos agregados a mano',...s.ret.manual.map((e,i)=>entryCard(e,s.ret.manual,i,true)),
+        h('button',{type:'button',class:'btn add',onclick:()=>{s.ret.manual.push(fitUnits({el:'',cant:'1',mod:''}));rerender()}},'+ Agregar elemento manual'))];
   },
+  onRefresh(s){const el=document.getElementById('miss');if(el&&s.mode==='retiro'){const m=missing(s);el.hidden=!m;el.textContent=`Falta${m>1?"n":""} ${m} serie${m>1?"s":""} por anotar.`}},
   build(s){
     if(s.mode==='menu')return '';
     if(s.mode==='serie'){const c=s.coord==='Otro'?T(s.coordOtro):(s.coord==='Sin coordinador'?'':s.coord);return blocks([T(s.serie)?`🏷️ N.º de serie: ${T(s.serie)}`:null,c?`Coordinador Responsable: ${c}`:null])}
-    if(s.mode==='salida')return blocks(['Vale para retiro en Bodega',T(s.vale)?`Número: ${T(s.vale)}`:null,...s.items.filter(i=>T(i.el)).map(i=>`• ${[T(i.cant),T(i.el),T(i.mod)].filter(Boolean).join(' ')}`)]);
+    const num=T(s.vale)?`Número: ${T(s.vale)}`:null;
+    if(s.mode==='salida')return blocks(['*Vale para retiro en Bodega*',num],s.items.filter(i=>T(i.el)).map(i=>{const n=parseInt(i.cant)||1;return `• ${[n,plural(i.el,n),T(i.mod)].filter(Boolean).join(' ')}`}));
     const g=new Map();
-    for(const u of [...s.ret.pre,...s.ret.manual]){if(!T(u.el))continue;const k=T(u.el).toLowerCase()+'|'+T(u.mod).toLowerCase();if(!g.has(k))g.set(k,{el:T(u.el),mod:T(u.mod),n:0,series:[]});const e=g.get(k);const n=Math.max(1,parseInt(u.cant)||1);e.n+=n;e.series.push(...resize([...u.series],n).map(T).filter(Boolean))}
-    return blocks(['SE RETIRA DE LA BODEGA',...[...g.values()].flatMap(e=>[`• ${[e.n,e.el,e.mod].filter(Boolean).join(' ')}`,...e.series.map(x=>`   Serie: ${x}`)])]);
+    for(const e of [...s.ret.pre,...s.ret.manual]){if(!T(e.el))continue;const k=singKey(e.el);if(!g.has(k))g.set(k,{el:T(e.el),units:[]});g.get(k).units.push(...fitUnits(e).units)}
+    return blocks(['*SE RETIRA DE LA BODEGA*',num],[...g.values()].flatMap(e=>[`• ${e.units.length} ${plural(e.el,e.units.length)}`,...e.units.map(u=>{const parts=[T(u.mod)?`Modelo: ${T(u.mod)}`:null,T(u.serie)?`Serie: ${T(u.serie)}`:null].filter(Boolean);return parts.length?`   - ${parts.join(' · ')}`:null})]));
   },
   after(s){if(s.mode!=='salida')return null;return h('div',{class:'btn-col'},h('div',{class:'lbl'},'¿También vas a registrar el retiro?'),
-    h('button',{type:'button',class:'btn dark',onclick:()=>{const old=s.ret;const pre=s.items.filter(i=>T(i.el)).map((i,k)=>{const n=Math.max(1,parseInt(i.cant)||1);const prev=old&&old.pre[k]&&old.pre[k].el===i.el&&old.pre[k].mod===i.mod?old.pre[k].series:[];return{el:i.el,mod:i.mod,cant:String(n),series:resize([...prev],n)}});
+    h('button',{type:'button',class:'btn dark',onclick:()=>{const old=s.ret;const pre=s.items.filter(i=>T(i.el)).map((i,k)=>{const prev=old&&old.pre[k]&&old.pre[k].el===i.el&&old.pre[k].mod===i.mod?old.pre[k].units:[];return fitUnits({el:i.el,mod:i.mod,cant:String(Math.max(1,parseInt(i.cant)||1)),units:prev.map(u=>({...u}))})});
       s.ret={pre,manual:old?old.manual:[]};s.mode='retiro';cur.edited=false;rerender();scrollTo(0,0)}},'Crear vale de retiro →'),h('div',{class:'hint'},'Opcional. Si no lo pulsas, el vale de salida termina aquí.'))}});
 
 /* 07 Evento */
@@ -314,60 +453,86 @@ MODS.push({id:'aire',n:'08',name:'Prueba de Aire',dest:'Asistencia Técnica',
 
 /* ===================== app ===================== */
 let cur=null,gen='',els={};
-const top_=document.getElementById('top'),main=document.getElementById('main');
+const top_=document.getElementById('top'),main=document.getElementById('main'),bar=document.getElementById('bar');
 function netPill(){return h('span',{class:'net'+(navigator.onLine?'':' off'),id:'net'},navigator.onLine?'En línea':'Sin señal · funciona igual')}
 addEventListener('online',()=>{const n=document.getElementById('net');n&&n.replaceWith(netPill())});
 addEventListener('offline',()=>{const n=document.getElementById('net');n&&n.replaceWith(netPill())});
+function longDate(){try{const t=new Date().toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)}catch(e){return fmtDate(todayISO())}}
+function hello(){const hr=new Date().getHours();return hr<12?'Buenos días':hr<20?'Buenas tardes':'Buenas noches'}
 
-function home(){cur=null;
-  top_.replaceChildren(h('h1',{},'Reportes CDA'),netPill());
-  const day=todayISO();
-  main.replaceChildren(h('div',{class:'home-head'},h('span',{class:'tag'},'Perforación · Turno'),h('h2',{},'¿Qué vas a reportar?'),h('p',{},'Completa, revisa y comparte por WhatsApp. Funciona sin señal.')),
-    h('div',{class:'tiles'},MODS.map(m=>{const d=store.get('draft:'+m.id,null);return h('button',{type:'button',class:'tile'+(d&&d.day===day?' draft':''),onclick:()=>open(m.id)},h('span',{class:'n'},'Atajo '+m.n),h('b',{},m.name),h('small',{},'→ '+m.dest))})));
+function home(){cur=null;bar.hidden=true;main.className='home';
+  top_.replaceChildren(h('div',{class:'title'},h('span',{class:'mod-ico'},icon('aceros',2.2)),h('div',{},h('h1',{},'Reportes CDA'),h('div',{class:'sub'},'Perforación · Asistencia Técnica'))),netPill());
+  const day=todayISO();const drafts=MODS.filter(m=>{const d=store.get('draft:'+m.id,null);return d&&d.day===day});
+  main.replaceChildren(
+    h('div',{class:'hero'},h('span',{class:'date'},longDate()),h('h2',{},`${hello()}${store.get('operador','')?', '+String(store.get('operador','')).split(' ')[0]:''}.`),h('p',{},'Elige qué vas a reportar. Revisas el mensaje y lo mandas por WhatsApp, con o sin señal.')),
+    drafts.length?h('div',{class:'label'},'Continuar donde quedaste'):null,
+    drafts.length?h('div',{class:'resume'},drafts.map(m=>h('button',{type:'button',onclick:()=>open(m.id)},icon(m.id),m.name))):null,
+    h('div',{class:'label'},'Reportes'),
+    h('div',{class:'tiles'},MODS.map(m=>{const dr=drafts.includes(m);return h('button',{type:'button',class:'tile',onclick:()=>open(m.id)},
+      h('span',{class:'ic'},icon(m.id)),dr?h('span',{class:'badge'},'Borrador'):h('span',{class:'n'},m.n),h('b',{},m.name),h('small',{},'→ '+m.dest))})),
+    h('div',{class:'foot'},'Los borradores se guardan en este teléfono durante el día.'));
   scrollTo(0,0)}
 
 function open(id){const mod=MODS.find(m=>m.id===id);const d=store.get('draft:'+id,null);
   let st=mod.init();if(d&&d.day===todayISO()&&d.st){st=Object.assign(st,d.st);st.photos=[]}
   cur={mod,st,edited:false,manual:'',armed:false};rerender();scrollTo(0,0)}
 
-function rerender(){const y=scrollY;const {mod,st}=cur;
-  const clearBtn=h('button',{type:'button',class:'icon-btn'+(cur.armed?' warn':''),onclick:()=>{if(!cur.armed){cur.armed=true;rerender();setTimeout(()=>{if(cur&&cur.armed){cur.armed=false;rerender()}},3000);return}store.del('draft:'+mod.id);cur.st=mod.init();cur.edited=false;cur.armed=false;rerender();toast('Formulario limpio')}},cur.armed?'¿Borrar todo?':'Limpiar');
-  top_.replaceChildren(h('button',{type:'button',class:'icon-btn','aria-label':'Volver al inicio',onclick:home},'←'),h('div',{style:'flex:1;min-width:0'},h('div',{class:'tag'},'Atajo '+mod.n+' · '+mod.dest),h('h1',{},mod.name)),clearBtn);
+function rerender(){const y=scrollY;const {mod}=cur;main.className='';
+  const clearBtn=h('button',{type:'button',class:'round'+(cur.armed?' warn':''),onclick:()=>{if(!cur.armed){cur.armed=true;rerender();setTimeout(()=>{if(cur&&cur.armed){cur.armed=false;rerender()}},3000);return}store.del('draft:'+mod.id);cur.st=mod.init();cur.edited=false;cur.armed=false;rerender();scrollTo(0,0);toast('Formulario limpio')}},cur.armed?'¿Borrar?':h('span',{style:'width:20px;height:20px;display:block'},icon('trash')));
+  clearBtn.setAttribute('aria-label','Limpiar formulario');
+  top_.replaceChildren(h('button',{type:'button',class:'round','aria-label':'Volver al inicio',onclick:home},h('span',{style:'width:20px;height:20px;display:block'},icon('back',2.4))),
+    h('div',{class:'title'},h('span',{class:'mod-ico'},icon(mod.id)),h('div',{},h('h1',{},mod.name),h('div',{class:'sub'},'Atajo '+mod.n+' · '+mod.dest))),clearBtn);
   const form=[].concat(mod.form(cur.st)).filter(Boolean);
-  els.bubble=h('div',{class:'bubble'});
+  const showOut=!(mod.id==='vales'&&cur.st.mode==='menu');
+  els.bubble=h('div',{class:'bubble'});els.phs=h('div',{class:'bubble-ph'});
   els.ta=h('textarea',{class:'final',id:'final-'+mod.id,'aria-label':'Mensaje final editable'});
-  els.note=h('div',{class:'note',hidden:true},'Editaste el mensaje a mano: los cambios del formulario ya no se aplican. Usa «Restaurar» para regenerarlo.');
-  els.ta.addEventListener('input',()=>{cur.edited=els.ta.value!==gen;cur.manual=els.ta.value;els.note.hidden=!cur.edited;els.bubble.innerHTML=wa(els.ta.value)});
-  const hasPh=!mod.noPhotos&&(cur.st.photos||[]).length;
-  const out=cur.mod.build(cur.st)!==undefined&&!(mod.id==='vales'&&cur.st.mode==='menu')?h('section',{class:'out'},
-    h('h3',{class:'tag',style:'margin:0'},'Vista previa · WhatsApp'),h('div',{class:'chat'},els.bubble),
-    h('div',{class:'lbl'},'Mensaje final editable'),els.ta,els.note,
-    h('button',{type:'button',class:'btn ghost small',onclick:()=>{cur.edited=false;refresh()}},'↺ Restaurar mensaje generado'),
-    h('div',{class:'btn-row'},h('button',{type:'button',class:'btn ghost',onclick:copyMsg},'Copiar'),h('button',{type:'button',class:'btn primary',onclick:shareMsg},hasPh?'Compartir + fotos':'Compartir')),
-    h('button',{type:'button',class:'btn ghost small',onclick:openWA},'Abrir WhatsApp (solo texto)'),
-    mod.after?mod.after(cur.st):null):null;
-  main.replaceChildren(...form,out);
+  els.note=h('div',{class:'note',hidden:true},'Editaste el mensaje a mano: los cambios del formulario ya no se aplican.');
+  els.pill=h('span',{class:'edited-pill',hidden:true},'Editado');
+  els.ta.addEventListener('input',()=>{cur.edited=els.ta.value!==gen;cur.manual=els.ta.value;paint()});
+  const ph=mod.noPhotos?[]:(cur.st.photos||[]);
+  ph.forEach(f=>els.phs.append(h('img',{src:URL.createObjectURL(f),alt:''})));
+  els.out=showOut?h('section',{class:'out',id:'out'},
+    h('div',{class:'wa-head'},h('span',{class:'wa-av'},mod.dest.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()),h('div',{},h('b',{},mod.dest),h('small',{},'Vista previa del mensaje'))),
+    h('div',{class:'chat'},ph.length?els.phs:null,els.bubble),
+    h('div',{class:'out-body'},
+      h('details',{class:'edit',open:cur.edited?true:null},h('summary',{},h('span',{},'Editar mensaje',els.pill)),
+        h('div',{class:'inner'},els.ta,els.note,h('button',{type:'button',class:'btn ghost small',onclick:()=>{cur.edited=false;refresh()}},h('span',{style:'width:18px;height:18px;display:block'},icon('reset')),'Restaurar mensaje generado'))),
+      h('button',{type:'button',class:'link-btn',onclick:openWA},'Abrir WhatsApp solo con el texto'),
+      mod.after&&mod.after(cur.st)?h('div',{class:'next'},mod.after(cur.st)):null)):null;
+  main.replaceChildren(...form,els.out||'');
+  if(showOut){bar.hidden=false;
+    els.copyBtn=h('button',{type:'button',class:'btn ghost',onclick:copyMsg},icon('copy'),'Copiar');
+    bar.replaceChildren(h('div',{class:'bar-in'},
+      h('button',{type:'button',class:'btn peek','aria-label':'Ver mensaje',onclick:()=>els.out.scrollIntoView({behavior:'smooth',block:'start'})},icon('down')),
+      els.copyBtn,h('button',{type:'button',class:'btn primary',onclick:shareMsg},icon('share'),ph.length?`Enviar + ${ph.length} foto${ph.length>1?'s':''}`:'Enviar')))}
+  else bar.hidden=true;
   refresh();scrollTo(0,y)}
 
-function refresh(){if(!cur)return;gen=cur.mod.build(cur.st)||'';if(els.ta){if(!cur.edited)els.ta.value=gen;else els.ta.value=cur.manual;els.note.hidden=!cur.edited;els.bubble.innerHTML=wa(els.ta.value)}
+function paint(){const t=els.ta.value;els.bubble.className='bubble'+(T(t)?'':' empty');els.bubble.innerHTML=T(t)?wa(t):'Completa el formulario y el mensaje aparece aquí.';
+  const now=new Date();els.bubble.append(h('span',{class:'meta'},`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} ✓✓`));
+  els.note.hidden=!cur.edited;els.pill.hidden=!cur.edited}
+function refresh(){if(!cur)return;gen=cur.mod.build(cur.st)||'';cur.mod.onRefresh&&cur.mod.onRefresh(cur.st);
+  if(els.ta&&els.out){els.ta.value=cur.edited?cur.manual:gen;paint()}
   const strip=o=>JSON.stringify(o,(k,v)=>k==='photos'?[]:v);const sj=strip(cur.st);if(sj===strip(cur.mod.init()))store.del('draft:'+cur.mod.id);else store.set('draft:'+cur.mod.id,{day:todayISO(),st:JSON.parse(sj)})}
 
 function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function wa(t){return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/(^|[\s(])_([^_\n]+)_/g,'$1<i>$2</i>')}
-let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2600)}
+let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.className='toast'+(bar.hidden?' solo':'');el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2600)}
 function copyText(t){try{return navigator.clipboard.writeText(t).then(()=>true,()=>fallbackCopy(t))}catch(e){return Promise.resolve(fallbackCopy(t))}}
-function fallbackCopy(t){try{els.ta.focus();els.ta.select();return document.execCommand('copy')}catch(e){return false}}
-function copyMsg(){copyText(els.ta.value).then(ok=>toast(ok?'Mensaje copiado. Pégalo en WhatsApp.':'Selecciona el texto y cópialo.'))}
+function fallbackCopy(t){try{const d=els.ta.closest('details');if(d)d.open=true;els.ta.focus();els.ta.select();return document.execCommand('copy')}catch(e){return false}}
+function flashCopied(){const b=els.copyBtn;if(!b)return;b.classList.add('done');b.replaceChildren(icon('check',2.6),'Copiado');setTimeout(()=>{if(b.isConnected){b.classList.remove('done');b.replaceChildren(icon('copy'),'Copiar')}},1800)}
+function copyMsg(){copyText(els.ta.value).then(ok=>{if(ok){flashCopied();toast('Copiado. Pégalo en el chat de WhatsApp.')}else toast('Abre «Editar mensaje», selecciona el texto y cópialo.')})}
 function shareMsg(){const text=els.ta.value;const files=cur.mod.noPhotos?[]:(cur.st.photos||[]);
-  const cp=copyText(text);
+  const cp=copyText(text);cp.then(ok=>ok&&flashCopied());
   if(navigator.share){const data={text};let withFiles=false;try{if(files.length&&navigator.canShare&&navigator.canShare({files})){data.files=files;withFiles=true}}catch(e){}
-    navigator.share(data).then(()=>toast(withFiles?'Listo. Si WhatsApp no tomó el texto, pégalo como comentario.':'Listo')).catch(e=>{if(e&&e.name==='AbortError')return;cp.then(()=>toast('Mensaje copiado. Pégalo en WhatsApp.'))});return}
-  cp.then(ok=>toast(ok?'Mensaje copiado. Este navegador no permite compartir directo.':'No se pudo compartir. Copia el texto.'))}
+    navigator.share(data).then(()=>toast(withFiles?'Enviado. Si WhatsApp no tomó el texto, pégalo como comentario de la foto.':'Listo, mensaje enviado.')).catch(e=>{if(e&&e.name==='AbortError')return;cp.then(()=>toast('Copiado. Pégalo en el chat de WhatsApp.'))});return}
+  cp.then(ok=>toast(ok?'Copiado. Este navegador no permite enviar directo: pégalo en WhatsApp.':'No se pudo enviar. Usa «Copiar».'))}
 function openWA(){location.href='whatsapp://send?text='+encodeURIComponent(els.ta.value)}
 
 window.CDA={MODS,blocks,fmtDur,minsBetween};
 home();
 </script>
+
 <script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
 </body>
 </html>
