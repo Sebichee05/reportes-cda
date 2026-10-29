@@ -214,6 +214,84 @@ textarea.final{min-height:170px;background:var(--surface)}
 .menu-big .tile > div{display:flex;flex-direction:column;gap:2px;min-width:0}
 .menu-big .tile small{margin-top:0}
 .counter{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent);padding:5px 10px;border-radius:99px;font-variant-numeric:tabular-nums}
+/* ---------- Control de Aceros ---------- */
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.banner{background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:14px;padding:10px 14px;font-size:14px}
+.banner.bad{background:color-mix(in srgb,var(--t-bad) 12%,var(--surface));border-color:var(--t-bad)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{background:var(--surface-2);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted);line-height:1.25}
+.stat.warn{background:var(--accent-soft)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{border:0;background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;box-shadow:var(--shadow);min-height:112px;transition:transform .12s}
+.act:active{transform:scale(.97)}
+.act .ic{width:40px;height:40px;border-radius:12px;background:var(--chip);display:grid;place-items:center}
+.act .ic svg{width:22px;height:22px}
+.act b{font-family:var(--display);font-size:16px;line-height:1.15}
+.act small{font-size:12.5px;color:var(--muted);margin-top:auto}
+.act.hi{background:var(--accent);color:var(--accent-ink)}
+.act.hi .ic{background:rgba(0,0,0,.1)}
+.act.hi small{color:inherit}
+.act.warn small{color:var(--t-bad);font-weight:600}
+.bigcount{display:flex;align-items:baseline;gap:10px;background:var(--surface-2);border-radius:14px;padding:12px 14px}
+.bigcount b{font-family:var(--display);font-size:40px;line-height:1}
+.bigcount span{font-weight:600;color:var(--muted)}
+.acards{display:flex;flex-direction:column;gap:10px}
+.acard{position:relative;border:0;text-align:left;background:var(--surface);border-radius:var(--r);padding:14px 14px 14px 20px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);overflow:hidden;width:100%}
+.acard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--dc)}
+.acard-h{display:flex;justify-content:space-between;gap:8px}
+.pos{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--chip);padding:3px 8px;border-radius:99px}
+.eqtag{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--dc)}
+.acard-t{font-family:var(--display);font-size:17px}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:14.5px}
+.kv > span{color:var(--muted)}
+.gwrap{display:flex;flex-direction:column;gap:5px}
+.gbar{height:10px;border-radius:99px;background:var(--chip);overflow:hidden}
+.gbar span{display:block;height:100%;border-radius:99px;background:var(--t-ok)}
+.gbar.mid span{background:var(--t-warn)} .gbar.high span{background:#E06A1B} .gbar.over span{background:var(--t-bad)} .gbar.none span{background:var(--muted)}
+.gtxt{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;font-variant-numeric:tabular-nums}
+.lv{font-size:13px}.lv.ok{color:var(--t-ok)}.lv.mid{color:var(--t-warn)}.lv.high{color:#E06A1B}.lv.over{color:var(--t-bad)}
+.pend{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1.5px solid var(--t-warn);background:color-mix(in srgb,var(--t-warn) 10%,var(--surface));color:var(--ink);border-radius:14px;padding:12px 14px;font-size:14px;width:100%}
+.pend .i{width:22px;height:22px;flex:none;color:var(--t-warn)}
+.pend-mini{font-size:13px;font-weight:700;color:var(--t-warn)}
+.errs{border-radius:14px;background:color-mix(in srgb,var(--t-bad) 10%,var(--surface));border:1.5px solid var(--t-bad);padding:10px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:600;color:var(--danger)}
+.tick{display:flex;gap:10px;align-items:center;font-size:15px;min-height:40px}
+.tick input{width:22px;height:22px;accent-color:var(--ok);flex:none}
+.known{background:var(--surface-2);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.preview-m{display:flex;flex-direction:column;gap:6px}
+.rows{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.lrow.bad{background:color-mix(in srgb,var(--t-bad) 10%,var(--surface))}
+.pickl{display:flex;flex-direction:column;gap:6px}
+.pickl .chip{width:100%}
+.tscroll{overflow-x:auto;margin-inline:-4px}
+.tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.tbl th{text-align:left;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1.5px solid var(--line)}
+.tbl td{padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tbl tr{cursor:pointer}
+.ahead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.mono.big{font-size:24px}
+.pill{font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--chip);white-space:nowrap}
+.pill.st-instalado{background:var(--t-ok);color:#fff}.pill.st-baja{background:var(--t-bad);color:#fff}.pill.st-inspeccion{background:var(--t-warn);color:#fff}.pill.st-bodega{background:var(--accent-soft)}
+.tl{display:flex;flex-direction:column;gap:10px}
+.tli{border-left:4px solid var(--dc);padding:4px 0 4px 12px;display:flex;flex-direction:column;gap:4px}
+.tlh{display:flex;justify-content:space-between;gap:8px}
+.lects{display:flex;align-items:center;gap:6px;font-size:14px}
+.lects .link-btn{padding:2px;font-size:13px}
+.mrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;background:var(--surface-2);border-radius:12px;padding:12px 14px;text-align:left;width:100%}
+.okbox{align-items:center;text-align:center}
+.okic{width:56px;height:56px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center}
+.okic svg{width:30px;height:30px}
+.btn.danger{background:var(--t-bad);color:#fff}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ctltile{border:0;text-align:left;background:var(--band);color:var(--band-ink);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);width:100%}
+.ctltile .ic{width:48px;height:48px;border-radius:14px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.ctltile .ic svg{width:26px;height:26px}
+.ctltile b{font-family:var(--display);font-size:18px;display:block}
+.ctltile small{color:var(--band-muted);font-size:13px}
+.ctltile .go{margin-left:auto;font-size:22px;color:var(--accent)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head><body>
@@ -250,7 +328,7 @@ const ICON_PATHS={
   back:'<path d="M15 5l-7 7 7 7"/>',copy:'<rect x="8.5" y="8.5" width="12.5" height="12.5" rx="2.5"/><path d="M15.5 8.5V5.5a2.5 2.5 0 0 0-2.5-2.5H5.5A2.5 2.5 0 0 0 3 5.5V13a2.5 2.5 0 0 0 2.5 2.5h3"/>',
   share:'<path d="M12 3v12"/><path d="M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
   down:'<path d="M12 5v14M6 13l6 6 6-6"/>',photo:'<rect x="3" y="5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10.5" r="2"/><path d="M21 16.5l-5-5L7 20"/>',
-  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',reset:'<path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',trash:'<path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/>'};
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',reset:'<path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',install:'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/>',remove:'<path d="M12 15V3"/><path d="M7 8l5-5 5 5"/><path d="M4 20h16"/>',chart:'<path d="M5 20V11M11 20V5M17 20v-6M3 20h18"/>',db:'<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',book:'<path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',list:'<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',trash:'<path d="M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5"/>'};
 function icon(n,sw=2){return h('span',{class:'i','aria-hidden':'true',html:`<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[n]||''}</svg>`})}
 
 /* ===================== componentes ===================== */
@@ -344,9 +422,10 @@ MODS.push({id:'estado',n:'03',name:'Estado de Perforadoras',dest:'Asistencia Té
 const MED_A=['Parámetros Operación','Evidencia de Engrase de Amortiguador','Medicion de Hilo Barra Patera','Medición Gap entre barras','Alineación Sarta de Perforacion','Medicion de desgaste del anillo Centralizador','Medicion Barra Seguidora','Medicion Bitsub','Medicion Barra Patera','Comparacion de Burbujas de nivelación','Tensado de Piolas PD'];
 const MED_B=['Hilo barra patera','Barra patera BOX','Culata del martillo','Camisa del martillo','Portabit','Evidencia Engrase de Amortiguador'];
 MODS.push({id:'mediciones',n:'04',name:'Mediciones',dest:'Asistencia Técnica',single:true,
-  init:()=>({drill:'D06',cat:'',catText:'',sections:[],photos:[],n:1}),
+  init:()=>({drill:'D06',cat:'',catText:'',sections:[],photos:[],n:1,aceroId:''}),
   form(s){const list=s.drill==='D07'?MED_B:MED_A;return[
-    sec(null,h('div',{class:'counter'},`Medición n.º ${s.n} · un mensaje por medición`),drillPick(s,'drill',{onpick:()=>{s.cat='';s.catText=''}})),
+    sec(null,h('div',{class:'counter'},`Medición n.º ${s.n} · un mensaje por medición`),drillPick(s,'drill',{onpick:()=>{s.cat='';s.catText='';s.aceroId=''}})),
+    medAceroSec(s),
     sec('Categoría',chips([...list,'Otra'],v=>s.cat===v,v=>{s.cat=v;s.catText=v==='Otra'?'':v;rerender()}),
       s.cat?field('Texto de la categoría',inp(s,'catText',{ph:'Escribe la categoría'})):null),
     sec(null,photoField(s,{max:1,label:'Foto'})),
@@ -355,8 +434,8 @@ MODS.push({id:'mediciones',n:'04',name:'Mediciones',dest:'Asistencia Técnica',s
         !T(x.t)?h('button',{type:'button',class:'chip',style:'align-self:flex-start',onclick:()=>{x.t='Observaciones o Condiciones';rerender()}},'Usar «Observaciones o Condiciones»'):null,
         field('Comentario',inp(x,'c',{multi:true})))),
       h('button',{type:'button',class:'btn add',onclick:()=>{s.sections.push({t:'',c:''});rerender()}},'+ Agregar sección'))]},
-  build(s){return blocks([`*${s.drill}*`,T(s.catText),...s.sections.flatMap(x=>[T(x.t)?`• ${T(x.t).replace(/:+$/,'')}:`:null,ital(x.c)])])},
-  after(s){return h('button',{type:'button',class:'btn dark',onclick:()=>{const n=s.n+1,d=s.drill;cur.st=Object.assign(this.init(),{drill:d,n});cur.edited=false;rerender();scrollTo(0,0);toast(`Medición n.º ${n} · ${d}`)}},'Siguiente medición (misma perforadora)')}});
+  build(s){const ac=s.aceroId&&typeof aceroById==='function'?aceroById(s.aceroId):null;return blocks([`*${s.drill}*`,T(s.catText),ac?`Serie: ${ac.serie}`:null,...s.sections.flatMap(x=>[T(x.t)?`• ${T(x.t).replace(/:+$/,'')}:`:null,ital(x.c)])])},
+  after(s){return h('div',{class:'btn-col'},s.aceroId?h('button',{type:'button',class:'btn ghost',onclick:()=>medToHistorial(s)},icon('db'),'Guardar en el historial del acero'):null,h('button',{type:'button',class:'btn dark',onclick:()=>{const n=s.n+1,d=s.drill;cur.st=Object.assign(this.init(),{drill:d,n});cur.edited=false;rerender();scrollTo(0,0);toast(`Medición n.º ${n} · ${d}`)}},'Siguiente medición (misma perforadora)'))}});
 
 /* 05 Orden de Trabajo */
 const OT_A=['Medición Alineación','Medición GAP','Medición Hilo Con Peineta','Medición Anillo Guía','Tensado Piolas PD','Revisión Engrase de Amortiguador','Medición de Diámetros','Condiciones Mecánicas','Parámetros Operacionales','Comparación de Burbuja'];
@@ -431,7 +510,7 @@ MODS.push({id:'vales',n:'06',name:'Gestión de Vales',dest:'Bodega',noPhotos:tru
     for(const e of [...s.ret.pre,...s.ret.manual]){if(!T(e.el))continue;const k=singKey(e.el);if(!g.has(k))g.set(k,{el:T(e.el),units:[]});g.get(k).units.push(...fitUnits(e).units)}
     return blocks(['*SE RETIRA DE LA BODEGA*',num],[...g.values()].flatMap(e=>[`• ${e.units.length} ${plural(e.el,e.units.length)}`,...e.units.map(u=>{const parts=[T(u.mod)?`Modelo: ${T(u.mod)}`:null,T(u.serie)?`Serie: ${T(u.serie)}`:null].filter(Boolean);return parts.length?`   - ${parts.join(' · ')}`:null})]));
   },
-  after(s){if(s.mode!=='salida')return null;return h('div',{class:'btn-col'},h('div',{class:'lbl'},'¿También vas a registrar el retiro?'),
+  after(s){if(s.mode==='retiro')return h('div',{class:'btn-col'},h('button',{type:'button',class:'btn ghost',onclick:()=>registrarBodega(s)},icon('db'),'Registrar series en Control de Aceros'),h('div',{class:'hint'},'Quedan como «salió de bodega», no como instaladas. Al instalarlas, la serie aparece sugerida.'));if(s.mode!=='salida')return null;return h('div',{class:'btn-col'},h('div',{class:'lbl'},'¿También vas a registrar el retiro?'),
     h('button',{type:'button',class:'btn dark',onclick:()=>{const old=s.ret;const pre=s.items.filter(i=>T(i.el)).map((i,k)=>{const prev=old&&old.pre[k]&&old.pre[k].el===i.el&&old.pre[k].mod===i.mod?old.pre[k].units:[];return fitUnits({el:i.el,mod:i.mod,cant:String(Math.max(1,parseInt(i.cant)||1)),units:prev.map(u=>({...u}))})});
       s.ret={pre,manual:old?old.manual:[]};s.mode='retiro';cur.edited=false;rerender();scrollTo(0,0)}},'Crear vale de retiro →'),h('div',{class:'hint'},'Opcional. Si no lo pulsas, el vale de salida termina aquí.'))}});
 
@@ -460,20 +539,22 @@ addEventListener('offline',()=>{const n=document.getElementById('net');n&&n.repl
 function longDate(){try{const t=new Date().toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)}catch(e){return fmtDate(todayISO())}}
 function hello(){const hr=new Date().getHours();return hr<12?'Buenos días':hr<20?'Buenas tardes':'Buenas noches'}
 
-function home(){cur=null;bar.hidden=true;main.className='home';
+function home(){cur=null;ctl.active=false;bar.hidden=true;main.className='home';
   top_.replaceChildren(h('div',{class:'title'},h('span',{class:'mod-ico'},icon('aceros',2.2)),h('div',{},h('h1',{},'Reportes CDA'),h('div',{class:'sub'},'Perforación · Asistencia Técnica'))),netPill());
   const day=todayISO();const drafts=MODS.filter(m=>{const d=store.get('draft:'+m.id,null);return d&&d.day===day});
   main.replaceChildren(...[
     h('div',{class:'hero'},h('span',{class:'date'},longDate()),h('h2',{},`${hello()}${store.get('operador','')?', '+String(store.get('operador','')).split(' ')[0]:''}.`),h('p',{},'Elige qué vas a reportar. Revisas el mensaje y lo mandas por WhatsApp, con o sin señal.')),
     drafts.length?h('div',{class:'label'},'Continuar donde quedaste'):null,
     drafts.length?h('div',{class:'resume'},drafts.map(m=>h('button',{type:'button',onclick:()=>open(m.id)},icon(m.id),m.name))):null,
+    h('div',{class:'label'},'Registro'),
+    h('button',{type:'button',class:'ctltile',onclick:()=>C('home')},h('span',{class:'ic'},icon('aceros')),h('div',{},h('b',{},'Control de Aceros'),h('small',{},ADB.ready?(()=>{const n=ADB.data.instalaciones.filter(i=>!i.tsOut).length;return `${n} acero${n===1?'':'s'} instalado${n===1?'':'s'}${ADB.mode==='demo'?' · modo práctica':''}`})():'Inventario, metros y garantías')),h('span',{class:'go'},'›')),
     h('div',{class:'label'},'Reportes'),
     h('div',{class:'tiles'},MODS.map(m=>{const dr=drafts.includes(m);return h('button',{type:'button',class:'tile',onclick:()=>open(m.id)},
       h('span',{class:'ic'},icon(m.id)),dr?h('span',{class:'badge'},'Borrador'):h('span',{class:'n'},m.n),h('b',{},m.name),h('small',{},'→ '+m.dest))})),
     h('div',{class:'foot'},'Los borradores se guardan en este teléfono durante el día.')].filter(Boolean));
   scrollTo(0,0)}
 
-function open(id){const mod=MODS.find(m=>m.id===id);const d=store.get('draft:'+id,null);
+function open(id){ctl.active=false;const mod=MODS.find(m=>m.id===id);const d=store.get('draft:'+id,null);
   let st=mod.init();if(d&&d.day===todayISO()&&d.st){st=Object.assign(st,d.st);st.photos=[]}
   cur={mod,st,edited:false,manual:'',armed:false};rerender();scrollTo(0,0)}
 
@@ -529,8 +610,492 @@ function shareMsg(){const text=els.ta.value;const files=cur.mod.noPhotos?[]:(cur
   cp.then(ok=>toast(ok?'Copiado. Este navegador no permite enviar directo: pégalo en WhatsApp.':'No se pudo enviar. Usa «Copiar».'))}
 function openWA(){location.href='whatsapp://send?text='+encodeURIComponent(els.ta.value)}
 
-window.CDA={MODS,blocks,fmtDur,minsBetween};
-home();
+/* ===================== CONTROL DE ACEROS · datos ===================== */
+const EQUIPOS=[{id:'D06',tipo:'DTH',modelo:'DI650i'},{id:'D07',tipo:'ROTARY',modelo:'DM45'},{id:'D08',tipo:'ROTARY',modelo:'DM45'},{id:'D09',tipo:'ROTARY',modelo:'DM45'}];
+const EQ=Object.fromEntries(EQUIPOS.map(e=>[e.id,e]));
+const TIPOS_ACERO={ROTARY:['Tricono','Barra','Barra patera','Barra seguidora','Bitsub','Adaptador','Anillo centralizador'],DTH:['Bit','Martillo','Barra','Barra patera','Portabit','Adaptador','Anillo centralizador']};
+const POSICIONES={ROTARY:['Tricono','Bitsub','Adaptador','BARRA1','BARRA2','BARRA3','BARRA4','Barra patera','Barra seguidora','Anillo centralizador'],DTH:['Bit','Martillo','Portabit','Adaptador','BARRA1','BARRA2','BARRA3','BARRA4','Barra patera','Anillo centralizador']};
+const ESTADO_LBL={INSTALADO:'Instalado',DISPONIBLE:'Retirado · disponible',INSPECCION:'En inspección',BAJA:'Dado de baja',BODEGA:'Salió de bodega',OTRO:'Otro'};
+const MOTIVOS=['Cumplimiento de rendimiento','Desgaste','Falla','Cambio preventivo','Inspección','Otro'];
+const CONDICIONES=['Buena','Desgaste normal','Desgaste severo','Dañado','Con falla'];
+const PUNTOS=['Diámetro','Hilo BOX','Hilo PIN','Largo','Desgaste de insertos','Otro'];
+const STORES=['aceros','instalaciones','lecturas','mediciones','modelos','auditoria','meta'];
+
+const ADB={mode:store.get('aceros-mode','real'),db:null,data:Object.fromEntries(STORES.map(s=>[s,[]])),mem:false,ready:false};
+const uidA=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+function dbName(m){return 'cda-aceros-'+(m||ADB.mode)}
+function idbOpen(name){return new Promise((res,rej)=>{let r;try{r=indexedDB.open(name,1)}catch(e){return rej(e)}
+  r.onupgradeneeded=()=>{const d=r.result;STORES.forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'})})};
+  r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);r.onblocked=()=>rej(new Error('blocked'))})}
+async function adbLoad(){
+  ADB.data=Object.fromEntries(STORES.map(s=>[s,[]]));
+  try{if(ADB.db)ADB.db.close();ADB.db=await idbOpen(dbName());ADB.mem=false;
+    for(const s of STORES){ADB.data[s]=await new Promise((res,rej)=>{const q=ADB.db.transaction(s).objectStore(s).getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}}
+  catch(e){ADB.db=null;ADB.mem=true}
+  ADB.ready=true;
+  if(ADB.mode==='demo'&&!ADB.data.aceros.length)await seedDemo();
+}
+/* ops: [[store,obj]] guardados en una sola transacción */
+function adbTx(ops){
+  for(const [s,o] of ops){const a=ADB.data[s];const i=a.findIndex(x=>x.id===o.id);if(i>=0)a[i]=o;else a.push(o)}
+  if(ADB.mode==='real'&&navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+  if(!ADB.db)return Promise.resolve(false);
+  const names=[...new Set(ops.map(o=>o[0]))];
+  return new Promise((res)=>{try{const tx=ADB.db.transaction(names,'readwrite');for(const [s,o] of ops)tx.objectStore(s).put(o);tx.oncomplete=()=>res(true);tx.onerror=()=>res(false);tx.onabort=()=>res(false)}catch(e){res(false)}})}
+async function adbClearAll(){for(const s of STORES){ADB.data[s]=[];if(ADB.db)await new Promise(r=>{try{const tx=ADB.db.transaction(s,'readwrite');tx.objectStore(s).clear();tx.oncomplete=r;tx.onerror=r}catch(e){r()}})}}
+async function setMode(m){ADB.mode=m;store.set('aceros-mode',m);await adbLoad()}
+
+/* ---------- utilidades ---------- */
+const normSerie=s=>T(s).toUpperCase().replace(/\s+/g,'');
+function nowLocal(){const d=new Date();return `${todayISO()}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
+function fmtTs(ts){return ts?`${fmtDate(ts.slice(0,10))} ${ts.slice(11,16)}`:'—'}
+function fmtD(ts){return ts?fmtDate(ts.slice(0,10)).replace(/-/g,'/'):'—'}
+function fmtN(n){if(n==null||isNaN(n))return '—';const neg=n<0;const s=String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,'.');return (neg?'-':'')+s}
+const fmtM=n=>n==null||isNaN(n)?'—':fmtN(n)+' m';
+/* "125.350" → 125350 ; "1.200,5" → 1200.5 ; vacío → null */
+function parseM(s){if(s==null)return null;const t=String(s).trim().replace(/\s|m$/gi,'');if(t==='')return null;const n=Number(t.replace(/\./g,'').replace(',','.'));return isFinite(n)?n:NaN}
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const monthLabel=m=>`${MESES[+m.slice(5,7)-1]} ${m.slice(0,4)}`;
+function monthRange(m){const y=+m.slice(0,4),mo=+m.slice(5,7);const n=mo===12?`${y+1}-01`:`${y}-${String(mo+1).padStart(2,'0')}`;return [m+'-01T00:00',n+'-01T00:00']}
+const aceroById=id=>ADB.data.aceros.find(a=>a.id===id);
+const aceroBySerie=s=>ADB.data.aceros.find(a=>a.serie===normSerie(s));
+const lectById=id=>ADB.data.lecturas.find(l=>l.id===id);
+function findModel(tipo,modelo){return ADB.data.modelos.find(m=>T(m.tipo).toLowerCase()===T(tipo).toLowerCase()&&T(m.modelo).toLowerCase()===T(modelo).toLowerCase())}
+function audit(entidad,refId,campo,antes,despues,motivo){return ['auditoria',{id:uidA(),ts:nowLocal(),entidad,refId,campo,antes:antes==null?'':String(antes),despues:despues==null?'':String(despues),motivo:T(motivo)}]}
+
+/* ---------- cálculo de metros ----------
+   Cada perforadora tiene una línea de lecturas acumuladas. Se arma un "odómetro continuo":
+   - lectura normal: suma (valor - lectura válida anterior)
+   - reinicio del contador: suma el valor completo (el contador partió de 0)
+   - lectura menor a la anterior sin reinicio: se marca como error y no suma (queda pendiente de verificar)
+   Metros de una instalación = continuo(retiro o última lectura) - continuo(instalación). */
+const sortL=(a,b)=>a.ts<b.ts?-1:a.ts>b.ts?1:(a.seq||0)-(b.seq||0);
+function calc(){
+  const D=ADB.data,cont={},bad=new Set(),eqs={};
+  for(const e of EQUIPOS){
+    const L=D.lecturas.filter(l=>l.equipo===e.id&&!l.anulada).sort(sortL);
+    let prev=null,c=0;
+    for(const l of L){
+      if(prev){if(l.reinicio)c+=l.valor;else{const d=l.valor-prev.valor;if(d<0){bad.add(l.id);cont[l.id]=c;continue}c+=d}}
+      cont[l.id]=c;prev=l}
+    const valid=L.filter(l=>!bad.has(l.id));
+    eqs[e.id]={list:L,last:valid[valid.length-1]||null,lastCont:c};
+  }
+  const inst={},openBy={},byAcero={};
+  for(const i of D.instalaciones){
+    const li=i.lecturaIn?lectById(i.lecturaIn):null,lo=i.lecturaOut?lectById(i.lecturaOut):null;
+    const pend=[];
+    if(!li||li.anulada)pend.push('Falta la lectura de instalación');
+    if(i.tsOut&&(!lo||lo.anulada))pend.push('Falta la lectura de retiro');
+    const tEnd=i.tsOut||'9999';
+    if(eqs[i.equipo].list.some(l=>bad.has(l.id)&&l.ts>=i.tsIn&&l.ts<=tEnd))pend.push('Hay una lectura con error en el período');
+    let m=0;
+    if(li&&!li.anulada){const end=i.tsOut?(lo&&!lo.anulada?cont[lo.id]:null):eqs[i.equipo].lastCont;if(end!=null)m=Math.max(0,end-cont[li.id])}
+    inst[i.id]={m,pend};
+    if(!i.tsOut)openBy[i.aceroId]=i;
+    (byAcero[i.aceroId]=byAcero[i.aceroId]||[]).push(i);
+  }
+  const ac={};
+  for(const a of D.aceros){
+    const list=(byAcero[a.id]||[]).sort((x,y)=>x.tsIn<y.tsIn?-1:1);
+    const total=(a.metrosPrevios||0)+list.reduce((s,i)=>s+inst[i.id].m,0);
+    const pend=[...new Set(list.flatMap(i=>inst[i.id].pend))];
+    const mod=findModel(a.tipo,a.modelo);const g=mod&&mod.garantia?mod.garantia:null;
+    ac[a.id]={total,pend,list,open:openBy[a.id]||null,gar:g,pct:g?total/g:null};
+  }
+  return {cont,bad,eqs,inst,openBy,ac};
+}
+function gLevel(p){if(p==null)return{k:'none',t:'Sin garantía configurada'};if(p>=1)return{k:'over',t:'Garantía alcanzada'};if(p>=.9)return{k:'high',t:'Prioritario'};if(p>=.8)return{k:'mid',t:'Seguimiento'};return{k:'ok',t:'Normal'}}
+function installedOn(c,eq){return ADB.data.instalaciones.filter(i=>!i.tsOut&&(!eq||i.equipo===eq)).map(i=>({i,a:aceroById(i.aceroId)})).filter(x=>x.a).sort((x,y)=>posOrder(x.i)-posOrder(y.i))}
+function posOrder(i){const all=[...POSICIONES.ROTARY,...POSICIONES.DTH];const k=all.indexOf(i.posicion);return (EQUIPOS.findIndex(e=>e.id===i.equipo))*100+(k<0?99:k)}
+/* valida una lectura nueva contra sus vecinas en el tiempo */
+function validLectura(eq,ts,valor,reinicio,ignoreId){
+  const c=calc();const L=c.eqs[eq].list.filter(l=>l.id!==ignoreId&&!c.bad.has(l.id));
+  const prev=[...L].filter(l=>l.ts<=ts).pop(),next=L.find(l=>l.ts>ts);
+  if(valor<0)return 'La lectura no puede ser negativa.';
+  if(prev&&!reinicio&&valor<prev.valor)return `La lectura (${fmtM(valor)}) es menor que la anterior de ${eq}: ${fmtM(prev.valor)} el ${fmtTs(prev.ts)}. Si el contador se reinició, marca esa opción.`;
+  if(next&&!next.reinicio&&valor>next.valor)return `La lectura es mayor que una posterior de ${eq}: ${fmtM(next.valor)} el ${fmtTs(next.ts)}. Revisa la fecha o el valor.`;
+  return null}
+function monthStats(c,{month,eq,tipo,modelo,estado}){
+  const [a,b]=monthRange(month);const match=x=>x&&(!tipo||x.tipo===tipo)&&(!modelo||x.modelo===modelo)&&(!estado||x.estado===estado);
+  const rows=ADB.data.instalaciones.filter(i=>(!eq||i.equipo===eq)&&i.tsIn<b&&(!i.tsOut||i.tsOut>=a)).map(i=>({i,a:aceroById(i.aceroId)})).filter(x=>match(x.a)).sort((x,y)=>x.i.tsIn<y.i.tsIn?-1:1);
+  const ins=rows.filter(r=>r.i.tsIn>=a&&r.i.tsIn<b).length,ret=rows.filter(r=>r.i.tsOut&&r.i.tsOut>=a&&r.i.tsOut<b).length;
+  const uniq=new Set(rows.map(r=>r.a.id)).size;
+  const now=installedOn(c,eq).filter(x=>match(x.a)).length;
+  return {rows,ins,ret,uniq,now}}
+
+/* ---------- datos de práctica (solo modo práctica) ---------- */
+async function seedDemo(){
+  const ops=[];const M=(tipo,modelo,garantia,limites=[])=>{const m={id:uidA(),tipo,modelo,garantia,limites,demo:true};ops.push(['modelos',m]);return m};
+  M('Tricono','TM70GS 7 7/8"',2500);M('Barra','DM45 Ø6 1/4"',25000,[{punto:'Diámetro',min:152,max:null,unidad:'mm',verificado:false}]);
+  M('Barra patera','DM45',25000,[{punto:'Diámetro',min:150,max:null,unidad:'mm',verificado:false}]);M('Bit','6 1/2"',1200);M('Martillo','DI650i 6"',15000);
+  let seq=0;const L=(eq,ts,valor,origen,reinicio=false)=>{const l={id:uidA(),equipo:eq,ts,valor,origen,reinicio,seq:seq++};ops.push(['lecturas',l]);return l.id};
+  const A=(serie,tipo,modelo,prev=0)=>{const a={id:uidA(),serie,tipo,modelo,metrosPrevios:prev,estado:'INSTALADO',creado:nowLocal()};ops.push(['aceros',a]);return a};
+  const I=(a,eq,pos,tsIn,lin,out)=>{const i={id:uidA(),aceroId:a.id,equipo:eq,posicion:pos,tsIn,lecturaIn:lin,obsIn:''};if(out){Object.assign(i,out);a.estado=out.estadoSalida}ops.push(['instalaciones',i]);return i};
+  const y=todayISO().slice(0,4),mo=todayISO().slice(5,7),pm=mo==='01'?`${+y-1}-12`:`${y}-${String(+mo-1).padStart(2,'0')}`,cm=`${y}-${mo}`;
+  /* D08: ejemplo de triconos del mes */
+  let l=L('D08',`${pm}-15T07:30`,120000,'instalacion');
+  I(A('BR-101','Barra','DM45 Ø6 1/4"'),'D08','BARRA1',`${pm}-15T07:30`,l);I(A('BR-102','Barra','DM45 Ø6 1/4"',2500),'D08','BARRA2',`${pm}-15T07:30`,l);I(A('BP-201','Barra patera','DM45'),'D08','Barra patera',`${pm}-15T07:30`,l);
+  const t1=A('TR-001','Tricono','TM70GS 7 7/8"'),t2=A('TR-002','Tricono','TM70GS 7 7/8"'),t3=A('TR-003','Tricono','TM70GS 7 7/8"');
+  const l1=L('D08',`${cm}-02T08:00`,124200,'instalacion'),l2=L('D08',`${cm}-08T09:00`,125000,'retiro'),l3=L('D08',`${cm}-08T09:00`,125000,'instalacion'),l4=L('D08',`${cm}-17T10:00`,126900,'retiro'),l5=L('D08',`${cm}-17T10:00`,126900,'instalacion');
+  I(t1,'D08','Tricono',`${cm}-02T08:00`,l1,{tsOut:`${cm}-08T09:00`,lecturaOut:l2,motivo:'Desgaste',condicion:'Desgaste normal',estadoSalida:'BAJA',obsOut:''});
+  I(t2,'D08','Tricono',`${cm}-08T09:00`,l3,{tsOut:`${cm}-17T10:00`,lecturaOut:l4,motivo:'Cumplimiento de rendimiento',condicion:'Desgaste normal',estadoSalida:'DISPONIBLE',obsOut:''});
+  I(t3,'D08','Tricono',`${cm}-17T10:00`,l5);
+  L('D08',`${cm}-28T18:00`,128150,'actualizacion');
+  /* D07 */
+  const k0=L('D07',`${pm}-01T07:00`,90000,'instalacion');I(A('B7-01','Barra','DM45 Ø6 1/4"'),'D07','BARRA1',`${pm}-01T07:00`,k0);I(A('B7-02','Barra','DM45 Ø6 1/4"',18000),'D07','BARRA2',`${pm}-01T07:00`,k0);
+  const epi=A('EPI-014','Barra patera','DM45');I(epi,'D07','Barra patera',`${cm}-08T07:00`,L('D07',`${cm}-08T07:00`,98000,'instalacion'));
+  I(A('TR-050','Tricono','TM70GS 7 7/8"'),'D07','Tricono',`${cm}-20T08:00`,L('D07',`${cm}-20T08:00`,102900,'instalacion'));
+  L('D07',`${cm}-28T18:00`,104400,'actualizacion');
+  ops.push(['mediciones',{id:uidA(),aceroId:epi.id,equipo:'D07',ts:`${cm}-22T11:00`,puntos:[{punto:'Diámetro',medida:'152,1',unidad:'mm'},{punto:'Hilo BOX',medida:'OK',unidad:''}],condicion:'Desgaste normal',obs:'Sin fisuras visibles.',fotos:[]}]);
+  /* D06 DTH */
+  const d0=L('D06',`${pm}-20T08:00`,40000,'instalacion');I(A('M-650','Martillo','DI650i 6"'),'D06','Martillo',`${pm}-20T08:00`,d0);I(A('D6-B1','Barra','DM45 Ø6 1/4"'),'D06','BARRA1',`${pm}-20T08:00`,d0);
+  I(A('BT-611','Bit','6 1/2"'),'D06','Bit',`${cm}-25T08:00`,L('D06',`${cm}-25T08:00`,50000,'instalacion'));L('D06',`${cm}-28T18:00`,51050,'actualizacion');
+  /* D09: ejemplos de pendientes (lectura con error y tricono sin lectura) */
+  I(A('D9-B1','Barra','DM45 Ø6 1/4"'),'D09','BARRA1',`${cm}-01T08:00`,L('D09',`${cm}-01T08:00`,70000,'instalacion'));
+  L('D09',`${cm}-26T08:00`,7230,'actualizacion');L('D09',`${cm}-28T18:00`,72300,'actualizacion');
+  I(A('TR-090','Tricono','TM70GS 7 7/8"'),'D09','Tricono',`${cm}-27T08:00`,null);
+  await adbTx(ops)}
+
+/* ===================== CONTROL DE ACEROS · pantallas ===================== */
+const ctl={active:false,screen:'home',eq:store.get('aceros-eq','D07'),p:{},f:{}};
+function C(screen,p={},keepForm){ctl.active=true;cur=null;bar.hidden=true;main.className='';ctl.screen=screen;ctl.p=p;if(!keepForm)ctl.f={};renderC();scrollTo(0,0)}
+function renderC(){const y=scrollY;const S=SCREENS[ctl.screen];const c=calc();
+  const back=h('button',{type:'button',class:'round','aria-label':'Volver',onclick:()=>ctl.screen==='home'?home():(S.back?S.back():C('home'))},h('span',{style:'width:20px;height:20px;display:block'},icon('back',2.4)));
+  top_.replaceChildren(...[back,h('div',{class:'title'},h('span',{class:'mod-ico'},icon(S.icon||'aceros')),h('div',{},h('h1',{},S.title),h('div',{class:'sub'},S.sub||'Control de Aceros CDA'))),
+    ADB.mode==='demo'?h('span',{class:'net off'},'Práctica'):null].filter(Boolean));
+  const body=[].concat(S.render(c)).filter(Boolean);
+  main.replaceChildren(...[ADB.mode==='demo'?h('div',{class:'banner'},h('b',{},'Modo práctica.'),' Estos datos son de ejemplo y no se mezclan con el registro real.'):null,ADB.mem?h('div',{class:'banner bad'},'Este navegador no permite guardar datos. Lo que registres se perderá al cerrar.'):null,...body].filter(Boolean));
+  if(ctl.keepScroll)scrollTo(0,y);ctl.keepScroll=false}
+const reC=()=>{ctl.keepScroll=true;renderC()};
+
+/* ---------- piezas comunes ---------- */
+function eqPick(val,onpick,{all=false}={}){return h('div',{class:'drills'+(all?' five':''),role:'group','aria-label':'Perforadora'},
+  EQUIPOS.map(e=>h('button',{type:'button',class:'drill',style:`--dc:var(--${e.id.toLowerCase()})`,'aria-pressed':String(val===e.id),onclick:()=>onpick(e.id)},h('span',{class:'dot'}),e.id)),
+  all?h('button',{type:'button',class:'drill none','aria-pressed':String(!val),onclick:()=>onpick('')},'Todas las perforadoras'):null)}
+function fIn(obj,key,o={}){return inp(obj,key,Object.assign({onchange:o.live?()=>o.live():()=>{}},o))}
+function gbar(info){const lv=gLevel(info.pct);return h('div',{class:'gwrap'},
+  h('div',{class:'gbar '+lv.k},h('span',{style:`width:${Math.min(100,(info.pct||0)*100).toFixed(1)}%`})),
+  h('div',{class:'gtxt'},info.gar?[h('span',{},`${fmtM(info.total)} de ${fmtM(info.gar)}`),h('b',{class:'lv '+lv.k},`${Math.round(info.pct*100)} % · ${lv.t}`)]:[h('span',{},fmtM(info.total)),h('span',{class:'hint'},'Sin garantía configurada')]),
+  info.gar?h('div',{class:'hint'},info.total<info.gar?`Quedan ${fmtM(info.gar-info.total)} de garantía`:`Superó la garantía por ${fmtM(info.total-info.gar)}`):null)}
+function pill(estado){return h('span',{class:'pill st-'+estado.toLowerCase()},ESTADO_LBL[estado]||estado)}
+function pendBox(list){return list&&list.length?h('div',{class:'pend'},icon('evento'),h('div',{},h('b',{},'Pendiente de verificación'),...list.map(t=>h('div',{},t)))):null}
+function acCard(c,x,{onclick}={}){const info=c.ac[x.a.id];return h('button',{type:'button',class:'acard',style:`--dc:var(--${x.i.equipo.toLowerCase()})`,onclick:onclick||(()=>C('acero',{id:x.a.id}))},
+  h('div',{class:'acard-h'},h('span',{class:'pos'},x.i.posicion),h('span',{class:'eqtag'},x.i.equipo)),
+  h('b',{class:'acard-t'},x.a.tipo,x.a.modelo?h('span',{class:'hint'},' · '+x.a.modelo):null),
+  h('div',{class:'kv'},h('span',{},'Serie'),h('b',{class:'mono'},x.a.serie)),
+  h('div',{class:'kv'},h('span',{},'Instalación'),h('b',{},fmtD(x.i.tsIn))),
+  gbar(info),info.pend.length?h('div',{class:'pend-mini'},'⚠ Pendiente de verificación'):null)}
+function stat(n,label,tone){return h('div',{class:'stat'+(tone?' '+tone:'')},h('b',{},String(n)),h('span',{},label))}
+function errorsBox(errs){return errs&&errs.length?h('div',{class:'errs',role:'alert'},errs.map(e=>h('div',{},e))):null}
+function msgCard(text,dest,files=[]){
+  const ta=h('textarea',{class:'final','aria-label':'Mensaje editable'});ta.value=text;const bub=h('div',{class:'bubble'});
+  const paintB=()=>{bub.innerHTML=wa(ta.value);bub.append(h('span',{class:'meta'},new Date().toTimeString().slice(0,5)+' ✓✓'))};ta.addEventListener('input',paintB);paintB();
+  const cb=h('button',{type:'button',class:'btn ghost'},icon('copy'),'Copiar');
+  cb.onclick=()=>{const ok=()=>{cb.classList.add('done');cb.replaceChildren(icon('check',2.6),'Copiado');toast('Copiado. Pégalo en WhatsApp.');setTimeout(()=>{cb.classList.remove('done');cb.replaceChildren(icon('copy'),'Copiar')},1800)};
+    try{navigator.clipboard.writeText(ta.value).then(ok,()=>{ta.closest('details').open=true;ta.select();document.execCommand('copy')?ok():toast('Selecciona el texto y cópialo.')})}catch(e){toast('Selecciona el texto y cópialo.')}};
+  const sb=h('button',{type:'button',class:'btn primary',onclick:()=>{const t=ta.value;try{navigator.clipboard.writeText(t).catch(()=>{})}catch(e){}
+    if(navigator.share){const d={text:t};try{if(files.length&&navigator.canShare&&navigator.canShare({files}))d.files=files}catch(e){}navigator.share(d).then(()=>toast('Listo.')).catch(e=>{if(e&&e.name!=='AbortError')toast('Copiado. Pégalo en WhatsApp.')})}else toast('Copiado. Pégalo en WhatsApp.')}},icon('share'),'Enviar');
+  return h('section',{class:'out'},h('div',{class:'wa-head'},h('span',{class:'wa-av'},'AT'),h('div',{},h('b',{},dest||'Asistencia Técnica'),h('small',{},'Vista previa del mensaje'))),
+    h('div',{class:'chat'},bub),h('div',{class:'out-body'},h('details',{class:'edit'},h('summary',{},'Editar mensaje'),h('div',{class:'inner'},ta)),h('div',{class:'btn-row'},cb,sb)))}
+function shareFile(blob,name){const file=new File([blob],name,{type:blob.type});
+  try{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).catch(()=>{});return}}catch(e){}
+  try{const a=h('a',{href:URL.createObjectURL(blob),download:name});document.body.append(a);a.click();a.remove();toast('Archivo listo: '+name)}catch(e){toast('Este navegador no permite exportar archivos.')}}
+function lecturaFields(f,eq,c){const last=c.eqs[eq].last;
+  return [field('Lectura acumulada de '+eq,fIn(f,'lectura',{mode:'decimal',ph:last?'Última: '+fmtN(last.valor):'Ej: 125.350'}),last?`Última lectura: ${fmtM(last.valor)} el ${fmtTs(last.ts)}`:'Aún no hay lecturas de esta perforadora.'),
+    h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!f.reinicio,onchange:e=>{f.reinicio=e.target.checked}}),'El contador se reinició (partió de 0)'),
+    h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!f.sinLectura,onchange:e=>{f.sinLectura=e.target.checked;reC()}}),'No tengo la lectura ahora (los metros quedan pendientes)')]}
+function readLectura(f,eq,ts,errs){if(f.sinLectura)return null;const v=parseM(f.lectura);
+  if(v==null||isNaN(v)){errs.push('Ingresa la lectura acumulada de la perforadora, o marca que no la tienes.');return undefined}
+  const e=validLectura(eq,ts,v,!!f.reinicio);if(e){errs.push(e);return undefined}return v}
+function photoPick(f){const ph=f.fotos||(f.fotos=[]);const file=h('input',{type:'file',accept:'image/*',multiple:true,hidden:true});
+  file.addEventListener('change',()=>{f.fotos=[...ph,...file.files];reC()});
+  return h('div',{class:'f'},h('div',{class:'lbl'},'Fotos',h('span',{class:'hint',style:'font-weight:400'},' · opcional')),
+    h('div',{class:'photos'},ph.map((p,i)=>h('div',{class:'thumb'},h('img',{src:URL.createObjectURL(p),alt:''}),h('button',{type:'button','aria-label':'Quitar',onclick:()=>{ph.splice(i,1);reC()}},'×'))),
+      h('button',{type:'button',class:'addphoto'+(ph.length?'':' wide'),onclick:()=>file.click()},icon('photo'),ph.length?'Agregar':'Elegir fotos de la galería')),file)}
+
+/* ---------- mensajes ---------- */
+function msgInventario(c,eq){const list=installedOn(c,eq);
+  return blocks([`*ACEROS INSTALADOS${eq?' · '+eq:''}*`,`📅 ${fmtDate(todayISO())}`,`Total: ${list.length}`],
+    ...(eq?[eq]:EQUIPOS.map(e=>e.id)).map(d=>{const xs=list.filter(x=>x.i.equipo===d);if(!xs.length)return null;
+      return [eq?null:`🔩 *${d}*`,...xs.map(x=>{const inf=c.ac[x.a.id];return `• ${x.i.posicion.toLowerCase()===x.a.tipo.toLowerCase()?x.a.tipo:x.i.posicion+' · '+x.a.tipo}${x.a.modelo?' '+x.a.modelo:''}\n   Serie: ${x.a.serie} · Inst. ${fmtD(x.i.tsIn)}\n   ${fmtM(inf.total)}${inf.gar?` de ${fmtM(inf.gar)} (${Math.round(inf.pct*100)} %)`:''}${inf.pend.length?' ⚠ pendiente':''}`})]}))}
+function msgMov(kind,a,i,c){const inf=c.ac[a.id];const base=[`🔩 *${i.equipo}*`];
+  if(kind==='inst')return blocks([...base,`Se Evidencia Instalación de ${a.tipo}:`,`Serie: ${a.serie}`,a.modelo?`Modelo: ${a.modelo}`:null,`Posición: ${i.posicion}`,i.lecturaIn?`Lectura equipo: ${fmtM(lectById(i.lecturaIn).valor)}`:'Lectura equipo: pendiente',inf.total?`Mts acumulados: ${fmtN(inf.total)}`:null,...lines(i.obsIn)]);
+  const baja=i.estadoSalida==='BAJA';
+  return blocks([...base,baja?`Se Evidencia ${a.tipo} de baja:`:`Se Evidencia Retiro de ${a.tipo}:`,`Serie: ${a.serie}`,a.modelo?`Modelo: ${a.modelo}`:null,`Posición: ${i.posicion}`,`Mts: ${fmtN(inf.total)}${inf.pend.length?' (pendiente de verificación)':''}`,inf.gar?`Garantía: ${fmtN(inf.gar)} m (${Math.round(inf.pct*100)} %)`:null,`Motivo: ${i.motivo}`,i.condicion?`Condición: ${i.condicion}`:null,baja&&T(i.analisis)?`Análisis: ${T(i.analisis)}`:null,...lines(i.obsOut)])}
+function msgMedicion(m,a){return blocks([`*${m.equipo}*`,`Medición ${a.tipo} · Serie ${a.serie}`,...m.puntos.filter(p=>T(p.medida)).map(p=>`• ${p.punto}: ${T(p.medida)}${p.unidad?' '+p.unidad:''}`),m.condicion?`_${m.condicion}_`:null,...lines(m.obs)])}
+function msgMes(st,flt){const head=[`*MOVIMIENTO DE ACEROS · ${monthLabel(flt.month)}*`,[flt.eq||'Todas',flt.tipo,flt.modelo,flt.estado?ESTADO_LBL[flt.estado]:null].filter(Boolean).join(' · '),`Instalaciones: ${st.ins} · Retiros: ${st.ret}`,`Aceros diferentes: ${st.uniq} · Instalados hoy: ${st.now}`];
+  return blocks(head,st.rows.map(r=>`• ${r.a.serie} (${r.i.equipo}) ${fmtD(r.i.tsIn)} → ${r.i.tsOut?fmtD(r.i.tsOut):'—'} · ${r.i.tsOut?'Retirado':'Instalado'}`))}
+
+/* ---------- pantallas ---------- */
+const SCREENS={};
+SCREENS.home={title:'Control de Aceros',sub:'Inventario y trazabilidad',render(c){
+  const eq=ctl.eq,list=installedOn(c,eq),mo=todayISO().slice(0,7),st=monthStats(c,{month:mo,eq});
+  const near=list.filter(x=>(c.ac[x.a.id].pct||0)>=.8).length,pendAll=installedOn(c).filter(x=>c.ac[x.a.id].pend.length).length;
+  const empty=ADB.mode==='real'&&!ADB.data.aceros.length;const last=c.eqs[eq].last;
+  const bk=store.get('aceros-backup',null);const days=bk?Math.floor((Date.now()-bk)/864e5):null;
+  const act=(ic,t,s,fn,cls)=>h('button',{type:'button',class:'act'+(cls?' '+cls:''),onclick:fn},h('span',{class:'ic'},icon(ic)),h('b',{},t),s?h('small',{},s):null);
+  return[
+    empty?h('section',{class:'sec empty'},h('h3',{},'Aún no hay aceros registrados'),h('p',{class:'hint'},'Empieza instalando el primer acero de cada perforadora con su serie y la lectura del equipo. Si quieres conocer el módulo antes, abre el modo práctica: usa otra base de datos.'),
+      h('div',{class:'btn-col'},h('button',{type:'button',class:'btn primary',onclick:()=>C('inst')},icon('install'),'Instalar el primer acero'),h('button',{type:'button',class:'btn ghost',onclick:async()=>{await setMode('demo');C('home')}},'Probar con datos de práctica'))):null,
+    sec(null,eqPick(eq,v=>{ctl.eq=v;store.set('aceros-eq',v);reC()}),h('div',{class:'hint'},`${eq} · ${EQ[eq].tipo} ${EQ[eq].modelo}${last?` · Última lectura ${fmtM(last.valor)} (${fmtTs(last.ts)})`:' · Sin lecturas'}`),
+      h('div',{class:'stats'},stat(list.length,'Aceros instalados ahora'),stat(st.ins,'Instalaciones del mes'),stat(st.ret,'Retiros del mes'),stat(near,'Cerca de garantía (≥80 %)',near?'warn':''))),
+    pendAll?h('button',{type:'button',class:'pend',onclick:()=>C('inv',{eq:''})},icon('evento'),h('div',{},h('b',{},`${pendAll} acero${pendAll>1?'s':''} con metros pendientes de verificación`),h('div',{},'Revisa las lecturas faltantes o con error.'))):null,
+    h('div',{class:'acts'},
+      act('list','Ver aceros actuales',`${list.length} en ${eq}`,()=>C('inv',{eq})),act('estado','Actualizar metros','Nueva lectura',()=>C('lect',{eq})),
+      act('install','Instalar acero',null,()=>C('inst',{eq}),'hi'),act('remove','Retirar acero',null,()=>C('ret',{eq})),
+      act('mediciones','Registrar medición',null,()=>C('med',{eq})),act('chart','Movimiento mensual',monthLabel(mo),()=>C('mes',{eq})),
+      act('book','Catálogo y garantías',`${ADB.data.modelos.length} modelos`,()=>C('cat')),act('db','Exportar y respaldo',days==null?'Sin respaldo aún':`Último hace ${days} día${days===1?'':'s'}`,()=>C('datos'),ADB.mode==='real'&&ADB.data.aceros.length&&(days==null||days>7)?'warn':''))]}};
+
+SCREENS.inv={title:'Aceros instalados',icon:'list',render(c){const eq=ctl.p.eq??ctl.eq;const list=installedOn(c,eq);
+  return[sec(null,eqPick(eq,v=>{ctl.p.eq=v;reC()},{all:true}),h('div',{class:'bigcount'},h('b',{},String(list.length)),h('span',{},`Aceros instalados actualmente${eq?' en '+eq:''}`))),
+    list.length?h('div',{class:'acards'},list.map(x=>acCard(c,x))):h('section',{class:'sec empty'},h('p',{class:'hint'},'No hay aceros instalados'+(eq?' en '+eq:'')+'.'),h('button',{type:'button',class:'btn primary',onclick:()=>C('inst',{eq:eq||ctl.eq})},icon('install'),'Instalar acero')),
+    list.length?msgCard(msgInventario(c,eq),'Jefatura / WhatsApp'):null]}};
+
+SCREENS.lect={title:'Actualizar metros',icon:'estado',render(c){const f=ctl.f;f.eq=f.eq||ctl.p.eq||ctl.eq;f.ts=f.ts||nowLocal();const eq=f.eq;const last=c.eqs[eq].last;const list=installedOn(c,eq);
+  const prev=h('div',{class:'preview-m'});const upd=()=>{const v=parseM(f.lectura);if(v==null||isNaN(v)||!last){prev.replaceChildren(last?h('span',{class:'hint'},'Escribe la nueva lectura para ver la diferencia.'):h('span',{class:'hint'},'Primera lectura de este equipo: queda como base.'));return}
+    const d=f.reinicio?v:v-last.valor;prev.replaceChildren(h('div',{class:'dur'},h('b',{},'Diferencia'),h('span',{},(d>=0?'+':'')+fmtM(d))),d<0?h('div',{class:'note'},'La lectura es menor que la anterior. Si el contador se reinició, marca la opción.'):
+      h('div',{class:'hint'},list.length?`Se suman ${fmtM(d)} a ${list.length} acero${list.length>1?'s':''} instalado${list.length>1?'s':''}: ${list.map(x=>x.a.serie).join(', ')}.`:'No hay aceros instalados en este equipo.'))};upd();
+  const L=[...c.eqs[eq].list].reverse().slice(0,10);
+  return[sec(null,eqPick(eq,v=>{f.eq=v;reC()}),field('Fecha y hora',fIn(f,'ts',{type:'datetime-local'})),
+      field('Nueva lectura acumulada',fIn(f,'lectura',{mode:'decimal',ph:last?'Última: '+fmtN(last.valor):'Ej: 125.350',live:upd}),last?`Anterior: ${fmtM(last.valor)} el ${fmtTs(last.ts)}`:null),
+      h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!f.reinicio,onchange:e=>{f.reinicio=e.target.checked;upd()}}),'El contador se reinició (partió de 0)'),prev,errorsBox(f.errs),
+      h('button',{type:'button',class:'btn primary',onclick:async()=>{const errs=[];const v=parseM(f.lectura);if(v==null||isNaN(v))errs.push('Ingresa la nueva lectura.');else{const e=validLectura(eq,f.ts,v,!!f.reinicio);if(e)errs.push(e)}
+        if(errs.length){f.errs=errs;return reC()}await adbTx([['lecturas',{id:uidA(),equipo:eq,ts:f.ts,valor:v,reinicio:!!f.reinicio,origen:'actualizacion',seq:Date.now()}]]);toast(`Lectura de ${eq} guardada`);ctl.f={eq};reC()}},icon('check'),'Guardar lectura')),
+    L.length?sec('Lecturas recientes · '+eq,h('div',{class:'rows'},L.map(l=>h('div',{class:'lrow'+(c.bad.has(l.id)?' bad':'')},h('div',{},h('b',{class:'mono'},fmtM(l.valor)),h('div',{class:'hint'},`${fmtTs(l.ts)} · ${{actualizacion:'Actualización',instalacion:'Instalación',retiro:'Retiro'}[l.origen]||l.origen}${l.reinicio?' · reinicio':''}`),c.bad.has(l.id)?h('div',{class:'note'},'Menor que la anterior: no suma metros. Corrígela.'):null),
+      h('button',{type:'button',class:'btn small ghost',onclick:()=>C('corr',{kind:'lectura',id:l.id,from:'lect'})},'Corregir'))))):null]}};
+
+SCREENS.inst={title:'Instalar acero',icon:'install',render(c){const f=ctl.f;f.eq=f.eq||ctl.p.eq||ctl.eq;f.ts=f.ts||nowLocal();const eqT=EQ[f.eq].tipo;
+  const tipos=TIPOS_ACERO[eqT];const tipo=f.tipo==='Otro'?T(f.tipoOtro):f.tipo;
+  const known=f.serie?aceroBySerie(f.serie):null,kinfo=known?c.ac[known.id]:null;
+  const models=ADB.data.modelos.filter(m=>!tipo||m.tipo===tipo);const mod=tipo&&T(f.modelo)?findModel(tipo,f.modelo):null;
+  const occupied=f.posicion?installedOn(c,f.eq).find(x=>x.i.posicion===f.posicion):null;
+  const bodega=ADB.data.aceros.filter(a=>a.estado==='BODEGA'||a.estado==='DISPONIBLE');
+  const serieInfo=h('div',{});const paintSerie=()=>{const k=aceroBySerie(f.serie||'');const ki=k?calc().ac[k.id]:null;
+    serieInfo.replaceChildren(!k?(T(f.serie)?h('div',{class:'hint'},'Serie nueva: se crea su ficha.'):''):ki.open?h('div',{class:'note'},`Esta serie ya está instalada en ${ki.open.equipo} (${ki.open.posicion}). Primero regístrala como retirada.`):
+      h('div',{class:'known'},h('b',{},`Acero conocido · ${ESTADO_LBL[k.estado]}`),h('div',{},`${k.tipo}${k.modelo?' '+k.modelo:''} · ${fmtM(ki.total)} acumulados`),ki.list.length?h('div',{class:'hint'},`Último uso: ${ki.list[ki.list.length-1].equipo}, ${fmtD(ki.list[ki.list.length-1].tsOut)}`):null,
+        h('button',{type:'button',class:'btn small ghost',onclick:()=>{f.tipo=tipos.includes(k.tipo)?k.tipo:'Otro';f.tipoOtro=k.tipo;f.modelo=k.modelo;reC()}},'Usar tipo y modelo de la ficha')))};
+  const dl=h('datalist',{id:'dl-series'},bodega.map(a=>h('option',{value:a.serie},`${a.tipo} ${a.modelo||''} · ${ESTADO_LBL[a.estado]}`)));
+  const serieIn=fIn(f,'serie',{cap:'characters',ph:'Ej: EPI-014',live:paintSerie});serieIn.setAttribute('list','dl-series');paintSerie();
+  return[sec('1. Dónde y cuándo',eqPick(f.eq,v=>{f.eq=v;f.posicion='';f.tipo='';reC()}),h('div',{class:'hint'},`${EQ[f.eq].tipo} · ${EQ[f.eq].modelo}`),field('Fecha y hora',fIn(f,'ts',{type:'datetime-local'}))),
+    sec('2. Acero',field('Número de serie',serieIn),dl,serieInfo,
+      h('div',{class:'lbl'},'Tipo de acero'),chips([...tipos,'Otro'],v=>f.tipo===v,v=>{f.tipo=v;f.modelo='';reC()}),f.tipo==='Otro'?field('Tipo (texto libre)',fIn(f,'tipoOtro')):null,
+      tipo?h('div',{class:'f'},h('div',{class:'lbl'},'Modelo'),models.length?chips(models.map(m=>m.modelo),v=>f.modelo===v,v=>{f.modelo=v;reC()}):null,(()=>{const el=fIn(f,'modelo',{ph:models.length?'O escribe otro modelo':'Ej: TM70GS 7 7/8"'});el.addEventListener('change',reC);return el})()):null,
+      tipo&&T(f.modelo)&&!mod?field('Garantía del modelo (metros)',fIn(f,'garantia',{mode:'decimal',ph:'Opcional. Ej: 25.000'}),'Modelo nuevo: se agrega al catálogo.'):null,
+      mod?h('div',{class:'hint'},mod.garantia?`Garantía del modelo: ${fmtM(mod.garantia)}`:'Este modelo no tiene garantía configurada.'):null,
+      !known?field('Metros anteriores del acero',fIn(f,'previos',{mode:'decimal',ph:'0 si es nuevo'}),'Solo si es un acero usado que no está en el registro.'):null),
+    sec('3. Posición en la columna',chips(POSICIONES[eqT],v=>f.posicion===v,v=>{f.posicion=v;reC()}),field('O escribe la posición',fIn(f,'posicion',{ph:'Ej: BARRA5'})),
+      occupied?h('div',{class:'note'},`Ojo: ${occupied.a.serie} sigue instalado en ${f.posicion}. Si lo cambiaste, regístralo como retirado.`):null),
+    sec('4. Lectura del equipo',...lecturaFields(f,f.eq,c)),
+    sec(null,field('Observaciones',fIn(f,'obs',{multi:true,ph:'Opcional'})),errorsBox(f.errs),
+      h('button',{type:'button',class:'btn primary',onclick:()=>saveInstall(f)},icon('check'),'Guardar instalación'))]}};
+async function saveInstall(f){const errs=[];const c=calc();const serie=normSerie(f.serie);const tipo=f.tipo==='Otro'?T(f.tipoOtro):T(f.tipo);
+  if(!serie)errs.push('Falta el número de serie.');if(!tipo)errs.push('Elige el tipo de acero.');if(!T(f.posicion))errs.push('Indica la posición en la columna.');if(!f.ts)errs.push('Falta la fecha y hora.');
+  let a=serie?aceroBySerie(serie):null;if(a&&c.openBy[a.id])errs.push(`La serie ${serie} ya está instalada en ${c.openBy[a.id].equipo}. Primero regístrala como retirada.`);
+  const prev=parseM(f.previos);if(!a&&prev!=null&&(isNaN(prev)||prev<0))errs.push('Los metros anteriores no son válidos.');
+  const gar=parseM(f.garantia);if(gar!=null&&(isNaN(gar)||gar<=0))errs.push('La garantía no es válida.');
+  const v=readLectura(f,f.eq,f.ts,errs);
+  if(errs.length){f.errs=errs;return reC()}
+  const ops=[];const modelo=T(f.modelo);
+  if(modelo&&!findModel(tipo,modelo))ops.push(['modelos',{id:uidA(),tipo,modelo,garantia:gar||null,limites:[]}]);
+  if(!a)a={id:uidA(),serie,tipo,modelo,metrosPrevios:prev||0,estado:'INSTALADO',creado:nowLocal()};
+  else{a=Object.assign({},a,{estado:'INSTALADO'});if(!a.tipo)a.tipo=tipo;if(modelo&&a.modelo!==modelo){ops.push(audit('acero',a.id,'modelo',a.modelo,modelo,'Modelo indicado al reinstalar'));a.modelo=modelo}}
+  const inst={id:uidA(),aceroId:a.id,equipo:f.eq,posicion:T(f.posicion),tsIn:f.ts,lecturaIn:null,obsIn:T(f.obs)};
+  if(v!=null){const l={id:uidA(),equipo:f.eq,ts:f.ts,valor:v,reinicio:!!f.reinicio,origen:'instalacion',ref:inst.id,seq:Date.now()};inst.lecturaIn=l.id;ops.push(['lecturas',l])}
+  ops.push(['aceros',a],['instalaciones',inst]);await adbTx(ops);
+  C('done',{title:'Instalación guardada',sub:`${a.serie} en ${inst.equipo} · ${inst.posicion}`,text:msgMov('inst',a,inst,calc()),aceroId:a.id,again:'inst'})}
+
+SCREENS.ret={title:'Retirar acero',icon:'remove',back:()=>ctl.p.id?C('ret',{eq:ctl.p.eq}):C('home'),render(c){
+  if(!ctl.p.id){const eq=ctl.p.eq??ctl.eq;const list=installedOn(c,eq);
+    return[sec('¿Qué acero sale?',eqPick(eq,v=>{ctl.p.eq=v;reC()},{all:true}),h('div',{class:'hint'},'Toca el acero que se retira. No necesitas escribir la serie.')),
+      list.length?h('div',{class:'acards'},list.map(x=>acCard(c,x,{onclick:()=>C('ret',{eq,id:x.i.id})}))):h('section',{class:'sec empty'},h('p',{class:'hint'},'No hay aceros instalados'+(eq?' en '+eq:'')+'.'))]}
+  const i=ADB.data.instalaciones.find(z=>z.id===ctl.p.id);const a=aceroById(i.aceroId);const f=ctl.f;f.ts=f.ts||nowLocal();f.estado=f.estado||'DISPONIBLE';
+  return[h('div',{class:'acards'},acCard(c,{i,a},{onclick:()=>{}})),
+    sec('1. Cuándo',field('Fecha y hora de retiro',fIn(f,'ts',{type:'datetime-local'}))),
+    sec('2. Lectura del equipo',...lecturaFields(f,i.equipo,c)),
+    sec('3. Motivo y condición',h('div',{class:'lbl'},'Motivo del retiro'),chips(MOTIVOS,v=>f.motivo===v,v=>{f.motivo=v;reC()}),f.motivo==='Otro'?field('Motivo',fIn(f,'motivoOtro')):null,
+      h('div',{class:'lbl'},'Condición del componente'),chips(CONDICIONES,v=>f.cond===v,v=>{f.cond=f.cond===v?'':v;reC()}),
+      h('div',{class:'lbl'},'¿Qué pasa con el acero?'),chips([{label:'Queda disponible',value:'DISPONIBLE'},{label:'En inspección',value:'INSPECCION'},{label:'Dado de baja',value:'BAJA'},{label:'Otro',value:'OTRO'}],v=>f.estado===v,v=>{f.estado=v;reC()}),
+      h('div',{class:'hint'},'Retirado no significa dado de baja. Puedes reinstalarlo después y conserva sus metros.'),
+      f.estado==='BAJA'?field('Análisis técnico de la falla',fIn(f,'analisis',{multi:true,ph:'Causa probable, evidencia, recomendación'})):null),
+    sec('4. Medición de desgaste',h('div',{class:'hint'},'Opcional.'),h('div',{class:'row'},field('Punto',fIn(f,'punto',{ph:'Ej: Diámetro'})),field('Medida',fIn(f,'medida',{mode:'decimal'})),field('Unidad',fIn(f,'unidad',{ph:'mm'})))),
+    sec(null,field('Observaciones',fIn(f,'obs',{multi:true,ph:'Opcional'})),photoPick(f),errorsBox(f.errs),
+      h('button',{type:'button',class:'btn primary',onclick:()=>saveRetiro(i,a,f)},icon('check'),'Guardar retiro'))]}};
+async function saveRetiro(i,a,f){const errs=[];if(!f.ts)errs.push('Falta la fecha y hora.');if(f.ts&&f.ts<i.tsIn)errs.push(`La fecha de retiro es anterior a la instalación (${fmtTs(i.tsIn)}).`);
+  const motivo=f.motivo==='Otro'?T(f.motivoOtro):f.motivo;if(!motivo)errs.push('Elige el motivo del retiro.');
+  const v=readLectura(f,i.equipo,f.ts,errs);if(v!=null&&i.lecturaIn&&!f.reinicio){const li=lectById(i.lecturaIn);if(li&&v<li.valor)errs.push('La lectura de retiro es menor que la de instalación.')}
+  if(errs.length){f.errs=errs;return reC()}
+  const ops=[];const ni=Object.assign({},i,{tsOut:f.ts,lecturaOut:null,motivo,condicion:f.cond||'',estadoSalida:f.estado,analisis:T(f.analisis),obsOut:T(f.obs),fotos:f.fotos||[]});
+  if(v!=null){const l={id:uidA(),equipo:i.equipo,ts:f.ts,valor:v,reinicio:!!f.reinicio,origen:'retiro',ref:i.id,seq:Date.now()};ni.lecturaOut=l.id;ops.push(['lecturas',l])}
+  const na=Object.assign({},a,{estado:f.estado});ops.push(['instalaciones',ni],['aceros',na]);
+  if(T(f.medida))ops.push(['mediciones',{id:uidA(),aceroId:a.id,equipo:i.equipo,ts:f.ts,puntos:[{punto:T(f.punto)||'Medición',medida:T(f.medida),unidad:T(f.unidad)}],condicion:f.cond||'',obs:'Medición al retiro',fotos:[]}]);
+  await adbTx(ops);
+  C('done',{title:f.estado==='BAJA'?'Baja registrada':'Retiro guardado',sub:`${a.serie} sale de ${i.equipo} · ${i.posicion}`,text:msgMov('ret',na,ni,calc()),files:f.fotos||[],aceroId:a.id,again:'ret'})}
+
+SCREENS.med={title:'Registrar medición',icon:'mediciones',render(c){const f=ctl.f;f.eq=f.eq||ctl.p.eq||ctl.eq;f.ts=f.ts||nowLocal();f.puntos=f.puntos||[{punto:'Diámetro',medida:'',unidad:'mm'}];if(ctl.p.aceroId&&!f.aceroId)f.aceroId=ctl.p.aceroId;
+  const list=installedOn(c,f.eq);const a=f.aceroId?aceroById(f.aceroId):null;const mod=a?findModel(a.tipo,a.modelo):null;
+  const lim=p=>mod&&(mod.limites||[]).find(l=>l.punto.toLowerCase()===T(p.punto).toLowerCase());
+  return[sec('1. Acero',eqPick(f.eq,v=>{f.eq=v;f.aceroId='';reC()}),list.length?h('div',{class:'pickl'},list.map(x=>h('button',{type:'button',class:'chip','aria-pressed':String(f.aceroId===x.a.id),onclick:()=>{f.aceroId=x.a.id;reC()}},`${x.i.posicion} · ${x.a.serie}`))):h('div',{class:'hint'},'No hay aceros instalados en '+f.eq+'.'),
+      a?h('div',{class:'known'},h('b',{},`${a.tipo}${a.modelo?' '+a.modelo:''}`),h('div',{},`Serie ${a.serie} · ${fmtM(c.ac[a.id].total)}`)):null),
+    sec('2. Mediciones',field('Fecha y hora',fIn(f,'ts',{type:'datetime-local'})),
+      ...f.puntos.map((p,k)=>{const L=lim(p);const v=parseM(p.medida);const out=L&&v!=null&&!isNaN(v)&&((L.min!=null&&v<L.min)||(L.max!=null&&v>L.max));
+        return h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},'Punto '+(k+1)),f.puntos.length>1?h('button',{type:'button',class:'btn x',onclick:()=>{f.puntos.splice(k,1);reC()}},'Quitar'):null),
+          chips(PUNTOS,v=>p.punto===v,v=>{p.punto=v==='Otro'?'':v;reC()}),field('Punto de medición',fIn(p,'punto',{ph:'Ej: Hilo BOX'})),
+          h('div',{class:'row'},field('Medida',fIn(p,'medida',{mode:'decimal'})),field('Unidad',fIn(p,'unidad',{ph:'mm'}))),
+          L?h('div',{class:out?'note':'hint'},`Límite ${L.verificado?'verificado':'referencial (sin verificar)'}: ${L.min!=null?'mín '+L.min:''}${L.min!=null&&L.max!=null?' · ':''}${L.max!=null?'máx '+L.max:''} ${L.unidad||''}${out?' · Fuera del límite, solo informativo.':''}`):null)}),
+      h('button',{type:'button',class:'btn add',onclick:()=>{f.puntos.push({punto:'',medida:'',unidad:'mm'});reC()}},'+ Agregar otro punto')),
+    sec('3. Condición',chips(CONDICIONES,v=>f.cond===v,v=>{f.cond=f.cond===v?'':v;reC()}),field('Observaciones técnicas',fIn(f,'obs',{multi:true})),photoPick(f),errorsBox(f.errs),
+      h('button',{type:'button',class:'btn primary',onclick:async()=>{const errs=[];if(!a)errs.push('Elige el acero medido.');const pts=f.puntos.filter(p=>T(p.medida));if(!pts.length)errs.push('Ingresa al menos una medida.');
+        if(errs.length){f.errs=errs;return reC()}const i=c.ac[a.id].open;const m={id:uidA(),aceroId:a.id,equipo:i?i.equipo:f.eq,ts:f.ts,puntos:pts.map(p=>({punto:T(p.punto)||'Medición',medida:T(p.medida),unidad:T(p.unidad)})),condicion:f.cond||'',obs:T(f.obs),fotos:f.fotos||[]};
+        await adbTx([['mediciones',m]]);C('done',{title:'Medición guardada',sub:`${a.serie} · ${m.puntos.length} punto${m.puntos.length>1?'s':''}`,text:msgMedicion(m,a),files:m.fotos,aceroId:a.id,again:'med'})}},icon('check'),'Guardar medición'))]}};
+
+SCREENS.mes={title:'Movimiento mensual',icon:'chart',render(c){const f=ctl.f;f.month=f.month||todayISO().slice(0,7);if(f.eq===undefined)f.eq=ctl.p.eq??ctl.eq;
+  const tipos=[...new Set(ADB.data.aceros.map(a=>a.tipo))].sort();const modelos=[...new Set(ADB.data.aceros.filter(a=>!f.tipo||a.tipo===f.tipo).map(a=>a.modelo).filter(Boolean))].sort();
+  const st=monthStats(c,f);const mi=h('input',{type:'month',value:f.month,id:'mes-m'});mi.addEventListener('change',()=>{f.month=mi.value||todayISO().slice(0,7);reC()});
+  return[sec(null,field('Mes',mi),eqPick(f.eq,v=>{f.eq=v;reC()},{all:true}),
+      h('div',{class:'lbl'},'Tipo de acero'),chips(['Todos',...tipos],v=>(f.tipo||'Todos')===v,v=>{f.tipo=v==='Todos'?'':v;f.modelo='';reC()}),
+      modelos.length>1?[h('div',{class:'lbl'},'Modelo'),chips(['Todos',...modelos],v=>(f.modelo||'Todos')===v,v=>{f.modelo=v==='Todos'?'':v;reC()})]:null,
+      h('div',{class:'lbl'},'Estado actual'),chips([{label:'Todos',value:''},...Object.keys(ESTADO_LBL).map(k=>({label:ESTADO_LBL[k],value:k}))],v=>(f.estado||'')===v,v=>{f.estado=v;reC()})),
+    sec(`${f.eq||'Todas'} · ${monthLabel(f.month)}${f.tipo?' · '+f.tipo:''}`,h('div',{class:'stats'},stat(st.ins,'Instalaciones del mes'),stat(st.ret,'Retiros del mes'),stat(st.uniq,'Aceros diferentes usados'),stat(st.now,'Instalados hoy')),
+      h('div',{class:'hint'},'Una serie instalada dos veces cuenta 2 instalaciones y 1 acero diferente.'),
+      st.rows.length?h('div',{class:'tscroll'},h('table',{class:'tbl'},h('thead',{},h('tr',{},['Serie','Equipo','Instalación','Salida','Estado','Metros'].map(t=>h('th',{},t)))),
+        h('tbody',{},st.rows.map(r=>h('tr',{onclick:()=>C('acero',{id:r.a.id})},h('td',{class:'mono'},r.a.serie),h('td',{},r.i.equipo),h('td',{},fmtD(r.i.tsIn)),h('td',{},r.i.tsOut?fmtD(r.i.tsOut):'—'),h('td',{},r.i.tsOut?'Retirado':'Instalado'),h('td',{class:'num'},fmtN(c.inst[r.i.id].m)+(c.inst[r.i.id].pend.length?' ⚠':''))))))):h('div',{class:'hint'},'Sin movimientos con estos filtros.')),
+    st.rows.length?msgCard(msgMes(st,f),'Jefatura / WhatsApp'):null]}};
+
+SCREENS.acero={title:'Historial del acero',icon:'aceros',render(c){const a=aceroById(ctl.p.id);if(!a)return h('div',{class:'hint'},'No se encontró el acero.');const inf=c.ac[a.id];
+  const meds=ADB.data.mediciones.filter(m=>m.aceroId===a.id).sort((x,y)=>x.ts<y.ts?1:-1);const aud=ADB.data.auditoria.filter(x=>x.refId===a.id||inf.list.some(i=>i.id===x.refId||i.lecturaIn===x.refId||i.lecturaOut===x.refId)).sort((x,y)=>x.ts<y.ts?1:-1);
+  return[sec(null,h('div',{class:'ahead'},h('div',{},h('div',{class:'hint'},a.tipo+(a.modelo?' · '+a.modelo:'')),h('b',{class:'mono big'},a.serie)),pill(a.estado)),
+      inf.open?h('div',{class:'hint'},`Instalado en ${inf.open.equipo} · ${inf.open.posicion} desde ${fmtTs(inf.open.tsIn)}`):null,gbar(inf),pendBox(inf.pend),
+      a.metrosPrevios?h('div',{class:'hint'},`Incluye ${fmtM(a.metrosPrevios)} anteriores al registro.`):null,
+      h('div',{class:'btn-row'},inf.open?h('button',{type:'button',class:'btn ghost small',onclick:()=>C('ret',{eq:inf.open.equipo,id:inf.open.id})},'Retirar'):h('button',{type:'button',class:'btn ghost small',onclick:()=>{C('inst',{eq:ctl.eq});ctl.f.serie=a.serie;reC()}},'Reinstalar'),
+        h('button',{type:'button',class:'btn ghost small',onclick:()=>C('med',{eq:inf.open?inf.open.equipo:ctl.eq,aceroId:a.id})},'Medir'))),
+    sec('Instalaciones',inf.list.length?h('div',{class:'tl'},[...inf.list].reverse().map(i=>{const li=i.lecturaIn&&lectById(i.lecturaIn),lo=i.lecturaOut&&lectById(i.lecturaOut);
+      return h('div',{class:'tli',style:`--dc:var(--${i.equipo.toLowerCase()})`},h('div',{class:'tlh'},h('b',{},`${i.equipo} · ${i.posicion}`),h('b',{class:'mono'},fmtM(c.inst[i.id].m))),
+        h('div',{class:'hint'},`${fmtTs(i.tsIn)} → ${i.tsOut?fmtTs(i.tsOut):'instalado'}`),
+        h('div',{class:'lects'},h('span',{},'Lectura entrada: '+(li?fmtM(li.valor):'falta')),li?h('button',{type:'button',class:'link-btn',onclick:()=>C('corr',{kind:'lectura',id:li.id,back:a.id})},'corregir'):null),
+        i.tsOut?h('div',{class:'lects'},h('span',{},'Lectura salida: '+(lo?fmtM(lo.valor):'falta')),lo?h('button',{type:'button',class:'link-btn',onclick:()=>C('corr',{kind:'lectura',id:lo.id,back:a.id})},'corregir'):null):null,
+        i.tsOut?h('div',{class:'hint'},`${i.motivo}${i.condicion?' · '+i.condicion:''} · ${ESTADO_LBL[i.estadoSalida]||''}`):null,pendBox(c.inst[i.id].pend))})):h('div',{class:'hint'},'Sin instalaciones registradas.')),
+    meds.length?sec('Mediciones',...meds.map(m=>h('div',{class:'card'},h('b',{},fmtTs(m.ts)+' · '+m.equipo),...m.puntos.map(p=>h('div',{},`${p.punto}: ${p.medida} ${p.unidad||''}`)),m.condicion?h('div',{class:'hint'},m.condicion):null,m.obs?h('div',{class:'hint'},m.obs):null,
+      (m.fotos||[]).length?h('div',{class:'photos'},m.fotos.map(ph=>h('div',{class:'thumb'},h('img',{src:URL.createObjectURL(ph),alt:''})))):null))):null,
+    sec('Correcciones y ajustes',aud.length?h('div',{class:'rows'},aud.map(x=>h('div',{class:'card'},h('b',{},`${fmtTs(x.ts)} · ${x.campo}`),h('div',{},`${x.antes||'—'} → ${x.despues||'—'}`),h('div',{class:'hint'},'Motivo: '+x.motivo)))):h('div',{class:'hint'},'Sin correcciones.'),
+      h('div',{class:'btn-row'},h('button',{type:'button',class:'btn ghost small',onclick:()=>C('corr',{kind:'previos',id:a.id})},'Metros anteriores'),!inf.open?h('button',{type:'button',class:'btn ghost small',onclick:()=>C('corr',{kind:'estado',id:a.id})},'Cambiar estado'):null))]}};
+
+SCREENS.corr={title:'Corrección',icon:'reset',back:()=>ctl.p.back?C('acero',{id:ctl.p.back}):ctl.p.from==='lect'?C('lect'):ctl.p.kind!=='lectura'?C('acero',{id:ctl.p.id}):C('home'),render(c){const f=ctl.f;const k=ctl.p.kind;
+  let title,cur_,fields;
+  if(k==='lectura'){const l=lectById(ctl.p.id);title=`Lectura de ${l.equipo} · ${fmtTs(l.ts)}`;cur_=`${fmtM(l.valor)}${l.reinicio?' (reinicio)':''}`;if(f.reinicio===undefined)f.reinicio=!!l.reinicio;
+    fields=[field('Valor correcto',fIn(f,'valor',{mode:'decimal',ph:fmtN(l.valor)})),field('Fecha y hora correcta',fIn(f,'ts',{type:'datetime-local',ph:''}),'Déjala vacía si la fecha está bien.'),h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!f.reinicio,onchange:e=>{f.reinicio=e.target.checked}}),'Esta lectura es un reinicio del contador'),
+      l.origen==='actualizacion'?h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!f.anular,onchange:e=>{f.anular=e.target.checked}}),'Anular esta lectura (fue un error)'):null]}
+  else if(k==='previos'){const a=aceroById(ctl.p.id);title=`Metros anteriores · ${a.serie}`;cur_=fmtM(a.metrosPrevios||0);fields=[field('Valor correcto',fIn(f,'valor',{mode:'decimal'}))]}
+  else{const a=aceroById(ctl.p.id);title=`Estado · ${a.serie}`;cur_=ESTADO_LBL[a.estado];f.estado=f.estado||a.estado;fields=[chips(['DISPONIBLE','INSPECCION','BAJA','BODEGA','OTRO'].map(x=>({label:ESTADO_LBL[x],value:x})),v=>f.estado===v,v=>{f.estado=v;reC()})]}
+  return[sec(title,h('div',{class:'kv'},h('span',{},'Dato actual'),h('b',{},cur_)),...fields,field('Motivo de la corrección',fIn(f,'motivo',{multi:true,ph:'Obligatorio. Ej: error de digitación'})),h('div',{class:'hint'},'El dato anterior queda guardado en el historial con fecha y motivo.'),errorsBox(f.errs),
+    h('button',{type:'button',class:'btn primary',onclick:async()=>{const errs=[];if(!T(f.motivo))errs.push('Escribe el motivo de la corrección.');const ops=[];
+      if(k==='lectura'){const l=lectById(ctl.p.id);const nl=Object.assign({},l);
+        if(f.anular){nl.anulada=true;ops.push(audit('lectura',l.id,`Lectura ${l.equipo} anulada`,fmtN(l.valor),'anulada',f.motivo))}
+        else{const v=T(f.valor)?parseM(f.valor):l.valor;const ts=T(f.ts)||l.ts;if(isNaN(v))errs.push('Valor no válido.');else{const e=validLectura(l.equipo,ts,v,!!f.reinicio,l.id);if(e)errs.push(e)}
+          if(!errs.length){if(v!==l.valor)ops.push(audit('lectura',l.id,`Lectura ${l.equipo} ${fmtTs(l.ts)}`,fmtN(l.valor),fmtN(v),f.motivo));if(ts!==l.ts)ops.push(audit('lectura',l.id,`Fecha lectura ${l.equipo}`,fmtTs(l.ts),fmtTs(ts),f.motivo));if(!!f.reinicio!==!!l.reinicio)ops.push(audit('lectura',l.id,'Reinicio de contador',l.reinicio?'sí':'no',f.reinicio?'sí':'no',f.motivo));
+            nl.valor=v;nl.ts=ts;nl.reinicio=!!f.reinicio;
+            /* si la lectura es de una instalación/retiro, la fecha del movimiento la acompaña */
+            const i=ADB.data.instalaciones.find(z=>z.lecturaIn===l.id||z.lecturaOut===l.id);if(i&&ts!==l.ts){const ni=Object.assign({},i);if(i.lecturaIn===l.id)ni.tsIn=ts;else ni.tsOut=ts;ops.push(['instalaciones',ni])}}}
+        if(!errs.length&&ops.length===0)errs.push('No cambiaste ningún dato.');ops.push(['lecturas',nl])}
+      else if(k==='previos'){const a=aceroById(ctl.p.id);const v=parseM(f.valor);if(v==null||isNaN(v)||v<0)errs.push('Valor no válido.');else ops.push(audit('acero',a.id,'Metros anteriores',fmtN(a.metrosPrevios||0),fmtN(v),f.motivo),['aceros',Object.assign({},a,{metrosPrevios:v})])}
+      else{const a=aceroById(ctl.p.id);if(f.estado===a.estado)errs.push('Elige un estado distinto.');else ops.push(audit('acero',a.id,'Estado',ESTADO_LBL[a.estado],ESTADO_LBL[f.estado],f.motivo),['aceros',Object.assign({},a,{estado:f.estado})])}
+      if(errs.length){f.errs=errs;return reC()}await adbTx(ops);toast('Corrección guardada');SCREENS.corr.back()}},icon('check'),'Guardar corrección'))]}};
+
+SCREENS.cat={title:'Catálogo y garantías',icon:'book',render(c){const by={};ADB.data.modelos.forEach(m=>(by[m.tipo]=by[m.tipo]||[]).push(m));
+  return[h('div',{class:'banner'},'Las garantías y los límites de desgaste son referenciales. Valídalos con el fabricante antes de usarlos para decidir cambios.'),
+    ...Object.keys(by).sort().map(t=>sec(t,...by[t].map(m=>h('button',{type:'button',class:'mrow',onclick:()=>C('modelo',{id:m.id})},h('div',{},h('b',{},m.modelo||'(sin modelo)'),h('div',{class:'hint'},`${(m.limites||[]).length} límite${(m.limites||[]).length===1?'':'s'} de desgaste`)),h('b',{class:'mono'},m.garantia?fmtM(m.garantia):'Sin garantía'))))),
+    h('button',{type:'button',class:'btn add',onclick:()=>C('modelo',{})},'+ Agregar modelo')]}};
+SCREENS.modelo={title:'Modelo',icon:'book',back:()=>C('cat'),render(c){const f=ctl.f;const m=ctl.p.id?ADB.data.modelos.find(x=>x.id===ctl.p.id):null;
+  if(!f.init){f.init=1;f.tipo=m?m.tipo:'';f.modelo=m?m.modelo:'';f.garantia=m&&m.garantia?fmtN(m.garantia):'';f.limites=m?(m.limites||[]).map(l=>Object.assign({},l,{min:l.min??'',max:l.max??''})):[]}
+  const tipos=[...new Set([...TIPOS_ACERO.ROTARY,...TIPOS_ACERO.DTH])];
+  return[sec(m?'Editar modelo':'Nuevo modelo',h('div',{class:'lbl'},'Tipo'),chips(tipos,v=>f.tipo===v,v=>{f.tipo=v;reC()}),field('O escribe el tipo',fIn(f,'tipo')),field('Modelo',fIn(f,'modelo',{ph:'Ej: TM70GS 7 7/8"'})),field('Garantía (metros)',fIn(f,'garantia',{mode:'decimal',ph:'Ej: 25.000'}))),
+    sec('Límites de desgaste',h('div',{class:'hint'},'Configurables por punto. Márcalos como verificados solo si vienen de una referencia técnica validada.'),
+      ...f.limites.map((l,k)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},l.punto||'Punto '+(k+1)),h('button',{type:'button',class:'btn x',onclick:()=>{f.limites.splice(k,1);reC()}},'Quitar')),
+        field('Punto',fIn(l,'punto',{ph:'Ej: Diámetro'})),h('div',{class:'row'},field('Mínimo',fIn(l,'min',{mode:'decimal'})),field('Máximo',fIn(l,'max',{mode:'decimal'})),field('Unidad',fIn(l,'unidad',{ph:'mm'}))),
+        h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!l.verificado,onchange:e=>{l.verificado=e.target.checked}}),'Límite verificado con referencia técnica'))),
+      h('button',{type:'button',class:'btn add',onclick:()=>{f.limites.push({punto:'',min:'',max:'',unidad:'mm',verificado:false});reC()}},'+ Agregar límite')),
+    sec(null,m?field('Motivo del cambio',fIn(f,'motivo',{ph:'Obligatorio si cambias la garantía'})):null,errorsBox(f.errs),h('button',{type:'button',class:'btn primary',onclick:async()=>{const errs=[];if(!T(f.tipo))errs.push('Indica el tipo.');if(!T(f.modelo))errs.push('Indica el modelo.');
+      const g=parseM(f.garantia);if(g!=null&&(isNaN(g)||g<=0))errs.push('Garantía no válida.');const dup=findModel(f.tipo,f.modelo);if(dup&&(!m||dup.id!==m.id))errs.push('Ese modelo ya existe en el catálogo.');
+      if(m&&(m.garantia||null)!==(g||null)&&!T(f.motivo))errs.push('Escribe el motivo del cambio de garantía.');if(errs.length){f.errs=errs;return reC()}
+      const pn=x=>{const v=parseM(x);return v==null||isNaN(v)?null:v};const nm={id:m?m.id:uidA(),tipo:T(f.tipo),modelo:T(f.modelo),garantia:g||null,limites:f.limites.filter(l=>T(l.punto)).map(l=>({punto:T(l.punto),min:pn(l.min),max:pn(l.max),unidad:T(l.unidad),verificado:!!l.verificado}))};
+      const ops=[['modelos',nm]];if(m&&(m.garantia||null)!==(g||null))ops.push(audit('modelo',m.id,`Garantía ${m.tipo} ${m.modelo}`,m.garantia?fmtN(m.garantia):'',g?fmtN(g):'',f.motivo));
+      if(m&&(m.tipo!==nm.tipo||m.modelo!==nm.modelo)){ADB.data.aceros.filter(a=>a.tipo===m.tipo&&a.modelo===m.modelo).forEach(a=>ops.push(['aceros',Object.assign({},a,{tipo:nm.tipo,modelo:nm.modelo})]))}
+      await adbTx(ops);toast('Modelo guardado');C('cat')}},icon('check'),'Guardar modelo'))]}};
+
+SCREENS.datos={title:'Exportar y respaldo',icon:'db',render(c){const D=ADB.data;const bk=store.get('aceros-backup',null);
+  const file=h('input',{type:'file',accept:'application/json,.json',hidden:true});const f=ctl.f;
+  file.addEventListener('change',async()=>{const fl=file.files[0];if(!fl)return;try{const j=JSON.parse(await fl.text());if(!j||j.app!=='reportes-cda-aceros'||!j.data)throw 0;f.pending=j;f.err='';reC()}catch(e){f.err='El archivo no es un respaldo válido de Control de Aceros.';reC()}});
+  return[sec('Registro',h('div',{class:'stats'},stat(D.aceros.length,'Aceros con serie'),stat(D.instalaciones.length,'Instalaciones'),stat(D.lecturas.length,'Lecturas'),stat(D.mediciones.length,'Mediciones')),
+      h('div',{class:'hint'},ADB.mem?'Sin almacenamiento disponible en este navegador.':'Los datos se guardan en este iPhone, dentro de la app instalada. Si se borra la app, se borran los datos: respalda seguido.')),
+    sec('Exportar',h('button',{type:'button',class:'btn primary',onclick:()=>{shareFile(buildXlsx(calc()),`Aceros_CDA_${ADB.mode==='demo'?'PRACTICA_':''}${todayISO()}.xlsx`)}},icon('share'),'Exportar a Excel'),h('div',{class:'hint'},'Hojas: inventario, instalaciones, lecturas, mediciones, catálogo y correcciones.')),
+    sec('Respaldo',h('button',{type:'button',class:'btn dark',onclick:()=>{const j={app:'reportes-cda-aceros',version:1,modo:ADB.mode,exportado:nowLocal(),data:Object.fromEntries(STORES.map(s=>[s,D[s].map(x=>{const y=Object.assign({},x);delete y.fotos;return y})]))};
+        shareFile(new Blob([JSON.stringify(j)],{type:'application/json'}),`Respaldo_Aceros_${ADB.mode==='demo'?'PRACTICA_':''}${todayISO()}.json`);if(ADB.mode==='real')store.set('aceros-backup',Date.now())}},icon('db'),'Crear respaldo'),
+      h('div',{class:'hint'},bk?`Último respaldo: hace ${Math.floor((Date.now()-bk)/864e5)} día(s). `:'Aún no hay respaldo. ','Guárdalo en Archivos, iCloud o envíatelo por correo. Las fotos no se incluyen.'),
+      h('button',{type:'button',class:'btn ghost',onclick:()=>file.click()},'Restaurar desde un respaldo'),file,f.err?h('div',{class:'note'},f.err):null,
+      f.pending?h('div',{class:'card'},h('b',{},`Respaldo del ${fmtTs(f.pending.exportado)} (${f.pending.modo==='demo'?'práctica':'registro real'})`),h('div',{},`${(f.pending.data.aceros||[]).length} aceros · ${(f.pending.data.instalaciones||[]).length} instalaciones`),
+        h('div',{class:'note'},`Reemplaza todos los datos del ${ADB.mode==='demo'?'modo práctica':'registro real'} de este teléfono.`),
+        h('button',{type:'button',class:'btn'+(f.arm?' danger':' dark'),onclick:async()=>{if(!f.arm){f.arm=1;return reC()}await adbClearAll();const ops=[];STORES.forEach(s=>(f.pending.data[s]||[]).forEach(o=>ops.push([s,o])));await adbTx(ops);ctl.f={};toast('Respaldo restaurado');C('home')}},f.arm?'Toca otra vez para confirmar':'Restaurar este respaldo')):null),
+    sec('Modo de uso',h('div',{class:'hint'},'El modo práctica usa una base de datos separada con datos de ejemplo. Nunca se mezcla con el registro real.'),
+      h('div',{class:'btn-row'},h('button',{type:'button',class:'btn '+(ADB.mode==='real'?'dark':'ghost'),onclick:async()=>{if(ADB.mode!=='real'){await setMode('real');C('home')}}},'Registro real'),h('button',{type:'button',class:'btn '+(ADB.mode==='demo'?'dark':'ghost'),onclick:async()=>{if(ADB.mode!=='demo'){await setMode('demo');C('home')}}},'Práctica')),
+      ADB.mode==='demo'?h('button',{type:'button',class:'btn ghost small',onclick:async()=>{await adbClearAll();await seedDemo();toast('Datos de práctica reiniciados');reC()}},'Reiniciar datos de práctica'):null)]}};
+
+SCREENS.done={title:'Guardado',icon:'check',back:()=>C('home'),render(c){const p=ctl.p;return[h('section',{class:'sec okbox'},h('span',{class:'okic'},icon('check',3)),h('b',{},p.title),h('div',{class:'hint'},p.sub)),
+  msgCard(p.text,'Asistencia Técnica',p.files||[]),
+  h('div',{class:'btn-col'},p.aceroId?h('button',{type:'button',class:'btn ghost',onclick:()=>C('acero',{id:p.aceroId})},'Ver historial del acero'):null,p.again?h('button',{type:'button',class:'btn ghost',onclick:()=>C(p.again,{eq:ctl.eq})},{inst:'Instalar otro acero',ret:'Retirar otro acero',med:'Registrar otra medición'}[p.again]):null,
+    h('button',{type:'button',class:'btn dark',onclick:()=>C('home')},'Volver al Control de Aceros'))]}};
+
+/* ---------- Excel (.xlsx) sin librerías ---------- */
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_T[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zipStore(files,type){const enc=new TextEncoder();const parts=[],cd=[];let off=0;
+  for(const f of files){const nm=enc.encode(f.name),d=typeof f.data==='string'?enc.encode(f.data):f.data,crc=crc32(d);
+    const lh=new DataView(new ArrayBuffer(30));lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);lh.setUint16(10,0,true);lh.setUint16(12,0x21,true);lh.setUint32(14,crc,true);lh.setUint32(18,d.length,true);lh.setUint32(22,d.length,true);lh.setUint16(26,nm.length,true);lh.setUint16(28,0,true);
+    parts.push(new Uint8Array(lh.buffer),nm,d);
+    const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);ch.setUint16(12,0,true);ch.setUint16(14,0x21,true);ch.setUint32(16,crc,true);ch.setUint32(20,d.length,true);ch.setUint32(24,d.length,true);ch.setUint16(28,nm.length,true);ch.setUint32(42,off,true);
+    cd.push(new Uint8Array(ch.buffer),nm);off+=30+nm.length+d.length}
+  const cs=cd.reduce((s,b)=>s+b.length,0);const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type})}
+const xesc=s=>String(s).replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+function colL(i){let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s}
+function sheetXml(rows){return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetData>'+
+  rows.map((r,ri)=>`<row r="${ri+1}">`+r.map((v,ci)=>{const ref=colL(ci)+(ri+1);if(v==null||v==='')return '';if(typeof v==='number'&&isFinite(v))return `<c r="${ref}"><v>${v}</v></c>`;return `<c r="${ref}" t="inlineStr"${ri===0?' s="1"':''}><is><t xml:space="preserve">${xesc(v)}</t></is></c>`}).join('')+'</row>').join('')+'</sheetData></worksheet>'}
+function buildXlsx(c){const D=ADB.data;const pct=x=>x==null?'':Math.round(x*1000)/10;
+  const sheets=[
+    ['Inventario',[['Serie','Tipo','Modelo','Estado','Perforadora','Posición','Instalación','Metros acumulados','Garantía (m)','% garantía','Alerta','Pendiente de verificación']].concat(D.aceros.map(a=>{const i=c.ac[a.id];return[a.serie,a.tipo,a.modelo||'',ESTADO_LBL[a.estado],i.open?i.open.equipo:'',i.open?i.open.posicion:'',i.open?fmtTs(i.open.tsIn):'',Math.round(i.total),i.gar||'',pct(i.pct),gLevel(i.pct).t,i.pend.join('; ')]}))],
+    ['Instalaciones',[['Serie','Tipo','Modelo','Perforadora','Posición','Fecha instalación','Lectura instalación','Fecha retiro','Lectura retiro','Metros del período','Motivo','Condición','Estado al retirar','Análisis','Obs. instalación','Obs. retiro','Pendiente']].concat(D.instalaciones.slice().sort((x,y)=>x.tsIn<y.tsIn?-1:1).map(i=>{const a=aceroById(i.aceroId)||{};const li=i.lecturaIn&&lectById(i.lecturaIn),lo=i.lecturaOut&&lectById(i.lecturaOut);
+      return[a.serie,a.tipo,a.modelo||'',i.equipo,i.posicion,fmtTs(i.tsIn),li?li.valor:'',i.tsOut?fmtTs(i.tsOut):'',lo?lo.valor:'',Math.round(c.inst[i.id].m),i.motivo||'',i.condicion||'',i.estadoSalida?ESTADO_LBL[i.estadoSalida]:'',i.analisis||'',i.obsIn||'',i.obsOut||'',c.inst[i.id].pend.join('; ')]}))],
+    ['Lecturas',[['Perforadora','Fecha','Lectura','Reinicio','Origen','Anulada','Error']].concat(D.lecturas.slice().sort(sortL).map(l=>[l.equipo,fmtTs(l.ts),l.valor,l.reinicio?'Sí':'',l.origen,l.anulada?'Sí':'',c.bad.has(l.id)?'Menor que la anterior':'']))],
+    ['Mediciones',[['Serie','Perforadora','Fecha','Punto','Medida','Unidad','Condición','Observaciones']].concat(D.mediciones.flatMap(m=>{const a=aceroById(m.aceroId)||{};return m.puntos.map(p=>[a.serie,m.equipo,fmtTs(m.ts),p.punto,p.medida,p.unidad,m.condicion||'',m.obs||''])}))],
+    ['Catalogo',[['Tipo','Modelo','Garantía (m)','Límites de desgaste']].concat(D.modelos.map(m=>[m.tipo,m.modelo,m.garantia||'',(m.limites||[]).map(l=>`${l.punto}: ${l.min??''}-${l.max??''} ${l.unidad||''}${l.verificado?' (verificado)':' (referencial)'}`).join('; ')]))],
+    ['Correcciones',[['Fecha','Entidad','Campo','Antes','Después','Motivo']].concat(D.auditoria.slice().sort((x,y)=>x.ts<y.ts?-1:1).map(x=>[fmtTs(x.ts),x.entidad,x.campo,x.antes,x.despues,x.motivo]))]];
+  const ns='http://schemas.openxmlformats.org/';
+  const files=[{name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="${ns}package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`},
+    {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="${ns}package/2006/relationships"><Relationship Id="rId1" Type="${ns}officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+    {name:'xl/workbook.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="${ns}spreadsheetml/2006/main" xmlns:r="${ns}officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${s[0]}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`},
+    {name:'xl/_rels/workbook.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="${ns}package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="${ns}officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="${ns}officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name:'xl/styles.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="${ns}spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs></styleSheet>`},
+    ...sheets.map((s,i)=>({name:`xl/worksheets/sheet${i+1}.xml`,data:sheetXml(s[1])}))];
+  return zipStore(files,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}
+
+/* ---------- integración con reportes existentes ---------- */
+function medAceroSec(s){if(!ADB.ready)return null;const list=installedOn(calc(),s.drill);if(!list.length)return null;
+  return sec('Acero medido',h('div',{class:'hint'},'Opcional. Asocia la medición a la serie del acero instalado.'),
+    h('div',{class:'pickl'},list.map(x=>h('button',{type:'button',class:'chip','aria-pressed':String(s.aceroId===x.a.id),onclick:()=>{s.aceroId=s.aceroId===x.a.id?'':x.a.id;rerender()}},`${x.i.posicion} · ${x.a.serie}`))))}
+async function medToHistorial(s){const a=aceroById(s.aceroId);if(!a)return toast('No se encontró el acero.');
+  const pts=s.sections.filter(x=>T(x.c)).map(x=>({punto:T(x.t)||T(s.catText)||'Medición',medida:T(x.c),unidad:''}));
+  await adbTx([['mediciones',{id:uidA(),aceroId:a.id,equipo:s.drill,ts:nowLocal(),puntos:pts.length?pts:[{punto:T(s.catText)||'Inspección',medida:'Registrada',unidad:''}],condicion:'',obs:T(s.catText),fotos:s.photos||[],origen:'reporte'}]]);
+  toast(`Medición guardada en el historial de ${a.serie}`)}
+function singular(el){const [w,...r]=T(el).split(' ');if(!w)return '';const x=/[rlnd]es$/i.test(w)?w.slice(0,-2):/s$/i.test(w)?w.slice(0,-1):w;return [x.charAt(0).toUpperCase()+x.slice(1),...r].join(' ')}
+async function registrarBodega(s){if(!ADB.ready)return;const c=calc(),ts=nowLocal(),ops=[],seen={},skip=[];
+  for(const e of [...s.ret.pre,...s.ret.manual]){if(!T(e.el))continue;for(const u of fitUnits(e).units){const se=normSerie(u.serie);if(!se||seen[se])continue;seen[se]=1;
+    let a=aceroBySerie(se);if(a&&c.openBy[a.id]){skip.push(se);continue}const sal={vale:T(s.vale),ts};
+    a=a?Object.assign({},a,{estado:'BODEGA',bodega:[...(a.bodega||[]),sal]}):{id:uidA(),serie:se,tipo:singular(e.el),modelo:T(u.mod),metrosPrevios:0,estado:'BODEGA',creado:ts,bodega:[sal]};
+    ops.push(['aceros',a])}}
+  if(!ops.length)return toast(skip.length?'Esas series ya están instaladas: no se cambian.':'Anota al menos una serie.');
+  await adbTx(ops);toast(`${ops.length} serie${ops.length>1?'s':''} registrada${ops.length>1?'s':''} como salida de bodega${skip.length?` · ${skip.length} ya instalada(s) sin cambios`:''}.`)}
+
+window.CDA={MODS,blocks,fmtDur,minsBetween,calc,ADB,adbTx,setMode,monthStats,buildXlsx,validLectura,C};
+home();adbLoad().then(()=>{if(!cur&&!ctl.active)home()});
 </script>
 
 <script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>

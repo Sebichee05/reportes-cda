@@ -4,3 +4,8 @@ REPORTES CDA – versión instalable (PWA)
 2. En el iPhone, abrir el link en Safari > Compartir > "Agregar a pantalla de inicio".
 3. Abrirla una vez con señal. Desde ahí funciona sin conexión.
 4. Para actualizar: cambiar archivos, subir de nuevo y cambiar V='cda-v1' a 'cda-v2' en sw.js.
+
+CONTROL DE ACEROS (versión cda-v5)
+- Los registros se guardan en el iPhone (IndexedDB), dentro de la app instalada desde la pantalla de inicio.
+- Si se borra la app o los datos de Safari, se pierden: crear respaldo seguido (Control de Aceros > Exportar y respaldo).
+- El modo práctica usa otra base de datos; nunca se mezcla con el registro real.
