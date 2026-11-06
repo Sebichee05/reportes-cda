@@ -613,8 +613,32 @@ function openWA(){location.href='whatsapp://send?text='+encodeURIComponent(els.t
 /* ===================== CONTROL DE ACEROS · datos ===================== */
 const EQUIPOS=[{id:'D06',tipo:'DTH',modelo:'DI650i'},{id:'D07',tipo:'ROTARY',modelo:'DM45'},{id:'D08',tipo:'ROTARY',modelo:'DM45'},{id:'D09',tipo:'ROTARY',modelo:'DM45'}];
 const EQ=Object.fromEntries(EQUIPOS.map(e=>[e.id,e]));
-const TIPOS_ACERO={ROTARY:['Tricono','Barra','Barra patera','Barra seguidora','Bitsub','Adaptador','Anillo centralizador'],DTH:['Bit','Martillo','Barra','Barra patera','Portabit','Adaptador','Anillo centralizador']};
-const POSICIONES={ROTARY:['Tricono','Bitsub','Adaptador','BARRA1','BARRA2','BARRA3','BARRA4','Barra patera','Barra seguidora','Anillo centralizador'],DTH:['Bit','Martillo','Portabit','Adaptador','BARRA1','BARRA2','BARRA3','BARRA4','Barra patera','Anillo centralizador']};
+const TIPOS_ACERO={ROTARY:['Tricono','Bit Sub','Barra','Top Sub','Amortiguador','Deck Bushing','Clamp'],DTH:['Bit','Martillo','Barra','Adaptador superior','Amortiguador']};
+const POSICIONES={ROTARY:['Tricono','Bit Sub','BARRA1','BARRA2','BARRA3','BARRA4','Barra patera','Barra seguidora','Top Sub','Amortiguador','Deck Bushing','Clamp'],DTH:['Bit','Martillo','BARRA1','BARRA2','BARRA3','BARRA4','Adaptador superior','Amortiguador']};
+/* Catálogo base: planilla de bodega TM (garantías en metros, precios en USD). Los modelos sin garantía quedan sin alerta hasta que el cliente la confirme. */
+const MR={tri70:`TM70GS 7 7/8" (terreno duro)`,tri53:`TM53S 7 7/8" (terreno mediano)`,barR:`6 1/2" x 30' hilos 4 BECO`,barD:`DTH 6 m x 114 mm API 3 1/2"`,mart:`DTH 3 1/2" API REG`,bit6:`BIT0612TM 6 1/2"`};
+const CATALOGO_TECK=[
+  {flota:'ROTARY',tipo:'Amortiguador',modelo:`PD6 6 1/2" PIN 4 IF BOX BECO 4`,codigo:'2048115',precio:7172,garantia:50000},
+  {flota:'ROTARY',tipo:'Top Sub',modelo:`6 1/2" x 10" hilos 4 BECO`,codigo:'2048116',precio:838,garantia:18000,nota:'Adaptador superior'},
+  {flota:'ROTARY',tipo:'Barra',modelo:MR.barR,codigo:'2048117',precio:5138,garantia:25000},
+  {flota:'ROTARY',tipo:'Bit Sub',modelo:`6 1/2" x 30" 4 BECO - 4 1/2" API Reg`,codigo:'2048118',precio:1938,garantia:25000,nota:'Adaptador de tricono'},
+  {flota:'ROTARY',tipo:'Deck Bushing',modelo:`6 1/2" x 10"`,codigo:'2048119',precio:1964,garantia:30000,nota:'Anillo guía'},
+  {flota:'ROTARY',tipo:'Tricono',modelo:MR.tri70,codigo:'2048123',precio:1531,garantia:2600,nota:'Hilos 4 1/2" API Reg · IADC 745A · ASSY 830176'},
+  {flota:'ROTARY',tipo:'Tricono',modelo:MR.tri53,codigo:'2048124',precio:1531,garantia:4000,nota:'Hilos 4 1/2" API Reg · IADC 645A · ASSY 830177'},
+  {flota:'ROTARY',tipo:'Clamp',modelo:`FOR 6.25" O/D`,codigo:'2048121',precio:3717,garantia:null},
+  {flota:'DTH',tipo:'Amortiguador',modelo:`PD6 PIN BOX 3 1/2" API REG`,codigo:'2048125',precio:5875,garantia:80000},
+  {flota:'DTH',tipo:'Adaptador superior',modelo:`4 1/2" x 6" H-M 3 1/2" API REG`,codigo:'2048126',precio:96,garantia:15000},
+  {flota:'DTH',tipo:'Barra',modelo:MR.barD,codigo:'2048127',precio:464,garantia:7000},
+  {flota:'DTH',tipo:'Martillo',modelo:MR.mart,codigo:'2048128',precio:1960,garantia:13000},
+  {flota:'DTH',tipo:'Martillo',modelo:`DTH 3 1/2" API REG MDM`,codigo:'2048128',precio:1960,garantia:null,nota:'Garantía por confirmar'},
+  {flota:'DTH',tipo:'Bit',modelo:MR.bit6,codigo:'2048129',precio:563,garantia:700},
+  {flota:'DTH',tipo:'Bit',modelo:`BIT0612TM-MDM 6 1/2"`,codigo:'2048129',precio:563,garantia:null,nota:'Garantía por confirmar'},
+  {flota:'DTH',tipo:'Bit',modelo:`BIT0712M60CPS 7 1/2"`,codigo:'2048122',precio:706,garantia:750},
+  {flota:'DTH',tipo:'Bit',modelo:`BIT0712M60CPS-HCH 7 1/2"`,codigo:'2048122',precio:706,garantia:null,nota:'Garantía por confirmar'}];
+const CATALOGO_VER='teck-2026-11';
+async function ensureCatalog(){const meta=ADB.data.meta.find(m=>m.id==='catalogo');if(meta&&meta.version===CATALOGO_VER)return;
+  const ops=[];for(const m of CATALOGO_TECK){if(!findModel(m.tipo,m.modelo))ops.push(['modelos',Object.assign({id:uidA(),limites:[],fuente:'Planilla bodega TM'},m)])}
+  ops.push(['meta',{id:'catalogo',version:CATALOGO_VER,ts:nowLocal()}]);await adbTx(ops)}
 const ESTADO_LBL={INSTALADO:'Instalado',DISPONIBLE:'Retirado · disponible',INSPECCION:'En inspección',BAJA:'Dado de baja',BODEGA:'Salió de bodega',OTRO:'Otro'};
 const MOTIVOS=['Cumplimiento de rendimiento','Desgaste','Falla','Cambio preventivo','Inspección','Otro'];
 const CONDICIONES=['Buena','Desgaste normal','Desgaste severo','Dañado','Con falla'];
@@ -632,6 +656,7 @@ async function adbLoad(){
   try{if(ADB.db)ADB.db.close();ADB.db=await idbOpen(dbName());ADB.mem=false;
     for(const s of STORES){ADB.data[s]=await new Promise((res,rej)=>{const q=ADB.db.transaction(s).objectStore(s).getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}}
   catch(e){ADB.db=null;ADB.mem=true}
+  await ensureCatalog();
   ADB.ready=true;
   if(ADB.mode==='demo'&&!ADB.data.aceros.length)await seedDemo();
 }
@@ -726,35 +751,33 @@ function monthStats(c,{month,eq,tipo,modelo,estado}){
 
 /* ---------- datos de práctica (solo modo práctica) ---------- */
 async function seedDemo(){
-  const ops=[];const M=(tipo,modelo,garantia,limites=[])=>{const m={id:uidA(),tipo,modelo,garantia,limites,demo:true};ops.push(['modelos',m]);return m};
-  M('Tricono','TM70GS 7 7/8"',2500);M('Barra','DM45 Ø6 1/4"',25000,[{punto:'Diámetro',min:152,max:null,unidad:'mm',verificado:false}]);
-  M('Barra patera','DM45',25000,[{punto:'Diámetro',min:150,max:null,unidad:'mm',verificado:false}]);M('Bit','6 1/2"',1200);M('Martillo','DI650i 6"',15000);
+  const ops=[];
   let seq=0;const L=(eq,ts,valor,origen,reinicio=false)=>{const l={id:uidA(),equipo:eq,ts,valor,origen,reinicio,seq:seq++};ops.push(['lecturas',l]);return l.id};
   const A=(serie,tipo,modelo,prev=0)=>{const a={id:uidA(),serie,tipo,modelo,metrosPrevios:prev,estado:'INSTALADO',creado:nowLocal()};ops.push(['aceros',a]);return a};
   const I=(a,eq,pos,tsIn,lin,out)=>{const i={id:uidA(),aceroId:a.id,equipo:eq,posicion:pos,tsIn,lecturaIn:lin,obsIn:''};if(out){Object.assign(i,out);a.estado=out.estadoSalida}ops.push(['instalaciones',i]);return i};
   const y=todayISO().slice(0,4),mo=todayISO().slice(5,7),pm=mo==='01'?`${+y-1}-12`:`${y}-${String(+mo-1).padStart(2,'0')}`,cm=`${y}-${mo}`;
   /* D08: ejemplo de triconos del mes */
   let l=L('D08',`${pm}-15T07:30`,120000,'instalacion');
-  I(A('BR-101','Barra','DM45 Ø6 1/4"'),'D08','BARRA1',`${pm}-15T07:30`,l);I(A('BR-102','Barra','DM45 Ø6 1/4"',2500),'D08','BARRA2',`${pm}-15T07:30`,l);I(A('BP-201','Barra patera','DM45'),'D08','Barra patera',`${pm}-15T07:30`,l);
-  const t1=A('TR-001','Tricono','TM70GS 7 7/8"'),t2=A('TR-002','Tricono','TM70GS 7 7/8"'),t3=A('TR-003','Tricono','TM70GS 7 7/8"');
+  I(A('BR-101','Barra',MR.barR),'D08','BARRA1',`${pm}-15T07:30`,l);I(A('BR-102','Barra',MR.barR,2500),'D08','BARRA2',`${pm}-15T07:30`,l);I(A('BP-201','Barra',MR.barR),'D08','Barra patera',`${pm}-15T07:30`,l);
+  const t1=A('TR-001','Tricono',MR.tri70),t2=A('TR-002','Tricono',MR.tri70),t3=A('TR-003','Tricono',MR.tri70);
   const l1=L('D08',`${cm}-02T08:00`,124200,'instalacion'),l2=L('D08',`${cm}-08T09:00`,125000,'retiro'),l3=L('D08',`${cm}-08T09:00`,125000,'instalacion'),l4=L('D08',`${cm}-17T10:00`,126900,'retiro'),l5=L('D08',`${cm}-17T10:00`,126900,'instalacion');
   I(t1,'D08','Tricono',`${cm}-02T08:00`,l1,{tsOut:`${cm}-08T09:00`,lecturaOut:l2,motivo:'Desgaste',condicion:'Desgaste normal',estadoSalida:'BAJA',obsOut:''});
   I(t2,'D08','Tricono',`${cm}-08T09:00`,l3,{tsOut:`${cm}-17T10:00`,lecturaOut:l4,motivo:'Cumplimiento de rendimiento',condicion:'Desgaste normal',estadoSalida:'DISPONIBLE',obsOut:''});
   I(t3,'D08','Tricono',`${cm}-17T10:00`,l5);
   L('D08',`${cm}-28T18:00`,128150,'actualizacion');
   /* D07 */
-  const k0=L('D07',`${pm}-01T07:00`,90000,'instalacion');I(A('B7-01','Barra','DM45 Ø6 1/4"'),'D07','BARRA1',`${pm}-01T07:00`,k0);I(A('B7-02','Barra','DM45 Ø6 1/4"',18000),'D07','BARRA2',`${pm}-01T07:00`,k0);
-  const epi=A('EPI-014','Barra patera','DM45');I(epi,'D07','Barra patera',`${cm}-08T07:00`,L('D07',`${cm}-08T07:00`,98000,'instalacion'));
-  I(A('TR-050','Tricono','TM70GS 7 7/8"'),'D07','Tricono',`${cm}-20T08:00`,L('D07',`${cm}-20T08:00`,102900,'instalacion'));
+  const k0=L('D07',`${pm}-01T07:00`,90000,'instalacion');I(A('B7-01','Barra',MR.barR),'D07','BARRA1',`${pm}-01T07:00`,k0);I(A('B7-02','Barra',MR.barR,18000),'D07','BARRA2',`${pm}-01T07:00`,k0);
+  const epi=A('EPI-014','Barra',MR.barR);I(epi,'D07','Barra patera',`${cm}-08T07:00`,L('D07',`${cm}-08T07:00`,98000,'instalacion'));
+  I(A('TR-050','Tricono',MR.tri70),'D07','Tricono',`${cm}-20T08:00`,L('D07',`${cm}-20T08:00`,102900,'instalacion'));
   L('D07',`${cm}-28T18:00`,104400,'actualizacion');
   ops.push(['mediciones',{id:uidA(),aceroId:epi.id,equipo:'D07',ts:`${cm}-22T11:00`,puntos:[{punto:'Diámetro',medida:'152,1',unidad:'mm'},{punto:'Hilo BOX',medida:'OK',unidad:''}],condicion:'Desgaste normal',obs:'Sin fisuras visibles.',fotos:[]}]);
   /* D06 DTH */
-  const d0=L('D06',`${pm}-20T08:00`,40000,'instalacion');I(A('M-650','Martillo','DI650i 6"'),'D06','Martillo',`${pm}-20T08:00`,d0);I(A('D6-B1','Barra','DM45 Ø6 1/4"'),'D06','BARRA1',`${pm}-20T08:00`,d0);
-  I(A('BT-611','Bit','6 1/2"'),'D06','Bit',`${cm}-25T08:00`,L('D06',`${cm}-25T08:00`,50000,'instalacion'));L('D06',`${cm}-28T18:00`,51050,'actualizacion');
+  const d0=L('D06',`${pm}-20T08:00`,40000,'instalacion');I(A('M-650','Martillo',MR.mart),'D06','Martillo',`${pm}-20T08:00`,d0);I(A('D6-B1','Barra',MR.barD),'D06','BARRA1',`${pm}-20T08:00`,d0);
+  I(A('BT-611','Bit',MR.bit6),'D06','Bit',`${cm}-25T08:00`,L('D06',`${cm}-25T08:00`,50000,'instalacion'));L('D06',`${cm}-28T18:00`,51050,'actualizacion');
   /* D09: ejemplos de pendientes (lectura con error y tricono sin lectura) */
-  I(A('D9-B1','Barra','DM45 Ø6 1/4"'),'D09','BARRA1',`${cm}-01T08:00`,L('D09',`${cm}-01T08:00`,70000,'instalacion'));
+  I(A('D9-B1','Barra',MR.barR),'D09','BARRA1',`${cm}-01T08:00`,L('D09',`${cm}-01T08:00`,70000,'instalacion'));
   L('D09',`${cm}-26T08:00`,7230,'actualizacion');L('D09',`${cm}-28T18:00`,72300,'actualizacion');
-  I(A('TR-090','Tricono','TM70GS 7 7/8"'),'D09','Tricono',`${cm}-27T08:00`,null);
+  I(A('TR-090','Tricono',MR.tri70),'D09','Tricono',`${cm}-27T08:00`,null);
   await adbTx(ops)}
 
 /* ===================== CONTROL DE ACEROS · pantallas ===================== */
@@ -868,7 +891,7 @@ SCREENS.lect={title:'Actualizar metros',icon:'estado',render(c){const f=ctl.f;f.
 SCREENS.inst={title:'Instalar acero',icon:'install',render(c){const f=ctl.f;f.eq=f.eq||ctl.p.eq||ctl.eq;f.ts=f.ts||nowLocal();const eqT=EQ[f.eq].tipo;
   const tipos=TIPOS_ACERO[eqT];const tipo=f.tipo==='Otro'?T(f.tipoOtro):f.tipo;
   const known=f.serie?aceroBySerie(f.serie):null,kinfo=known?c.ac[known.id]:null;
-  const models=ADB.data.modelos.filter(m=>!tipo||m.tipo===tipo);const mod=tipo&&T(f.modelo)?findModel(tipo,f.modelo):null;
+  const models=ADB.data.modelos.filter(m=>(!tipo||m.tipo===tipo)&&(!m.flota||m.flota===eqT));const mod=tipo&&T(f.modelo)?findModel(tipo,f.modelo):null;
   const occupied=f.posicion?installedOn(c,f.eq).find(x=>x.i.posicion===f.posicion):null;
   const bodega=ADB.data.aceros.filter(a=>a.estado==='BODEGA'||a.estado==='DISPONIBLE');
   const serieInfo=h('div',{});const paintSerie=()=>{const k=aceroBySerie(f.serie||'');const ki=k?calc().ac[k.id]:null;
@@ -882,7 +905,7 @@ SCREENS.inst={title:'Instalar acero',icon:'install',render(c){const f=ctl.f;f.eq
       h('div',{class:'lbl'},'Tipo de acero'),chips([...tipos,'Otro'],v=>f.tipo===v,v=>{f.tipo=v;f.modelo='';reC()}),f.tipo==='Otro'?field('Tipo (texto libre)',fIn(f,'tipoOtro')):null,
       tipo?h('div',{class:'f'},h('div',{class:'lbl'},'Modelo'),models.length?chips(models.map(m=>m.modelo),v=>f.modelo===v,v=>{f.modelo=v;reC()}):null,(()=>{const el=fIn(f,'modelo',{ph:models.length?'O escribe otro modelo':'Ej: TM70GS 7 7/8"'});el.addEventListener('change',reC);return el})()):null,
       tipo&&T(f.modelo)&&!mod?field('Garantía del modelo (metros)',fIn(f,'garantia',{mode:'decimal',ph:'Opcional. Ej: 25.000'}),'Modelo nuevo: se agrega al catálogo.'):null,
-      mod?h('div',{class:'hint'},mod.garantia?`Garantía del modelo: ${fmtM(mod.garantia)}`:'Este modelo no tiene garantía configurada.'):null,
+      mod?h('div',{class:'hint'},[mod.garantia?`Garantía del modelo: ${fmtM(mod.garantia)}`:'Este modelo no tiene garantía configurada.',mod.codigo?`Código Teck ${mod.codigo}`:null,mod.nota||null].filter(Boolean).join(' · ')):null,
       !known?field('Metros anteriores del acero',fIn(f,'previos',{mode:'decimal',ph:'0 si es nuevo'}),'Solo si es un acero usado que no está en el registro.'):null),
     sec('3. Posición en la columna',chips(POSICIONES[eqT],v=>f.posicion===v,v=>{f.posicion=v;reC()}),field('O escribe la posición',fIn(f,'posicion',{ph:'Ej: BARRA5'})),
       occupied?h('div',{class:'note'},`Ojo: ${occupied.a.serie} sigue instalado en ${f.posicion}. Si lo cambiaste, regístralo como retirado.`):null),
@@ -897,7 +920,7 @@ async function saveInstall(f){const errs=[];const c=calc();const serie=normSerie
   const v=readLectura(f,f.eq,f.ts,errs);
   if(errs.length){f.errs=errs;return reC()}
   const ops=[];const modelo=T(f.modelo);
-  if(modelo&&!findModel(tipo,modelo))ops.push(['modelos',{id:uidA(),tipo,modelo,garantia:gar||null,limites:[]}]);
+  if(modelo&&!findModel(tipo,modelo))ops.push(['modelos',{id:uidA(),flota:EQ[f.eq].tipo,tipo,modelo,garantia:gar||null,limites:[]}]);
   if(!a)a={id:uidA(),serie,tipo,modelo,metrosPrevios:prev||0,estado:'INSTALADO',creado:nowLocal()};
   else{a=Object.assign({},a,{estado:'INSTALADO'});if(!a.tipo)a.tipo=tipo;if(modelo&&a.modelo!==modelo){ops.push(audit('acero',a.id,'modelo',a.modelo,modelo,'Modelo indicado al reinstalar'));a.modelo=modelo}}
   const inst={id:uidA(),aceroId:a.id,equipo:f.eq,posicion:T(f.posicion),tsIn:f.ts,lecturaIn:null,obsIn:T(f.obs)};
@@ -1001,26 +1024,38 @@ SCREENS.corr={title:'Corrección',icon:'reset',back:()=>ctl.p.back?C('acero',{id
       else{const a=aceroById(ctl.p.id);if(f.estado===a.estado)errs.push('Elige un estado distinto.');else ops.push(audit('acero',a.id,'Estado',ESTADO_LBL[a.estado],ESTADO_LBL[f.estado],f.motivo),['aceros',Object.assign({},a,{estado:f.estado})])}
       if(errs.length){f.errs=errs;return reC()}await adbTx(ops);toast('Corrección guardada');SCREENS.corr.back()}},icon('check'),'Guardar corrección'))]}};
 
-SCREENS.cat={title:'Catálogo y garantías',icon:'book',render(c){const by={};ADB.data.modelos.forEach(m=>(by[m.tipo]=by[m.tipo]||[]).push(m));
-  return[h('div',{class:'banner'},'Las garantías y los límites de desgaste son referenciales. Valídalos con el fabricante antes de usarlos para decidir cambios.'),
-    ...Object.keys(by).sort().map(t=>sec(t,...by[t].map(m=>h('button',{type:'button',class:'mrow',onclick:()=>C('modelo',{id:m.id})},h('div',{},h('b',{},m.modelo||'(sin modelo)'),h('div',{class:'hint'},`${(m.limites||[]).length} límite${(m.limites||[]).length===1?'':'s'} de desgaste`)),h('b',{class:'mono'},m.garantia?fmtM(m.garantia):'Sin garantía'))))),
+SCREENS.cat={title:'Catálogo y garantías',icon:'book',render(c){const groups=[['ROTARY','ROTARY · DM45'],['DTH','DTH · DI650i'],['','Sin flota asignada']];
+  const used=m=>ADB.data.aceros.filter(a=>a.tipo===m.tipo&&a.modelo===m.modelo).length;
+  return[h('div',{class:'banner'},'Garantías tomadas de la planilla de bodega TM. Son referenciales y las alertas solo informan. Los límites de desgaste se validan con el fabricante antes de usarlos.'),
+    ...groups.map(([fl,lab])=>{const ms=ADB.data.modelos.filter(m=>(m.flota||'')===fl).sort((x,y)=>x.tipo.localeCompare(y.tipo)||x.modelo.localeCompare(y.modelo));if(!ms.length)return null;
+      return sec(lab,...ms.map(m=>{const u=used(m);return h('button',{type:'button',class:'mrow',onclick:()=>C('modelo',{id:m.id})},
+        h('div',{style:'min-width:0'},h('div',{class:'hint'},m.tipo+(m.codigo?' · '+m.codigo:'')),h('b',{},m.modelo||'(sin modelo)'),h('div',{class:'hint'},[m.precio?`USD ${fmtN(m.precio)}`:null,u?`${u} acero${u>1?'s':''} registrado${u>1?'s':''}`:null,(m.limites||[]).length?`${m.limites.length} límite(s)`:null].filter(Boolean).join(' · ')||' ')),
+        h('b',{class:'mono',style:'white-space:nowrap'},m.garantia?fmtM(m.garantia):'Sin garantía'))}))}).filter(Boolean),
     h('button',{type:'button',class:'btn add',onclick:()=>C('modelo',{})},'+ Agregar modelo')]}};
 SCREENS.modelo={title:'Modelo',icon:'book',back:()=>C('cat'),render(c){const f=ctl.f;const m=ctl.p.id?ADB.data.modelos.find(x=>x.id===ctl.p.id):null;
-  if(!f.init){f.init=1;f.tipo=m?m.tipo:'';f.modelo=m?m.modelo:'';f.garantia=m&&m.garantia?fmtN(m.garantia):'';f.limites=m?(m.limites||[]).map(l=>Object.assign({},l,{min:l.min??'',max:l.max??''})):[]}
-  const tipos=[...new Set([...TIPOS_ACERO.ROTARY,...TIPOS_ACERO.DTH])];
-  return[sec(m?'Editar modelo':'Nuevo modelo',h('div',{class:'lbl'},'Tipo'),chips(tipos,v=>f.tipo===v,v=>{f.tipo=v;reC()}),field('O escribe el tipo',fIn(f,'tipo')),field('Modelo',fIn(f,'modelo',{ph:'Ej: TM70GS 7 7/8"'})),field('Garantía (metros)',fIn(f,'garantia',{mode:'decimal',ph:'Ej: 25.000'}))),
+  if(!f.init){f.init=1;Object.assign(f,{flota:m?m.flota||'':'ROTARY',tipo:m?m.tipo:'',modelo:m?m.modelo:'',codigo:m?m.codigo||'':'',precio:m&&m.precio?fmtN(m.precio):'',garantia:m&&m.garantia?fmtN(m.garantia):'',nota:m?m.nota||'':'',limites:m?(m.limites||[]).map(l=>Object.assign({},l,{min:l.min??'',max:l.max??''})):[]})}
+  const tipos=f.flota?TIPOS_ACERO[f.flota]:[...new Set([...TIPOS_ACERO.ROTARY,...TIPOS_ACERO.DTH])];
+  const used=m?ADB.data.aceros.filter(a=>a.tipo===m.tipo&&a.modelo===m.modelo).length:0;
+  return[sec(m?'Editar modelo':'Nuevo modelo',h('div',{class:'lbl'},'Flota'),chips([{label:'ROTARY · DM45',value:'ROTARY'},{label:'DTH · DI650i',value:'DTH'},{label:'Ambas',value:''}],v=>f.flota===v,v=>{f.flota=v;reC()}),
+      h('div',{class:'lbl'},'Tipo'),chips(tipos,v=>f.tipo===v,v=>{f.tipo=v;reC()}),field('O escribe el tipo',fIn(f,'tipo')),field('Modelo',fIn(f,'modelo',{ph:'Ej: TM70GS 7 7/8"'})),
+      h('div',{class:'row'},field('Código Teck',fIn(f,'codigo',{mode:'numeric'})),field('Precio USD',fIn(f,'precio',{mode:'decimal'}))),
+      field('Garantía (metros)',fIn(f,'garantia',{mode:'decimal',ph:'Ej: 25.000'}),'Déjala vacía si no tiene garantía.'),field('Nota',fIn(f,'nota',{ph:'Ej: IADC 745A · ASSY 830176'}))),
     sec('Límites de desgaste',h('div',{class:'hint'},'Configurables por punto. Márcalos como verificados solo si vienen de una referencia técnica validada.'),
       ...f.limites.map((l,k)=>h('div',{class:'card'},h('div',{class:'card-head'},h('b',{},l.punto||'Punto '+(k+1)),h('button',{type:'button',class:'btn x',onclick:()=>{f.limites.splice(k,1);reC()}},'Quitar')),
         field('Punto',fIn(l,'punto',{ph:'Ej: Diámetro'})),h('div',{class:'row'},field('Mínimo',fIn(l,'min',{mode:'decimal'})),field('Máximo',fIn(l,'max',{mode:'decimal'})),field('Unidad',fIn(l,'unidad',{ph:'mm'}))),
         h('label',{class:'tick'},h('input',{type:'checkbox',checked:!!l.verificado,onchange:e=>{l.verificado=e.target.checked}}),'Límite verificado con referencia técnica'))),
       h('button',{type:'button',class:'btn add',onclick:()=>{f.limites.push({punto:'',min:'',max:'',unidad:'mm',verificado:false});reC()}},'+ Agregar límite')),
     sec(null,m?field('Motivo del cambio',fIn(f,'motivo',{ph:'Obligatorio si cambias la garantía'})):null,errorsBox(f.errs),h('button',{type:'button',class:'btn primary',onclick:async()=>{const errs=[];if(!T(f.tipo))errs.push('Indica el tipo.');if(!T(f.modelo))errs.push('Indica el modelo.');
-      const g=parseM(f.garantia);if(g!=null&&(isNaN(g)||g<=0))errs.push('Garantía no válida.');const dup=findModel(f.tipo,f.modelo);if(dup&&(!m||dup.id!==m.id))errs.push('Ese modelo ya existe en el catálogo.');
+      const g=parseM(f.garantia);if(g!=null&&(isNaN(g)||g<=0))errs.push('Garantía no válida.');const pr=parseM(f.precio);if(pr!=null&&isNaN(pr))errs.push('Precio no válido.');
+      const dup=findModel(f.tipo,f.modelo);if(dup&&(!m||dup.id!==m.id))errs.push('Ese modelo ya existe en el catálogo.');
       if(m&&(m.garantia||null)!==(g||null)&&!T(f.motivo))errs.push('Escribe el motivo del cambio de garantía.');if(errs.length){f.errs=errs;return reC()}
-      const pn=x=>{const v=parseM(x);return v==null||isNaN(v)?null:v};const nm={id:m?m.id:uidA(),tipo:T(f.tipo),modelo:T(f.modelo),garantia:g||null,limites:f.limites.filter(l=>T(l.punto)).map(l=>({punto:T(l.punto),min:pn(l.min),max:pn(l.max),unidad:T(l.unidad),verificado:!!l.verificado}))};
+      const pn=x=>{const v=parseM(x);return v==null||isNaN(v)?null:v};const nm=Object.assign({},m||{},{id:m?m.id:uidA(),flota:f.flota,tipo:T(f.tipo),modelo:T(f.modelo),codigo:T(f.codigo),precio:pr||null,garantia:g||null,nota:T(f.nota),limites:f.limites.filter(l=>T(l.punto)).map(l=>({punto:T(l.punto),min:pn(l.min),max:pn(l.max),unidad:T(l.unidad),verificado:!!l.verificado}))});
       const ops=[['modelos',nm]];if(m&&(m.garantia||null)!==(g||null))ops.push(audit('modelo',m.id,`Garantía ${m.tipo} ${m.modelo}`,m.garantia?fmtN(m.garantia):'',g?fmtN(g):'',f.motivo));
       if(m&&(m.tipo!==nm.tipo||m.modelo!==nm.modelo)){ADB.data.aceros.filter(a=>a.tipo===m.tipo&&a.modelo===m.modelo).forEach(a=>ops.push(['aceros',Object.assign({},a,{tipo:nm.tipo,modelo:nm.modelo})]))}
-      await adbTx(ops);toast('Modelo guardado');C('cat')}},icon('check'),'Guardar modelo'))]}};
+      await adbTx(ops);toast('Modelo guardado');C('cat')}},icon('check'),'Guardar modelo'),
+      m&&!used?h('button',{type:'button',class:'btn '+(f.arm?'danger':'ghost'),onclick:async()=>{if(!f.arm){f.arm=1;return reC()}ADB.data.modelos=ADB.data.modelos.filter(x=>x.id!==m.id);
+        if(ADB.db){await new Promise(r=>{try{const tx=ADB.db.transaction(['modelos','auditoria'],'readwrite');tx.objectStore('modelos').delete(m.id);const au=audit('modelo',m.id,'Modelo eliminado del catálogo',`${m.tipo} ${m.modelo}`,'',f.motivo||'Sin aceros registrados')[1];ADB.data.auditoria.push(au);tx.objectStore('auditoria').put(au);tx.oncomplete=r;tx.onerror=r}catch(e){r()}})}
+        toast('Modelo quitado del catálogo');C('cat')}},f.arm?'Toca otra vez para quitarlo':'Quitar del catálogo'):m?h('div',{class:'hint'},`No se puede quitar: hay ${used} acero(s) registrados con este modelo.`):null)]}};
 
 SCREENS.datos={title:'Exportar y respaldo',icon:'db',render(c){const D=ADB.data;const bk=store.get('aceros-backup',null);
   const file=h('input',{type:'file',accept:'application/json,.json',hidden:true});const f=ctl.f;
@@ -1037,7 +1072,7 @@ SCREENS.datos={title:'Exportar y respaldo',icon:'db',render(c){const D=ADB.data;
         h('button',{type:'button',class:'btn'+(f.arm?' danger':' dark'),onclick:async()=>{if(!f.arm){f.arm=1;return reC()}await adbClearAll();const ops=[];STORES.forEach(s=>(f.pending.data[s]||[]).forEach(o=>ops.push([s,o])));await adbTx(ops);ctl.f={};toast('Respaldo restaurado');C('home')}},f.arm?'Toca otra vez para confirmar':'Restaurar este respaldo')):null),
     sec('Modo de uso',h('div',{class:'hint'},'El modo práctica usa una base de datos separada con datos de ejemplo. Nunca se mezcla con el registro real.'),
       h('div',{class:'btn-row'},h('button',{type:'button',class:'btn '+(ADB.mode==='real'?'dark':'ghost'),onclick:async()=>{if(ADB.mode!=='real'){await setMode('real');C('home')}}},'Registro real'),h('button',{type:'button',class:'btn '+(ADB.mode==='demo'?'dark':'ghost'),onclick:async()=>{if(ADB.mode!=='demo'){await setMode('demo');C('home')}}},'Práctica')),
-      ADB.mode==='demo'?h('button',{type:'button',class:'btn ghost small',onclick:async()=>{await adbClearAll();await seedDemo();toast('Datos de práctica reiniciados');reC()}},'Reiniciar datos de práctica'):null)]}};
+      ADB.mode==='demo'?h('button',{type:'button',class:'btn ghost small',onclick:async()=>{await adbClearAll();await ensureCatalog();await seedDemo();toast('Datos de práctica reiniciados');reC()}},'Reiniciar datos de práctica'):null)]}};
 
 SCREENS.done={title:'Guardado',icon:'check',back:()=>C('home'),render(c){const p=ctl.p;return[h('section',{class:'sec okbox'},h('span',{class:'okic'},icon('check',3)),h('b',{},p.title),h('div',{class:'hint'},p.sub)),
   msgCard(p.text,'Asistencia Técnica',p.files||[]),
@@ -1066,7 +1101,7 @@ function buildXlsx(c){const D=ADB.data;const pct=x=>x==null?'':Math.round(x*1000
       return[a.serie,a.tipo,a.modelo||'',i.equipo,i.posicion,fmtTs(i.tsIn),li?li.valor:'',i.tsOut?fmtTs(i.tsOut):'',lo?lo.valor:'',Math.round(c.inst[i.id].m),i.motivo||'',i.condicion||'',i.estadoSalida?ESTADO_LBL[i.estadoSalida]:'',i.analisis||'',i.obsIn||'',i.obsOut||'',c.inst[i.id].pend.join('; ')]}))],
     ['Lecturas',[['Perforadora','Fecha','Lectura','Reinicio','Origen','Anulada','Error']].concat(D.lecturas.slice().sort(sortL).map(l=>[l.equipo,fmtTs(l.ts),l.valor,l.reinicio?'Sí':'',l.origen,l.anulada?'Sí':'',c.bad.has(l.id)?'Menor que la anterior':'']))],
     ['Mediciones',[['Serie','Perforadora','Fecha','Punto','Medida','Unidad','Condición','Observaciones']].concat(D.mediciones.flatMap(m=>{const a=aceroById(m.aceroId)||{};return m.puntos.map(p=>[a.serie,m.equipo,fmtTs(m.ts),p.punto,p.medida,p.unidad,m.condicion||'',m.obs||''])}))],
-    ['Catalogo',[['Tipo','Modelo','Garantía (m)','Límites de desgaste']].concat(D.modelos.map(m=>[m.tipo,m.modelo,m.garantia||'',(m.limites||[]).map(l=>`${l.punto}: ${l.min??''}-${l.max??''} ${l.unidad||''}${l.verificado?' (verificado)':' (referencial)'}`).join('; ')]))],
+    ['Catalogo',[['Flota','Tipo','Modelo','Código Teck','Precio USD','Garantía (m)','Nota','Límites de desgaste']].concat(D.modelos.map(m=>[m.flota||'',m.tipo,m.modelo,m.codigo||'',m.precio||'',m.garantia||'',m.nota||'',(m.limites||[]).map(l=>`${l.punto}: ${l.min??''}-${l.max??''} ${l.unidad||''}${l.verificado?' (verificado)':' (referencial)'}`).join('; ')]))],
     ['Correcciones',[['Fecha','Entidad','Campo','Antes','Después','Motivo']].concat(D.auditoria.slice().sort((x,y)=>x.ts<y.ts?-1:1).map(x=>[fmtTs(x.ts),x.entidad,x.campo,x.antes,x.despues,x.motivo]))]];
   const ns='http://schemas.openxmlformats.org/';
   const files=[{name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="${ns}package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`},
